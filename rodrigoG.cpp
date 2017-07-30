@@ -818,7 +818,7 @@ void levelselection_menu(int xres, int yres)
     if (gl.keys[XK_Return]) {
         if (gl.menu_position == 1) {
             gl.levelSelect = 1;
-            gl.display_characterselectionmenu = false;
+            gl.display_levelselectionmenu = false;
             gl.display_startinggame = true;
             gl.keys[XK_Return] = false;
             gl.menu_position = 1;
@@ -826,7 +826,7 @@ void levelselection_menu(int xres, int yres)
             gl.state = STATE_GAMEPLAY;
         } else if (gl.menu_position == 2) {
             gl.levelSelect = 2;        // need to change later
-            gl.display_characterselectionmenu = false;
+            gl.display_levelselectionmenu = false;
             gl.display_startinggame = true;
             gl.keys[XK_Return] = false;
             gl.menu_position = 1;
