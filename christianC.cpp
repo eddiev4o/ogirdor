@@ -164,7 +164,9 @@ void renderHeart4();
 void christianInit();
 
 // Everything about sound
-int sound();
+extern void csound(const char*);
+void shootSound();
+
 //the "main function of my file"
 void renderChristianSprites(int);
 
@@ -378,6 +380,8 @@ void shootParticle()
     if(gl.oneOffShootFlag == true) {
         printf("Shoot\n");
         makeParticle(); 
+        //shootSound();
+        csound("./sound/Shoot.wav");
         gl.oneOffShootFlag = false;
     }
 }
@@ -936,18 +940,19 @@ void renderChristianSprites(int charSelect)
     renderHeart3();
     renderHeart4();
     particlePhysics(charSelect);
-    sound();
 }
 
-int sound(){
+void shootSound(){
     #ifdef USE_OPENAL_SOUND
+    cout <<"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@SHOOT SOUNDDDDDD\n";
     alutInit(0, NULL);
     if (alGetError() != AL_NO_ERROR) {
         printf("ERROR: alutInit()\n");
-        return 0;
+        return;
     }
     //Clear error state.
     alGetError();
+
     //
     //Setup the listener.
     //Forward and up vectors are used.
@@ -955,10 +960,11 @@ int sound(){
     alListener3f(AL_POSITION, 0.0f, 0.0f, 0.0f);
     alListenerfv(AL_ORIENTATION, vec);
     alListenerf(AL_GAIN, 1.0f);
-    //
+    
+
     //Buffer holds the sound information.
     ALuint alBuffer;
-    alBuffer = alutCreateBufferFromFile("./test.wav");
+    alBuffer = alutCreateBufferFromFile("./sound/Shoot.wav");
     //
     //Source refers to the sound.
     ALuint alSource;
@@ -971,7 +977,7 @@ int sound(){
     alSourcei(alSource, AL_LOOPING, AL_FALSE);
     if (alGetError() != AL_NO_ERROR) {
         printf("ERROR: setting source\n");
-        return 0;
+        return;
     }
     alSourcePlay(alSource);
     //Cleanup.
@@ -981,6 +987,7 @@ int sound(){
     alDeleteBuffers(1, &alBuffer);
     //Close out OpenAL itself.
     //Get active context.
+/*
     ALCcontext *Context = alcGetCurrentContext();
     //Get device for active context.
     ALCdevice *Device = alcGetContextsDevice(Context);
@@ -990,6 +997,8 @@ int sound(){
     alcDestroyContext(Context);
     //Close device.
     alcCloseDevice(Device);
+  */
     #endif
-    return 0;
+    return;
 }
+

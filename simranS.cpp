@@ -90,8 +90,8 @@ void csound(const char *a)
 
     alGetError();
 
-    float termoil[6] = {0.0, 0.0, 1.0, 0.0, 1.0, 0.0};
-    alListener3f(AL_POSITION, 0.0, 0.0, 0.0);
+    float termoil[6] = {0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f};
+    alListener3f(AL_POSITION, 0.0f, 0.0f, 0.0f);
     alListenerfv(AL_ORIENTATION, termoil);
     alListenerf(AL_GAIN, 1.0);
 
@@ -103,9 +103,9 @@ void csound(const char *a)
     alGenSources(1, &tum);
     alSourcei(tum, AL_BUFFER, toom);
 
-    alSourcef(tum, AL_GAIN, 0.35);
-    alSourcef(tum, AL_PITCH, 2.5);
-    alSourcei(tum, AL_LOOPING, 1);
+    alSourcef(tum, AL_GAIN, 0.20);
+    alSourcef(tum, AL_PITCH, 1.0);
+    alSourcei(tum, AL_LOOPING, 0);
 
     if (alGetError() != AL_NO_ERROR) {
 	printf("cannot set the source\n");
