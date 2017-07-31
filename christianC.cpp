@@ -229,6 +229,7 @@ void tileCollision(Vec *tile)
             moveSpriteRight(&shield1);
             moveSpriteRight(&speedboost1);
             moveSpriteRight(&turret);
+	    moveSpriteRight(&turretbeam);
             moveSpriteRight(&enemy1);
             moveSpriteRight(&godzilla);
         }
@@ -249,6 +250,7 @@ void tileCollision(Vec *tile)
             moveSpriteLeft(&shield1);
             moveSpriteLeft(&speedboost1);
             moveSpriteLeft(&turret);
+	    moveSpriteLeft(&turretbeam);
             moveSpriteLeft(&enemy1);
             moveSpriteLeft(&godzilla);
         }
