@@ -58,6 +58,7 @@ extern class Timers
         double oobillion;
         struct timespec timeStart, timeEnd, timeCurrent;
         struct timespec maincharacterTime;
+        struct timespec turt1Time;
         struct timespec gameTime;
         struct timespec timeOut;
         Timers()
@@ -118,6 +119,7 @@ extern class Global {
         //====================================
 
         int mcharFrame;
+        int turt1Frame;
         double delay;
         int menu_position;
         int characterSelect;
@@ -281,6 +283,7 @@ extern class Global {
         bool display_playername;
         bool display_startinggame;
 
+        bool turt1Flag;
         bool cantMove;
         bool oneOffShootFlag;
         bool isPressed; // for now, change later
@@ -335,11 +338,13 @@ extern class Global {
             menu_position = 1;
             characterSelect = 0;
             levelSelect = 0;
+            turt1Frame=0;
             mcharFrame=0;
             delay= 0.06;
             initDone = 1;
             p_name[0] = '\0';
 
+            turt1Flag = 0;
             cantMove = false;
             isPressed = false;
             oneOffShootFlag = false;
@@ -520,7 +525,7 @@ extern class Sprite {
             cx = gl.xres/2;
             cy = 100;
         }
-} heart4, heart3, heart2, heart1, speedboost1,
+} turt1, heart4, heart3, heart2, heart1, speedboost1,
     shield1, mainChar, turret, enemy1, mariEnemy,
     godzilla, sun, female, obama,shooting_star, bird;
 #endif

@@ -59,7 +59,7 @@ Timers timers;
 Global gl;
 UserInput input;
 Level lev;
-Sprite heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, enemy1, mariEnemy, godzilla, female, obama, sun,shooting_star,bird;
+Sprite turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, enemy1, mariEnemy, godzilla, female, obama, sun,shooting_star,bird;
 Particle particle[20];
 Game game;
 //X Windows variables
@@ -197,6 +197,8 @@ void init()
     //can be offscreen. You can also set y here
     //gl.camera[1] = 0.0;
     //gl.camera[0] = 0.0;
+    turt1.cx = 200;
+    turt1.cx = 90;
     enemy1.cx = 600;
     enemy1.cy = 90;
     godzilla.cx = 1000;
@@ -1627,6 +1629,7 @@ void physics(void)
     if (gl.walk || gl.keys[XK_Right]) {
         //man is walking...
         //when time is up, advance the frame.
+        moveSpriteLeft(&turt1);
         moveSpriteLeft(&mariEnemy);
         moveSpriteLeft(&female);
         moveSpriteLeft(&shooting_star);
@@ -1665,6 +1668,7 @@ void physics(void)
         gl.xc[1] += 0.001;
     }
     if (gl.walk || gl.keys[XK_Left]) {
+        moveSpriteRight(&turt1);
         moveSpriteRight(&mariEnemy);
         moveSpriteRight(&shooting_star);
         moveSpriteRight(&female);
