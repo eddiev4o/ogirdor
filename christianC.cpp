@@ -124,6 +124,7 @@
 #include </usr/include/AL/alut.h>
 #endif //USE_OPENAL_SOUND
 
+Sprite movementSprites[100];
 // Everything about tile collision and
 // Movement
 void tileCollision(Vec*);
@@ -208,14 +209,19 @@ void moveLevelLeft()
 
 void tileCollision(Vec *tile)
 {
-    if ((((mainChar.cy) >= (tile->y)) && ((mainChar.cy) <= (tile->y) + lev.tilesize[1] + 20))
-        && (((mainChar.cx) >= (tile->x)) && ((mainChar.cx) <= (tile->x) + lev.tilesize[0]))) {
+    if ((((mainChar.cy) >= (tile->y))
+    && ((mainChar.cy) <= (tile->y) + lev.tilesize[1] + 20))
+    && (((mainChar.cx) >= (tile->x))
+    && ((mainChar.cx) <= (tile->x) + lev.tilesize[0]))) {
         // if character is walking into tile, move sprites and level to counteract
 	// default sprite movement bounded to XK_Left and XK_Right
         if (gl.directionFlag == 0) {
             gl.camera[0] -= gl.movementSpeed;
             gl.xc[0] -= 0.001;
             gl.xc[1] -= 0.001;
+	    for (int i = 0; i < 100; i++) {
+	        moveSpriteRight(&movementSprites[i]);
+	    }
             moveSpriteRight(&turt1);
             moveSpriteRight(&turt2);
             moveSpriteRight(&mariEnemy);
@@ -240,6 +246,9 @@ void tileCollision(Vec *tile)
             gl.camera[0] += gl.movementSpeed;
             gl.xc[0] += 0.001;
             gl.xc[1] += 0.001;
+            for (int i = 0; i < 100; i++) {
+                moveSpriteLeft(&movementSprites[i]);
+            }
             moveSpriteLeft(&turt1);
             moveSpriteLeft(&turt2);
             moveSpriteLeft(&mariEnemy);
@@ -264,8 +273,10 @@ void tileCollision(Vec *tile)
             mainChar.cy = mainChar.cy + 1;
     }
     // if your character jumps, the lowest Y coordinate it can go is 0. This utilizes my checkJump function
-    if (!((((mainChar.cy - 3) >= (tile->y)) && ((mainChar.cy - 3) <= (tile->y - 20) + lev.tilesize[1]))
-        && (((mainChar.cx) >= (tile->x)) && ((mainChar.cx) <= (tile->x + 20) + lev.tilesize[0])))) {
+    if (!((((mainChar.cy - 3) >= (tile->y))
+    && ((mainChar.cy - 3) <= (tile->y - 20) + lev.tilesize[1]))
+    && (((mainChar.cx) >= (tile->x))
+    && ((mainChar.cx) <= (tile->x + 20) + lev.tilesize[0])))) {
         gl.initialJumpCy = 0;
     }
 }
@@ -274,8 +285,10 @@ void checkUnder(Vec *tile)
 {
     // check if there is a tile under the mainCharacter. If there is no tile,
     // it means your character is mid air. Initiate 2nd phase of checkJump() (falling).
-    if ((((mainChar.cy - 30) >= (tile->y)) && ((mainChar.cy - 30) <= (tile->y) + lev.tilesize[1] + 20))
-        && (((mainChar.cx) >= (tile->x)) && ((mainChar.cx) <= (tile->x) + lev.tilesize[0]))) {
+    if ((((mainChar.cy - 30) >= (tile->y))
+    && ((mainChar.cy - 30) <= (tile->y) + lev.tilesize[1] + 20))
+    && (((mainChar.cx) >= (tile->x))
+    && ((mainChar.cx) <= (tile->x) + lev.tilesize[0]))) {
         printf("On Air!\n");
         if (gl.isJumpingFlag == false) {
             gl.isJumpingFlag = true;
@@ -292,8 +305,10 @@ void spriteDisappear(Sprite* sprt)
 
 void enemyParticleCollision(Particle* p, Sprite *sprt)
 {
-    if ( p->cx > (sprt->cx - sprt->height / 2) && p->cx < (sprt->cx + sprt->height / 2)) {
-        if (p->cy > (sprt-> cy - sprt->height / 2) && p->cy < (sprt->cy + sprt->height / 2)) {
+    if ( p->cx > (sprt->cx - sprt->height / 2)
+    && p->cx < (sprt->cx + sprt->height / 2)) {
+        if (p->cy > (sprt-> cy - sprt->height / 2)
+        && p->cy < (sprt->cy + sprt->height / 2)) {
             //when particle hits enemy, teleport to all the way up
             //this doesnt mess up particle off screen detection
             p->cy = 1000;
@@ -339,7 +354,6 @@ void particlePhysics(int charSelect)
         gl.tempTexture = gl.americaballTexture;
    
     for (int i = 0; i < gl.particleCount; i++) {
-        //glColor3ub(255, 255, 255);
         glPushMatrix();
         glColor3f(1.0,1.0,1.0);
         glTranslatef(gl.particle[i].cx, gl.particle[i].cy, 0);
@@ -530,29 +544,29 @@ void conditionalRenders(Flt tx, Flt ty, Flt cx, Flt w, Flt cy, Flt h)
 {
     checkJump();
     if (gl.keys[XK_Right] && gl.keys[XK_space] == 0 &&
-        gl.isJumpingFlag == 0) {
-            shootWalkRight(tx, ty, cx, w, cy, h);
-            gl.directionFlag = 0;
+    gl.isJumpingFlag == 0) {
+        shootWalkRight(tx, ty, cx, w, cy, h);
+        gl.directionFlag = 0;
     } else if (gl.keys[XK_Left] && gl.keys[XK_space] == 0 &&
-        gl.isJumpingFlag == 0) {
-            shootWalkLeft(tx, ty, cx, w, cy, h);
-            gl.directionFlag = 1;
+    gl.isJumpingFlag == 0) {
+        shootWalkLeft(tx, ty, cx, w, cy, h);
+        gl.directionFlag = 1;
     } else if ((gl.keys[XK_space] && gl.directionFlag == 0 &&
-        gl.isJumpingFlag == 0) || (gl.keys[XK_space] && gl.keys[XK_Right])) {
-            shootStandRight(tx, ty, cx, w, cy, h);
-            shootParticle();
+    gl.isJumpingFlag == 0) || (gl.keys[XK_space] && gl.keys[XK_Right])) {
+        shootStandRight(tx, ty, cx, w, cy, h);
+        shootParticle();
     } else if ((gl.keys[XK_space] && gl.directionFlag == 1 &&
-        gl.isJumpingFlag == 0) || (gl.keys[XK_space] && gl.keys[XK_Left])) {
-            shootStandLeft(tx, ty, cx, w, cy, h);
-            shootParticle();
+    gl.isJumpingFlag == 0) || (gl.keys[XK_space] && gl.keys[XK_Left])) {
+        shootStandLeft(tx, ty, cx, w, cy, h);
+        shootParticle();
     } else if (gl.keys[XK_Left] && gl.isJumpingFlag == 1 &&
-        (gl.keys[XK_space] == 1 || gl.keys[XK_space] == 0)) {
-            jumpLeft(tx, ty, cx, w, cy, h);
-            gl.directionFlag = 1;
+    (gl.keys[XK_space] == 1 || gl.keys[XK_space] == 0)) {
+        jumpLeft(tx, ty, cx, w, cy, h);
+        gl.directionFlag = 1;
     } else if (gl.keys[XK_Right] && gl.isJumpingFlag == 1 &&
-        (gl.keys[XK_space] == 1 || gl.keys[XK_space] == 0)) {
-            jumpRight(tx, ty, cx, w, cy, h);
-            gl.directionFlag = 0;
+    (gl.keys[XK_space] == 1 || gl.keys[XK_space] == 0)) {
+        jumpRight(tx, ty, cx, w, cy, h);
+        gl.directionFlag = 0;
     }
 
     if (gl.keys[XK_Right] == 1 || gl.keys[XK_Left] == 1) {
@@ -565,30 +579,30 @@ void conditionalRenders(Flt tx, Flt ty, Flt cx, Flt w, Flt cy, Flt h)
         jump();
     }
     if (gl.keys[XK_Left] == 0 && gl.keys[XK_Right] == 0 &&
-        gl.directionFlag == 1 && gl.keys[XK_space] == 0 &&
-        gl.isJumpingFlag == 0) {
-            standLeft(tx, ty, cx, w, cy, h);
+    gl.directionFlag == 1 && gl.keys[XK_space] == 0 &&
+    gl.isJumpingFlag == 0) {
+        standLeft(tx, ty, cx, w, cy, h);
     }
     if (gl.keys[XK_Right] == 0 && gl.keys[XK_Right] == 0 &&
-        gl.directionFlag == 0 && gl.keys[XK_space] == 0  &&
-        gl.isJumpingFlag == 0) {
-            standRight(tx, ty, cx, w, cy, h);
+    gl.directionFlag == 0 && gl.keys[XK_space] == 0  &&
+    gl.isJumpingFlag == 0) {
+        standRight(tx, ty, cx, w, cy, h);
     }
     if (gl.keys[XK_Left] == 0 && gl.keys[XK_Right] == 0 &&
-        gl.directionFlag == 1 && (gl.keys[XK_space] == 0 || 
-        gl.keys[XK_space] == 1) && gl.isJumpingFlag == 1) {
-            jumpLeft(tx, ty, cx, w, cy, h);
-	    if (gl.keys[XK_space] == 1) {
-                shootParticle();
-            }
+    gl.directionFlag == 1 && (gl.keys[XK_space] == 0 || 
+    gl.keys[XK_space] == 1) && gl.isJumpingFlag == 1) {
+        jumpLeft(tx, ty, cx, w, cy, h);
+        if (gl.keys[XK_space] == 1) {
+            shootParticle();
+        }
     }
     if (gl.keys[XK_Right] == 0 && gl.keys[XK_Right] == 0 &&
-        gl.directionFlag == 0 && (gl.keys[XK_space] == 0 ||
-        gl.keys[XK_space] == 1) && gl.isJumpingFlag == 1) {
-            jumpRight(tx, ty, cx, w, cy, h);
-            if (gl.keys[XK_space] == 1) {
-                shootParticle();
-            }
+    gl.directionFlag == 0 && (gl.keys[XK_space] == 0 ||
+    gl.keys[XK_space] == 1) && gl.isJumpingFlag == 1) {
+        jumpRight(tx, ty, cx, w, cy, h);
+        if (gl.keys[XK_space] == 1) {
+            shootParticle();
+        }
     }
 }
 
@@ -621,7 +635,6 @@ void renderMainCharacter(int charSelect)
     float h = 29.0;
     float w = h * .903;
     glPushMatrix();
-    //glTranslated(mainChar.pos[0], mainChar.pos[1], 0);
     glColor3f(1.0, 1.0, 1.0);
     glBindTexture(GL_TEXTURE_2D, gl.tempMainCharacterTexture);
     glEnable(GL_ALPHA_TEST);
@@ -634,8 +647,6 @@ void renderMainCharacter(int charSelect)
     float tx = (float)ix / 4.0;
     float ty = (float)iy / 3.0;
     glBegin(GL_QUADS);
-    //works best with
-    //conditionalRenders(tx, ty, -16, w, 16, h);
     conditionalRenders(tx, ty, mainChar.cx, w, mainChar.cy, h);
     glEnd();
     glPopMatrix();
@@ -666,8 +677,11 @@ void renderSpeedboost1()
         glPopMatrix();
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_ALPHA_TEST);
-        if ((mainChar.cx > (speedboost1.cx - 10) && mainChar.cx < (speedboost1.cx + 10))
-        && ((mainChar.cy > (speedboost1.cy - 10)) && (mainChar.cy < (speedboost1.cy + 10)))) {
+        
+	if ((mainChar.cx > (speedboost1.cx - 10)
+        && mainChar.cx < (speedboost1.cx + 10))
+        && ((mainChar.cy > (speedboost1.cy - 10))
+        && (mainChar.cy < (speedboost1.cy + 10)))) {
             //if character picks up power up,
             //stop rendering and set x to -999999 to avoid
             //picking up invisible power ups
@@ -702,8 +716,11 @@ void renderShield1()
         glPopMatrix();
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_ALPHA_TEST);
-        if ((mainChar.cx > (shield1.cx - 10) && mainChar.cx < (shield1.cx + 10))
-        && ((mainChar.cy > (shield1.cy - 10)) && (mainChar.cy < (shield1.cy + 10)))) {
+        
+	if ((mainChar.cx > (shield1.cx - 10)
+        && mainChar.cx < (shield1.cx + 10))
+        && ((mainChar.cy > (shield1.cy - 10))
+        && (mainChar.cy < (shield1.cy + 10)))) {
             //if character picks up power up,
             //stop rendering and set x to -999999 to avoid
             //picking up invisible power ups
@@ -737,8 +754,11 @@ void renderHeart1()
         glPopMatrix();
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_ALPHA_TEST);
-        if ((mainChar.cx > (heart1.cx - 10) && mainChar.cx < (heart1.cx + 10))
-        && ((mainChar.cy > (heart1.cy - 10)) && (mainChar.cy < (heart1.cy + 10)))) {
+        
+	if ((mainChar.cx > (heart1.cx - 10)
+        && mainChar.cx < (heart1.cx + 10))
+        && ((mainChar.cy > (heart1.cy - 10))
+        && (mainChar.cy < (heart1.cy + 10)))) {
             //if character picks up power up,
             //stop rendering and set x to -999999 to avoid
             //picking up invisible power ups
@@ -778,8 +798,11 @@ void renderHeart2()
         glPopMatrix();
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_ALPHA_TEST);
-        if ((mainChar.cx > (heart2.cx - 10) && mainChar.cx < (heart2.cx + 10))
-        && ((mainChar.cy > (heart2.cy - 10)) && (mainChar.cy < (heart2.cy + 10)))) {
+        
+	if ((mainChar.cx > (heart2.cx - 10)
+        && mainChar.cx < (heart2.cx + 10))
+        && ((mainChar.cy > (heart2.cy - 10))
+        && (mainChar.cy < (heart2.cy + 10)))) {
             //if character picks up power up,
             //stop rendering and set x to -999999 to avoid
             //picking up invisible power ups
@@ -819,8 +842,11 @@ void renderHeart3()
         glPopMatrix();
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_ALPHA_TEST);
-        if ((mainChar.cx > (heart3.cx - 10) && mainChar.cx < (heart3.cx + 10))
-        && ((mainChar.cy > (heart3.cy - 10)) && (mainChar.cy < (heart3.cy + 10)))) {
+        
+	if ((mainChar.cx > (heart3.cx - 10)
+        && mainChar.cx < (heart3.cx + 10))
+        && ((mainChar.cy > (heart3.cy - 10))
+        && (mainChar.cy < (heart3.cy + 10)))) {
             //if character picks up power up,
             //stop rendering and set x to -999999 to avoid
             //picking up invisible power ups
@@ -860,8 +886,11 @@ void renderHeart4()
         glPopMatrix();
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_ALPHA_TEST);
-        if ((mainChar.cx > (heart4.cx - 10) && mainChar.cx < (heart4.cx + 10))
-        && ((mainChar.cy > (heart4.cy - 10)) && (mainChar.cy < (heart4.cy + 10)))) {
+        
+	if ((mainChar.cx > (heart4.cx - 10)
+        && mainChar.cx < (heart4.cx + 10))
+        && ((mainChar.cy > (heart4.cy - 10))
+        && (mainChar.cy < (heart4.cy + 10)))) {
             //if character picks up power up,
             //stop rendering and set x to -999999 to avoid
             //picking up invisible power ups
@@ -898,7 +927,6 @@ void christianInit()
         heart4.cy = 200;
         speedboost1.cx= 800;
         speedboost1.cy = 90;
-
         // render sprite set to true.
         // when flase, stop rendering. This is for
         // picking up power ups
@@ -950,37 +978,41 @@ void christianInit()
 
 void renderTurt1()
 {
-        float h = 25;
-        float w = 25;
-        glPushMatrix();
-        glColor3f(1.0, 1.0, 1.0);
-        glBindTexture(GL_TEXTURE_2D, gl.greenenemyTexture);
-        glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-        glColor4ub(255,255,255,255);
-        int ix = 1;
-        int iy = 1;
-        float tx = (float)ix;
-        float ty = (float)iy;
+    float h = 25;
+    float w = 25;
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.greenenemyTexture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ix = 1;
+    int iy = 1;
+    float tx = (float)ix;
+    float ty = (float)iy;
+    if (gl.turt1Frame >= 3)
+        iy = 0;
+    double timeSpan = 
+        timers.timeDiff(&timers.turt1Time, &timers.timeCurrent);
+    if (timeSpan > .5) {
+        ++gl.turt1Frame;
         if (gl.turt1Frame >= 3)
-            iy = 0;
-        double timeSpan = 
-            timers.timeDiff(&timers.turt1Time, &timers.timeCurrent);
-        if (timeSpan > .5) {
-             ++gl.turt1Frame;
-            if (gl.turt1Frame >= 3)
-                gl.turt1Frame-= 3;
-            timers.recordTime(&timers.turt1Time);
-        } 
-        glBegin(GL_QUADS);
-        glTexCoord2f(tx + (gl.turt1Frame - 1) * .333,   ty + 1); glVertex2i(turt1.cx-w, turt1.cy-h);
-        glTexCoord2f(tx + (gl.turt1Frame - 1) * .333,   ty    ); glVertex2i(turt1.cx-w, turt1.cy+h);
-        glTexCoord2f(tx + (gl.turt1Frame* .333),       ty    ); glVertex2i(turt1.cx+w, turt1.cy+h);
-        glTexCoord2f(tx + (gl.turt1Frame* .333),      ty + 1); glVertex2i(turt1.cx+w, turt1.cy-h);
-        glEnd();
-        glPopMatrix();
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glDisable(GL_ALPHA_TEST);
+            gl.turt1Frame-= 3;
+        timers.recordTime(&timers.turt1Time);
+    } 
+    glBegin(GL_QUADS);
+    glTexCoord2f(tx + (gl.turt1Frame - 1) * .333,   ty + 1);
+    glVertex2i(turt1.cx-w, turt1.cy-h);
+    glTexCoord2f(tx + (gl.turt1Frame - 1) * .333,   ty    );
+    glVertex2i(turt1.cx-w, turt1.cy+h);
+    glTexCoord2f(tx + (gl.turt1Frame* .333),       ty    );
+    glVertex2i(turt1.cx+w, turt1.cy+h);
+    glTexCoord2f(tx + (gl.turt1Frame* .333),      ty + 1);
+    glVertex2i(turt1.cx+w, turt1.cy-h);
+    glEnd();
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
 }
 
 void turt1Movement()
@@ -1001,37 +1033,42 @@ void turt1Movement()
 
 void renderTurt2()
 {
-        float h = 25;
-        float w = 25;
-        glPushMatrix();
-        glColor3f(1.0, 1.0, 1.0);
-        glBindTexture(GL_TEXTURE_2D, gl.blueenemyTexture);
-        glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-        glColor4ub(255,255,255,255);
-        int ix = 1;
-        int iy = 1;
-        float tx = (float)ix;
-        float ty = (float)iy;
+    float h = 25;
+    float w = 25;
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.blueenemyTexture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ix = 1;
+    int iy = 1;
+    float tx = (float)ix;
+    float ty = (float)iy;
+    if (gl.turt2Frame >= 3)
+        iy = 0;
+    double timeSpan = 
+        timers.timeDiff(&timers.turt2Time, &timers.timeCurrent);
+    if (timeSpan > .5) {
+        ++gl.turt2Frame;
         if (gl.turt2Frame >= 3)
-            iy = 0;
-        double timeSpan = 
-            timers.timeDiff(&timers.turt2Time, &timers.timeCurrent);
-        if (timeSpan > .5) {
-             ++gl.turt2Frame;
-            if (gl.turt2Frame >= 3)
-                gl.turt2Frame-= 3;
+            gl.turt2Frame-= 3;
             timers.recordTime(&timers.turt2Time);
-        } 
-        glBegin(GL_QUADS);
-        glTexCoord2f(tx + (gl.turt2Frame - 1) * .333,   ty + 1); glVertex2i(turt2.cx-w, turt2.cy-h);
-        glTexCoord2f(tx + (gl.turt2Frame - 1) * .333,   ty    ); glVertex2i(turt2.cx-w, turt2.cy+h);
-        glTexCoord2f(tx + (gl.turt2Frame* .333),       ty    ); glVertex2i(turt2.cx+w, turt2.cy+h);
-        glTexCoord2f(tx + (gl.turt2Frame* .333),      ty + 1); glVertex2i(turt2.cx+w, turt2.cy-h);
-        glEnd();
-        glPopMatrix();
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glDisable(GL_ALPHA_TEST);
+    } 
+    
+    glBegin(GL_QUADS);
+    glTexCoord2f(tx + (gl.turt2Frame - 1) * .333,   ty + 1);
+    glVertex2i(turt2.cx-w, turt2.cy-h);
+    glTexCoord2f(tx + (gl.turt2Frame - 1) * .333,   ty    );
+    glVertex2i(turt2.cx-w, turt2.cy+h);
+    glTexCoord2f(tx + (gl.turt2Frame* .333),       ty    );
+    glVertex2i(turt2.cx+w, turt2.cy+h);
+    glTexCoord2f(tx + (gl.turt2Frame* .333),      ty + 1);
+    glVertex2i(turt2.cx+w, turt2.cy-h);
+    glEnd();
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
 }
 
 void turt2Movement()
@@ -1053,7 +1090,6 @@ void turt2Movement()
 // render functions stored in here for sprites
 void renderChristianSprites(int charSelect)
 {
-    printf("x: %f - y: %f\n", mainChar.cx, mainChar.cy);
     renderMainCharacter(charSelect);
     renderShield1();
     renderSpeedboost1();
