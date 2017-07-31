@@ -166,6 +166,7 @@ extern class Global {
         Ppmimage *maincharacter2Image;
         Ppmimage *maincharacter3Image;
         Ppmimage *maincharacter4Image;
+        Ppmimage *maincharacter5Image;
         Ppmimage *mainmenubackgroundImage;
         Ppmimage *birdImage;
         Ppmimage *turretImage;
@@ -219,12 +220,14 @@ extern class Global {
         Ppmimage *enterkeyImage;
         Ppmimage *blueboxImage;
         Ppmimage *americaballImage;
+        Ppmimage *applecoreImage;
         Ppmimage *moltenballImage;
         Ppmimage *purpleballImage;
         Ppmimage *mainchar1headImage;
         Ppmimage *mainchar2headImage;
         Ppmimage *mainchar3headImage;
         Ppmimage *mainchar4headImage;
+        Ppmimage *mainchar5headImage;
         Ppmimage *pkeyImage;
         Ppmimage *ekeyImage;
         Ppmimage *keyboardImage;
@@ -290,6 +293,7 @@ extern class Global {
         GLuint enterkeyTexture;
         GLuint blueboxTexture;
         GLuint americaballTexture;
+        GLuint applecoreTexture;
         GLuint moltenballTexture;
         GLuint purpleballTexture;
         GLuint tempTexture;
@@ -297,6 +301,7 @@ extern class Global {
         GLuint mainchar2headTexture;
         GLuint mainchar3headTexture;
         GLuint mainchar4headTexture;
+        GLuint mainchar5headTexture;
         GLuint pkeyTexture;
         GLuint ekeyTexture;
         GLuint keyboardTexture;
@@ -393,6 +398,7 @@ extern class Global {
             maincharacter2Image = NULL;
             maincharacter3Image = NULL;
             maincharacter4Image = NULL;
+            maincharacter5Image = NULL;
             mainmenubackgroundImage = NULL;
             turretImage = NULL;
 	          turretbeamImage = NULL; 
@@ -446,12 +452,14 @@ extern class Global {
             enterkeyImage = NULL;
             blueboxImage = NULL;
             americaballImage = NULL;
+            applecoreImage = NULL;
             moltenballImage = NULL;
             purpleballImage = NULL;
             mainchar1headImage = NULL;
             mainchar2headImage = NULL;
             mainchar3headImage = NULL;
             mainchar4headImage = NULL;
+            mainchar5headImage = NULL;
             pkeyImage = NULL;
             ekeyImage = NULL;
             keyboardImage = NULL;

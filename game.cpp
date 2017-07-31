@@ -466,6 +466,7 @@ void initOpengl(void)
     gl.enterkeyImage = ppm6GetImage("./images/EnterKey.ppm");
     gl.blueboxImage = ppm6GetImage("./images/BlueBox.ppm");
     gl.americaballImage = ppm6GetImage("./images/AmericaBall.ppm");
+    gl.applecoreImage = ppm6GetImage("./images/AppleCore.ppm");
     gl.moltenballImage = ppm6GetImage("./images/MoltenBall.ppm");
     gl.purpleballImage = ppm6GetImage("./images/PurpleBall.ppm");
     gl.mainchar1headImage = ppm6GetImage("./images/mainChar1head.ppm");
@@ -538,6 +539,7 @@ void initOpengl(void)
     glGenTextures(1, &gl.enterkeyTexture);
     glGenTextures(1, &gl.blueboxTexture);    
     glGenTextures(1, &gl.americaballTexture);    
+    glGenTextures(1, &gl.applecoreTexture);    
     glGenTextures(1, &gl.moltenballTexture);    
     glGenTextures(1, &gl.purpleballTexture);    
     glGenTextures(1, &gl.mainchar1headTexture);    
@@ -1339,6 +1341,21 @@ void initOpengl(void)
             GL_RGBA, GL_UNSIGNED_BYTE, americaballData);
     free(americaballData);
     unlink("./images/americaballImage.ppm");
+    //===============================================================
+
+
+    //===============================================================
+    //Apple Core
+    w = gl.applecoreImage->width;
+    h = gl.applecoreImage->height;
+    glBindTexture(GL_TEXTURE_2D, gl.applecoreTexture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *applecoreData = buildAlphaData(gl.applecoreImage);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, applecoreData);
+    free(applecoreData);
+    unlink("./images/applecoreImage.ppm");
     //===============================================================
 
     //===============================================================
