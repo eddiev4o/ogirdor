@@ -95,8 +95,6 @@
 //===============================================
 // Week 9 Progress
 //===============================================
-// Added 2 animated moving enemies to the game
-//     with death and particle collision
 //===============================================
 
 //===============================================
@@ -216,8 +214,6 @@ void tileCollision(Vec *tile)
             gl.camera[0] -= gl.movementSpeed;
             gl.xc[0] -= 0.001;
             gl.xc[1] -= 0.001;
-            moveSpriteRight(&turt1);
-            moveSpriteRight(&turt2);
             moveSpriteRight(&mariEnemy);
             moveSpriteRight(&female);
             moveSpriteRight(&obama);
@@ -229,16 +225,16 @@ void tileCollision(Vec *tile)
             moveSpriteRight(&shield1);
             moveSpriteRight(&speedboost1);
             moveSpriteRight(&turret);
-	    moveSpriteRight(&turretbeam);
             moveSpriteRight(&enemy1);
             moveSpriteRight(&godzilla);
+	    for(int i = 0; i < 100; i++) {
+	    	moveSpriteRight(&gl.coins[i]);
+	    }
         }
         if (gl.directionFlag == 1) {
             gl.camera[0] += gl.movementSpeed;
             gl.xc[0] += 0.001;
             gl.xc[1] += 0.001;
-            moveSpriteLeft(&turt1);
-            moveSpriteLeft(&turt2);
             moveSpriteLeft(&mariEnemy);
             moveSpriteLeft(&female);
             moveSpriteLeft(&obama);
@@ -250,9 +246,11 @@ void tileCollision(Vec *tile)
             moveSpriteLeft(&shield1);
             moveSpriteLeft(&speedboost1);
             moveSpriteLeft(&turret);
-	    moveSpriteLeft(&turretbeam);
             moveSpriteLeft(&enemy1);
-            moveSpriteLeft(&godzilla);
+            moveSpriteLeft(&godzilla);	
+	    for(int i = 0; i < 100; i++) {
+	    	moveSpriteLeft(&gl.coins[i]);
+	    }
         }
             gl.isJumpingFlag = false;
             mainChar.cy = mainChar.cy + 1;
@@ -365,8 +363,6 @@ void particlePhysics(int charSelect)
         enemyParticleCollision(&gl.particle[i], &turret);
         enemyParticleCollision(&gl.particle[i], &mariEnemy);
         enemyParticleCollision(&gl.particle[i], &godzilla);
-        enemyParticleCollision(&gl.particle[i], &turt1);
-        enemyParticleCollision(&gl.particle[i], &turt2);
     }
 }
 
@@ -764,8 +760,8 @@ void renderHeart2()
         float tx = (float)ix;
         float ty = (float)iy;
         glBegin(GL_QUADS);
-        glTexCoord2f(tx, ty + 1); glVertex2i(heart2.cx-w, heart2.cy-h);
-        glTexCoord2f(tx, ty    ); glVertex2i(heart2.cx-w, heart2.cy+h);
+        glTexCoord2f(tx + 1, ty + 1); glVertex2i(heart2.cx-w, heart2.cy-h);
+        glTexCoord2f(tx + 1, ty    ); glVertex2i(heart2.cx-w, heart2.cy+h);
         glTexCoord2f(tx,     ty    ); glVertex2i(heart2.cx+w, heart2.cy+h);
         glTexCoord2f(tx,     ty + 1); glVertex2i(heart2.cx+w, heart2.cy-h);
         glEnd();
@@ -875,10 +871,6 @@ void renderHeart4()
 void christianInit()
 {
     if (gl.levelSelect == 2) {
-        turt2.cx = 850;
-        turt2.cy = 95;
-        turt1.cx = 500;
-        turt1.cy = 95;
         mainChar.cy = 85;
         shield1.cx = 800;
         shield1.cy = 180;
@@ -908,10 +900,6 @@ void christianInit()
         gl.initialJumpCy = mainChar.cy + 20;
     } else {
         //initialize my sprites' x and y positions
-        turt2.cx = 850;
-        turt2.cy = 95;
-        turt1.cx = 500;
-        turt1.cy = 95;
         mainChar.cy = 85;
         shield1.cx = 900;
         shield1.cy = 180;
@@ -942,112 +930,10 @@ void christianInit()
     }
 }
 
-void renderTurt1()
-{
-        float h = 25;
-        float w = 25;
-        glPushMatrix();
-        glColor3f(1.0, 1.0, 1.0);
-        glBindTexture(GL_TEXTURE_2D, gl.greenenemyTexture);
-        glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-        glColor4ub(255,255,255,255);
-        int ix = 1;
-        int iy = 1;
-        float tx = (float)ix;
-        float ty = (float)iy;
-        if (gl.turt1Frame >= 3)
-            iy = 0;
-        double timeSpan = 
-            timers.timeDiff(&timers.turt1Time, &timers.timeCurrent);
-        if (timeSpan > .5) {
-             ++gl.turt1Frame;
-            if (gl.turt1Frame >= 3)
-                gl.turt1Frame-= 3;
-            timers.recordTime(&timers.turt1Time);
-        } 
-        glBegin(GL_QUADS);
-        glTexCoord2f(tx + (gl.turt1Frame - 1) * .333,   ty + 1); glVertex2i(turt1.cx-w, turt1.cy-h);
-        glTexCoord2f(tx + (gl.turt1Frame - 1) * .333,   ty    ); glVertex2i(turt1.cx-w, turt1.cy+h);
-        glTexCoord2f(tx + (gl.turt1Frame* .333),       ty    ); glVertex2i(turt1.cx+w, turt1.cy+h);
-        glTexCoord2f(tx + (gl.turt1Frame* .333),      ty + 1); glVertex2i(turt1.cx+w, turt1.cy-h);
-        glEnd();
-        glPopMatrix();
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glDisable(GL_ALPHA_TEST);
-}
-
-void turt1Movement()
-{
-    if(gl.turt1Flag == 0)
-    {
-        turt1.cx++;
-        if (turt1.cx >= 700)
-            gl.turt1Flag = 1;
-    }
-    if(gl.turt1Flag == 1)
-    {
-        turt1.cx--;
-        if (turt1.cx < 400)
-            gl.turt1Flag = 0;
-    }
-}
-
-void renderTurt2()
-{
-        float h = 25;
-        float w = 25;
-        glPushMatrix();
-        glColor3f(1.0, 1.0, 1.0);
-        glBindTexture(GL_TEXTURE_2D, gl.blueenemyTexture);
-        glEnable(GL_ALPHA_TEST);
-        glAlphaFunc(GL_GREATER, 0.0f);
-        glColor4ub(255,255,255,255);
-        int ix = 1;
-        int iy = 1;
-        float tx = (float)ix;
-        float ty = (float)iy;
-        if (gl.turt2Frame >= 3)
-            iy = 0;
-        double timeSpan = 
-            timers.timeDiff(&timers.turt2Time, &timers.timeCurrent);
-        if (timeSpan > .5) {
-             ++gl.turt2Frame;
-            if (gl.turt2Frame >= 3)
-                gl.turt2Frame-= 3;
-            timers.recordTime(&timers.turt2Time);
-        } 
-        glBegin(GL_QUADS);
-        glTexCoord2f(tx + (gl.turt2Frame - 1) * .333,   ty + 1); glVertex2i(turt2.cx-w, turt2.cy-h);
-        glTexCoord2f(tx + (gl.turt2Frame - 1) * .333,   ty    ); glVertex2i(turt2.cx-w, turt2.cy+h);
-        glTexCoord2f(tx + (gl.turt2Frame* .333),       ty    ); glVertex2i(turt2.cx+w, turt2.cy+h);
-        glTexCoord2f(tx + (gl.turt2Frame* .333),      ty + 1); glVertex2i(turt2.cx+w, turt2.cy-h);
-        glEnd();
-        glPopMatrix();
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glDisable(GL_ALPHA_TEST);
-}
-
-void turt2Movement()
-{
-    if(gl.turt2Flag == 0)
-    {
-        turt2.cx++;
-        if (turt2.cx >= 1000)
-            gl.turt2Flag = 1;
-    }
-    if(gl.turt2Flag == 1)
-    {
-        turt2.cx--;
-        if (turt2.cx < 800)
-            gl.turt2Flag = 0;
-    }
-}
-
 // render functions stored in here for sprites
 void renderChristianSprites(int charSelect)
 {
-    printf("x: %f - y: %f\n", mainChar.cx, mainChar.cy);
+    //printf("x: %f - y: %f\n", mainChar.cx, mainChar.cy);
     renderMainCharacter(charSelect);
     renderShield1();
     renderSpeedboost1();
@@ -1055,10 +941,6 @@ void renderChristianSprites(int charSelect)
     renderHeart2();
     renderHeart3();
     renderHeart4();
-    renderTurt1();
-    renderTurt2();
-    turt1Movement();
-    turt2Movement();
     particlePhysics(charSelect);
 }
 
