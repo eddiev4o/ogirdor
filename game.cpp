@@ -149,6 +149,8 @@ extern void scoreTime();
 extern void deathScreen();
 extern void renderScore();
 extern void hudHealth();
+extern void renderCoin(Sprite *);
+extern void eddieInit();
 extern void CesarInit();
 //-----------------------------------------------------------------------------
 //Setup timers
@@ -220,6 +222,7 @@ void init()
     turretbeam.cy = 100;
     christianInit();
     CesarInit();
+    eddieInit();
 }
 
 void cleanupXWindows(void)
@@ -370,6 +373,7 @@ void initOpengl(void)
     system("convert ./images/GoldImage.png ./images/GoldImage.ppm");
     system("convert ./images/PlatinumImage.png ./images/PlatinumImage.ppm");
     system("convert ./images/noobImage.png ./images/noobImage.ppm"); 
+    system("convert ./images/coinImage.png ./images/coinImage.ppm"); 
     system("convert ./images/WelcomeImage.png ./images/WelcomeImage.ppm");
     system("convert ./images/gameoverImage.png ./images/gameoverImage.ppm");
     system("convert ./images/AttackDmg.png ./images/AttackDmg.ppm");
@@ -439,6 +443,7 @@ void initOpengl(void)
     gl.GoldImage = ppm6GetImage("./images/GoldImage.ppm");
     gl.PlatinumImage = ppm6GetImage("./images/PlatinumImage.ppm");
     gl.noobImage = ppm6GetImage("./images/noobImage.ppm");
+    gl.coinImage = ppm6GetImage("./images/coinImage.ppm");
     gl.WelcomeImage = ppm6GetImage("./images/WelcomeImage.ppm");
     gl.backgroundImage = ppm6GetImage("./images/backgroundImage.ppm");
     gl.platformImage = ppm6GetImage("./images/platformImage.ppm");
@@ -511,6 +516,7 @@ void initOpengl(void)
     glGenTextures(1, &gl.GoldTexture);
     glGenTextures(1, &gl.PlatinumTexture);
     glGenTextures(1, &gl.noobTexture);
+    glGenTextures(1, &gl.coinTexture);
     glGenTextures(1, &gl.WelcomeTexture);
     glGenTextures(1, &gl.attackdmgTexture);
     glGenTextures(1, &gl.blueenemyTexture);
@@ -1096,6 +1102,20 @@ void initOpengl(void)
     //===============================================================
 
     //===============================================================
+    //Coin Texture
+    w = gl.coinImage->width;
+    h = gl.coinImage->height;	
+    glBindTexture(GL_TEXTURE_2D, gl.coinTexture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *coinData = buildAlphaData(gl.coinImage);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, coinData);
+    free(coinData);
+    unlink("./images/coinImage.ppm");
+    //===============================================================
+
+    //===============================================================
     //Attack Dmg
     w = gl.attackdmgImage->width;
     h = gl.attackdmgImage->height;
@@ -1662,6 +1682,9 @@ void physics(void)
         moveSpriteLeft(&heart4);
         moveSpriteLeft(&shield1);
         moveSpriteLeft(&speedboost1);
+	for (int i = 0; i < 100; i++) {
+		moveSpriteLeft(&gl.coins[i]);
+	}
         moveSpriteLeft(&turret);
         moveSpriteLeft(&turretbeam);
         moveSpriteLeft(&enemy1);
@@ -1701,7 +1724,10 @@ void physics(void)
         moveSpriteRight(&heart2);
         moveSpriteRight(&heart3);
         moveSpriteRight(&heart4);
-        moveSpriteRight(&shield1);
+        moveSpriteRight(&shield1);	
+	for (int i = 0; i < 100; i++) {
+		moveSpriteRight(&gl.coins[i]);
+	}
         moveSpriteRight(&speedboost1);
         moveSpriteRight(&turret);
         moveSpriteRight(&turretbeam);
@@ -1788,8 +1814,11 @@ void render(void)
         renderBackground(gl.levelSelect);
         renderTiles();
         //renderPlatform();
-        renderChristianSprites(gl.characterSelect);
-        showTurret();
+        renderChristianSprites(gl.characterSelect); 
+	for (int i = 0; i < 100; i++) {
+		renderCoin(&gl.coins[i]);
+	}
+	showTurret();
         showenemy1();
         showgodzilla();
         showbird();
