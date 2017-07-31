@@ -868,7 +868,7 @@ void renderHeart4()
 void christianInit()
 {
     if (gl.levelSelect == 2) {
-        turt1.cx = 200;
+        turt1.cx = 500;
         turt1.cy = 95;
         mainChar.cy = 85;
         shield1.cx = 800;
@@ -899,7 +899,7 @@ void christianInit()
         gl.initialJumpCy = mainChar.cy + 20;
     } else {
         //initialize my sprites' x and y positions
-        turt1.cx = 400;
+        turt1.cx = 500;
         turt1.cy = 95;
         mainChar.cy = 85;
         shield1.cx = 900;
