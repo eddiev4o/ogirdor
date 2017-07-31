@@ -240,6 +240,7 @@ extern class Global {
         GLuint mchar2Texture;
         GLuint mchar3Texture;
         GLuint mchar4Texture;
+        GLuint mchar5Texture;
         GLuint mainmenubackgroundTexture;
         GLuint logoTexture;
         GLuint playTexture;

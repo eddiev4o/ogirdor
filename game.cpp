@@ -615,7 +615,7 @@ void initOpengl(void)
     // Main Character 5 
     w = gl.maincharacter5Image->width;
     h = gl.maincharacter5Image->height;
-    glBindTexture(GL_TEXTURE_2D, gl.char5Texture);
+    glBindTexture(GL_TEXTURE_2D, gl.mchar5Texture);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
     unsigned char *maincharacter5Data = buildAlphaData(gl.maincharacter5Image);
