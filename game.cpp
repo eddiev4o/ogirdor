@@ -59,7 +59,7 @@ Timers timers;
 Global gl;
 UserInput input;
 Level lev;
-Sprite turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, enemy1, mariEnemy, godzilla, female, obama, sun,shooting_star,bird;
+Sprite turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, enemy1, mariEnemy, godzilla, female, obama, sun,shooting_star,taco ,bird;
 Particle particle[20];
 Game game;
 //X Windows variables
@@ -93,6 +93,7 @@ extern void assign_playername(char [], UserInput &input);
 extern void PlayerStart(int, char [], UserInput &input);
 extern void removePPM(void);
 extern void godzillaphysics(void);
+extern void taco_physics(void);
 extern void birdphysics(void);
 extern void mari_physics(void);
 extern void shooting_star_physics(void);
@@ -112,6 +113,7 @@ extern Ppmimage *mari_image();
 //extern Ppmimage *sun_image();
 extern Ppmimage *shooting_star_image();
 extern Ppmimage *obama_image();
+extern Ppmimage *taco_image();
 extern void shootWalkRight(float,float,float,float,float,float);
 extern void shootWalkLeft(float,float,float,float,float,float);
 extern void shootStandRight(float,float,float,float,float,float);
@@ -133,6 +135,7 @@ extern void showenemy1();
 extern void showgodzilla();
 extern void showbird();
 extern void show_mari();
+extern void show_taco();
 //extern void show_female();
 //extern void show_sun();
 extern void show_obama();
@@ -428,6 +431,7 @@ void initOpengl(void)
     gl.birdImage = birdImage();
     gl.mari_image = mari_image();
     gl.obama_image = obama_image();
+    gl.taco_image = taco_image();
     //spacing is acting weird        
     gl.shooting_star_image = shooting_star_image();
     //gl.female_image = female_image();
@@ -491,6 +495,7 @@ void initOpengl(void)
     glGenTextures(1, &gl.birdTexture);
     //glGenTextures(1, &gl.female_Texture);
     glGenTextures(1, &gl.obama_Texture);
+    glGenTextures(1, &gl.taco_Texture);
     glGenTextures(1, &gl.shooting_star_Texture);
     //glGenTextures(1, &gl.sun_Texture);
     glGenTextures(1, &gl.logoTexture);
@@ -741,7 +746,18 @@ void initOpengl(void)
     //		GL_RGBA, GL_UNSIGNED_BYTE, sun_pointer);        	
     //free(sun_pointer); 
     //unlink("./images/sun.ppm");			
-
+    //===================================================
+	//el Taco :0 
+	     w = gl.taco_image->width;
+     h = gl.taco_image->height;
+     glBindTexture(GL_TEXTURE_2D, gl.taco_Texture);
+     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+     unsigned char *taco_pointer = buildAlphaData(gl.taco_image);
+     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+             GL_RGBA, GL_UNSIGNED_BYTE, taco_pointer);
+     free(taco_pointer);
+     unlink("./images/taco.ppm");
     //=======================================================
     //Shooting_star
     w = gl.shooting_star_image->width;
@@ -1675,6 +1691,7 @@ void physics(void)
         moveSpriteLeft(&female);
         moveSpriteLeft(&shooting_star);
         moveSpriteLeft(&obama);
+        moveSpriteLeft(&taco);
         moveSpriteLeft(&sun);
         moveSpriteLeft(&heart1);
         moveSpriteLeft(&heart2);
@@ -1720,6 +1737,7 @@ void physics(void)
         moveSpriteRight(&female);
         moveSpriteRight(&sun);
         moveSpriteRight(&obama);
+        moveSpriteRight(&taco);
         moveSpriteRight(&heart1);
         moveSpriteRight(&heart2);
         moveSpriteRight(&heart3);
@@ -1761,6 +1779,7 @@ void physics(void)
     godzillaphysics();
     birdphysics();
     mari_physics();
+    taco_physics();
     moveSpriteRight(&shooting_star);
 }
 
