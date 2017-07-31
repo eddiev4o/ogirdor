@@ -81,6 +81,27 @@ extern class Timers
         }
 } timers;
 
+extern class Sprite {
+    public:
+        Flt pos[2];
+        Flt vel[2];
+	bool collected;
+        float cx;
+        float cy;
+        float height;
+        float width;
+        int health;
+        Sprite () {
+	    collected = false;
+            height = 20;
+            width = 20;
+            health = 10;
+	    //cx = gl.xres/2;
+	    //cy = 100;
+        }
+} turt2, turt1, heart4, heart3, heart2, heart1, speedboost1,
+    shield1, mainChar, turret, enemy1, mariEnemy,
+    godzilla, sun, female, obama,shooting_star, bird;
 extern class Global {
     public:
         int m_delay;
@@ -137,6 +158,7 @@ extern class Global {
         State state;
         Flt xc[2];
         Flt yc[2];
+	Sprite coins[100];
 
         Ppmimage *maincharacterImage;
         Ppmimage *maincharacter1Image;
@@ -177,6 +199,7 @@ extern class Global {
         Ppmimage *GoldImage;
         Ppmimage *PlatinumImage;
         Ppmimage *noobImage;
+	Ppmimage *coinImage;
         Ppmimage *WelcomeImage;
         Ppmimage *attackdmgImage;
         Ppmimage *blueenemyImage;
@@ -245,6 +268,7 @@ extern class Global {
         GLuint GoldTexture;
         GLuint PlatinumTexture;
         GLuint noobTexture;
+	GLuint coinTexture;
         GLuint WelcomeTexture;
         GLuint attackdmgTexture;
         GLuint blueenemyTexture;
@@ -398,7 +422,8 @@ extern class Global {
             GoldImage = NULL;
             PlatinumImage = NULL;
             noobImage = NULL;
-            WelcomeImage = NULL;
+            coinImage = NULL; 
+	    WelcomeImage = NULL;
             attackdmgImage = NULL;
             blueenemyImage = NULL;
             greenenemyImage = NULL;
@@ -513,25 +538,6 @@ extern class UserInput
         }
 } input;
 
-extern class Sprite {
-    public:
-        Flt pos[2];
-        Flt vel[2];
-        float cx;
-        float cy;
-        float height;
-        float width;
-        int health;
-        Sprite () {
-            height = 20;
-            width = 20;
-            health = 10;
-            cx = gl.xres/2;
-            cy = 100;
-        }
-} turt2, turt1, heart4, heart3, heart2, heart1, speedboost1,
-    shield1, mainChar, turret, enemy1, mariEnemy,
-    godzilla, sun, female, obama,shooting_star, bird;
 #endif
 
 
