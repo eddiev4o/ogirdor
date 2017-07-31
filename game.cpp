@@ -353,6 +353,7 @@ void initOpengl(void)
     system("convert ./images/mainChar2.png ./images/mainChar2.ppm");
     system("convert ./images/mainChar3.png ./images/mainChar3.ppm");
     system("convert ./images/mainChar4.png ./images/mainChar4.ppm");
+    system("convert ./images/mainChar5.png ./images/mainChar5.ppm");
     system("convert ./images/OgirdorLogo.png ./images/OgirdorLogo.ppm");
     system("convert ./images/MainMenuBackground.png ./images/MainMenuBackground.ppm");
     system("convert ./images/Play.png ./images/Play.ppm");
@@ -394,12 +395,14 @@ void initOpengl(void)
     system("convert ./images/EnterKey.png ./images/EnterKey.ppm");
     system("convert ./images/BlueBox.png ./images/BlueBox.ppm");
     system("convert ./images/AmericaBall.png ./images/AmericaBall.ppm");
+    system("convert ./images/AppleCore.png ./images/AppleCore.ppm");
     system("convert ./images/MoltenBall.png ./images/MoltenBall.ppm");
     system("convert ./images/PurpleBall.png ./images/PurpleBall.ppm");
     system("convert ./images/mainChar1head.png ./images/mainChar1head.ppm");
     system("convert ./images/mainChar2head.png ./images/mainChar2head.ppm");
     system("convert ./images/mainChar3head.png ./images/mainChar3head.ppm");
     system("convert ./images/mainChar4head.png ./images/mainChar4head.ppm");
+    system("convert ./images/mainChar5head.png ./images/mainChar5head.ppm");
     system("convert ./images/PKey.png ./images/pkey.ppm");
     system("convert ./images/EKey.png ./images/ekey.ppm");
     system("convert ./images/keyboard.png ./images/keyboard.ppm");
@@ -474,7 +477,7 @@ void initOpengl(void)
     gl.mainchar2headImage = ppm6GetImage("./images/mainChar2head.ppm");
     gl.mainchar3headImage = ppm6GetImage("./images/mainChar3head.ppm");
     gl.mainchar4headImage = ppm6GetImage("./images/mainChar4head.ppm");
-    gl.mainchar4headImage = ppm6GetImage("./images/mainChar5head.ppm");
+    gl.mainchar5headImage = ppm6GetImage("./images/mainChar5head.ppm");
     gl.pkeyImage = ppm6GetImage("./images/pkey.ppm");
     gl.ekeyImage = ppm6GetImage("./images/ekey.ppm");
     gl.keyboardImage = ppm6GetImage("./images/keyboard.ppm");
