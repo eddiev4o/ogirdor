@@ -436,7 +436,7 @@ void initOpengl(void)
     gl.turretbeamImage = turretbeamImage();
     gl.enemy1Image = enemy1image();
     gl.godzillaImage = godzillaimage();
-    gl.godzillaballImage = godzillaimage();
+    gl.godzillaballImage = godzillaballimage();
     gl.birdImage = birdImage();
     gl.mari_image = mari_image();
     gl.obama_image = obama_image();
