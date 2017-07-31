@@ -59,7 +59,7 @@ Timers timers;
 Global gl;
 UserInput input;
 Level lev;
-Sprite turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, enemy1, mariEnemy, godzilla, female, obama, sun,shooting_star,bird;
+Sprite turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, enemy1, mariEnemy, godzilla, female, obama, sun,shooting_star,bird;
 Particle particle[20];
 Game game;
 //X Windows variables
@@ -101,6 +101,7 @@ extern void shooting_star_physics(void);
 
 //extern Ppmimage *characterImage(int);
 extern Ppmimage *turretImage();
+extern Ppmimage *turretbeamImage();
 extern Ppmimage *enemy1image();
 extern Ppmimage *godzillaimage();
 extern Ppmimage *godzillaballimage();
@@ -127,6 +128,7 @@ extern void moveSpriteRight(Sprite *);
 extern void moveSpriteLeft(Sprite *);
 extern void csound(const char *a);
 extern void showTurret();
+extern void showturretBeam();
 extern void showenemy1();
 extern void showgodzilla();
 extern void showbird();
@@ -147,8 +149,6 @@ extern void scoreTime();
 extern void deathScreen();
 extern void renderScore();
 extern void hudHealth();
-extern void renderCoin(Sprite*);
-extern void eddieInit();
 extern void CesarInit();
 //-----------------------------------------------------------------------------
 //Setup timers
@@ -216,9 +216,10 @@ void init()
     obama.cy = 0;
     turret.cx = 300;
     turret.cy = 90;
+    turretbeam.cx = 700;
+    turretbeam.cy = 100;
     christianInit();
     CesarInit();
-    eddieInit();
 }
 
 void cleanupXWindows(void)
@@ -369,7 +370,6 @@ void initOpengl(void)
     system("convert ./images/GoldImage.png ./images/GoldImage.ppm");
     system("convert ./images/PlatinumImage.png ./images/PlatinumImage.ppm");
     system("convert ./images/noobImage.png ./images/noobImage.ppm"); 
-    system("convert ./images/coinImage.png ./images/coinImage.ppm"); 
     system("convert ./images/WelcomeImage.png ./images/WelcomeImage.ppm");
     system("convert ./images/gameoverImage.png ./images/gameoverImage.ppm");
     system("convert ./images/AttackDmg.png ./images/AttackDmg.ppm");
@@ -417,6 +417,7 @@ void initOpengl(void)
     gl.characterselectionImage = ppm6GetImage("./images/CharacterSelection.ppm");
     gl.frameImage = ppm6GetImage("./images/Frame.ppm");
     gl.turretImage = turretImage();
+    gl.turretbeamImage = turretbeamImage();
     gl.enemy1Image = enemy1image();
     gl.godzillaImage = godzillaimage();
     gl.godzillaballImage = godzillaimage();
@@ -438,7 +439,6 @@ void initOpengl(void)
     gl.GoldImage = ppm6GetImage("./images/GoldImage.ppm");
     gl.PlatinumImage = ppm6GetImage("./images/PlatinumImage.ppm");
     gl.noobImage = ppm6GetImage("./images/noobImage.ppm");
-    gl.coinImage = ppm6GetImage("./images/coinImage.ppm");
     gl.WelcomeImage = ppm6GetImage("./images/WelcomeImage.ppm");
     gl.backgroundImage = ppm6GetImage("./images/backgroundImage.ppm");
     gl.platformImage = ppm6GetImage("./images/platformImage.ppm");
@@ -478,6 +478,7 @@ void initOpengl(void)
     glGenTextures(1, &gl.mchar4Texture);
     glGenTextures(1, &gl.mainmenubackgroundTexture);
     glGenTextures(1, &gl.turretTexture);
+    glGenTextures(1, &gl.turretbeamTexture);
     glGenTextures(1, &gl.enemy1Texture);
     glGenTextures(1, &gl.godzillaTexture);
     glGenTextures(1, &gl.godzillaballTexture);
@@ -510,7 +511,6 @@ void initOpengl(void)
     glGenTextures(1, &gl.GoldTexture);
     glGenTextures(1, &gl.PlatinumTexture);
     glGenTextures(1, &gl.noobTexture);
-    glGenTextures(1, &gl.coinTexture);
     glGenTextures(1, &gl.WelcomeTexture);
     glGenTextures(1, &gl.attackdmgTexture);
     glGenTextures(1, &gl.blueenemyTexture);
@@ -621,6 +621,20 @@ void initOpengl(void)
             GL_RGBA, GL_UNSIGNED_BYTE, turretstuff);
     free(turretstuff);
     unlink("./images/Turret.ppm");
+    //====================================================
+    //turret beam;
+    w = gl.turretbeamImage->width;
+    h = gl.turretbeamImage->height;
+    glBindTexture(GL_TEXTURE_2D, gl.turretbeamTexture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *turretbeamstuff = buildAlphaData(gl.turretbeamImage);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, turretbeamstuff);
+    free(turretbeamstuff);
+    unlink("./images/beam.ppm");
+
+
     //====================================================
 
     //====================================================
@@ -1079,20 +1093,6 @@ void initOpengl(void)
             GL_RGBA, GL_UNSIGNED_BYTE, noobData);
     free(noobData);
     unlink("./images/noobImage.ppm");
-    //===============================================================
-
-    //===============================================================
-    //Coin Texture
-    w = gl.coinImage->width;
-    h = gl.coinImage->height;	
-    glBindTexture(GL_TEXTURE_2D, gl.coinTexture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *coinData = buildAlphaData(gl.coinImage);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, coinData);
-    free(coinData);
-    unlink("./images/coinImage.ppm");
     //===============================================================
 
     //===============================================================
@@ -1662,10 +1662,8 @@ void physics(void)
         moveSpriteLeft(&heart4);
         moveSpriteLeft(&shield1);
         moveSpriteLeft(&speedboost1);
-	for (int i = 0; i < 100; i++) {
-		moveSpriteLeft(&gl.coins[i]);
-	}
         moveSpriteLeft(&turret);
+        moveSpriteLeft(&turretbeam);
         moveSpriteLeft(&enemy1);
         moveSpriteLeft(&godzilla);
         moveSpriteLeft(&bird);
@@ -1705,10 +1703,8 @@ void physics(void)
         moveSpriteRight(&heart4);
         moveSpriteRight(&shield1);
         moveSpriteRight(&speedboost1);
-	for (int i = 0; i < 100; i++) {
-		moveSpriteRight(&gl.coins[i]);
-	}
         moveSpriteRight(&turret);
+        moveSpriteRight(&turretbeam);
         moveSpriteRight(&enemy1);
         moveSpriteRight(&godzilla);
         moveSpriteRight(&bird);
@@ -1807,9 +1803,6 @@ void render(void)
         healthBar(gl.xres, gl.yres);
         renderTimeDisplay();
         renderScore();
-	for (int i = 0; i < 100; i++) {
-		renderCoin(&gl.coins[i]);
-	}
         if (gl.state == STATE_PAUSE) {
             pauseScreen();
         }
