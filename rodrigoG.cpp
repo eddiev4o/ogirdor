@@ -54,7 +54,7 @@
 // Week 9 Progress
 //===============================================
 // Tutorial Adjustment(adding border)
-// Fixing player name
+// Fixing player name(name of 15 chars)
 // Refactoring render
 // Better Credits Screen
 //===============================================
