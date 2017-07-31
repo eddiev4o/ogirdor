@@ -547,9 +547,9 @@ void renderTimeDisplay()
 
 void eddieInit()
 {
-	gl.coins[0].cx = 100;
+	gl.coins[0].cx = 700;
 	gl.coins[0].cy = 90;
-	gl.coins[1].cx = 100;
+	gl.coins[1].cx = 700;
 	gl.coins[1].cy = 180;
 	gl.coins[2].cx = 800;
 	gl.coins[2].cy = 90;
