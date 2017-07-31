@@ -613,7 +613,6 @@ void initOpengl(void)
     unlink("./images/mainChar4.ppm");
     //==============================================
 
-
     //==============================================
     // Main Character 5 
     w = gl.maincharacter5Image->width;
@@ -1364,7 +1363,6 @@ void initOpengl(void)
     unlink("./images/americaballImage.ppm");
     //===============================================================
 
-
     //===============================================================
     //Apple Core
     w = gl.applecoreImage->width;
@@ -1476,7 +1474,6 @@ void initOpengl(void)
     free(mainchar5headData);
     unlink("./images/mainChar5head.ppm");
     //===============================================================
-
 
     //===============================================================
     //P Key
