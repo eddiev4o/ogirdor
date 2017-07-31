@@ -1630,6 +1630,7 @@ void physics(void)
         //man is walking...
         //when time is up, advance the frame.
         moveSpriteLeft(&turt1);
+        moveSpriteLeft(&turt2);
         moveSpriteLeft(&mariEnemy);
         moveSpriteLeft(&female);
         moveSpriteLeft(&shooting_star);
@@ -1669,6 +1670,7 @@ void physics(void)
     }
     if (gl.walk || gl.keys[XK_Left]) {
         moveSpriteRight(&turt1);
+        moveSpriteRight(&turt2);
         moveSpriteRight(&mariEnemy);
         moveSpriteRight(&shooting_star);
         moveSpriteRight(&female);
