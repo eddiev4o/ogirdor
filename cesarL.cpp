@@ -37,14 +37,16 @@
 using namespace std;
 
 //global variables
+int taco_delay = .01;
 int m_position = -500;
 int ss_position = -1500;
-int taco_position = 1180; // front of obama
+int taco_position = -300; // front of obama
 
 // this array will store the positions of enemies
 const int size = 4; // 0-9
 int array[size]= {200,300,800,1200};
 int start = 0;
+
 
 
 
@@ -69,7 +71,7 @@ class my_time {
 	    clock_gettime(CLOCK_REALTIME, t);
 	}
 
-} tim;
+} tim,tacito;
 
 
 
@@ -87,8 +89,30 @@ void mari_physics(void)
 	}
 	tim.recordTime(&tim.walkTime);
     }
-
 }
+
+
+void taco_physics(void)
+{
+    tacito.recordTime(&tacito.timeCurrent);
+    double timeSpan = tacito.timeDiff(&tacito.walkTime, &tacito.timeCurrent);
+    if (timeSpan > taco_delay) { // can aldo make "gl" vars in here
+     (timeSpan > taco_delay?taco_position-=2:taco_position--);  // can aldo make "gl" vars in here
+	    //taco_position--;
+
+	tacito.recordTime(&tacito.walkTime);
+    }
+    cout << "TESTING !!!!!!!!!!! TACO ::::: " << taco_position << endl;
+}									
+
+
+
+
+
+
+
+
+
 
 //figure out proper physics for the shooting star
 void shooting_star_physics(void)
@@ -251,8 +275,6 @@ void show_mari()
 	(m_position > -602? m_position=-500: m_position++);
 
 
-
-
     }
 
 
@@ -331,9 +353,32 @@ void show_female()
     glDisable(GL_ALPHA_TEST);
 }
 
+void show_taco();
+
+
+
+
 void show_obama()
 {
-    //obama.cx = 200;   charceter.cx is to make him follow megaman
+    //position starts at -300
+    show_taco();
+    (taco_position == -500? taco_position= -30:taco_position--);
+   
+
+
+
+    /*
+    if(taco_position == -500){
+	cout << "BEFORE - position of taco is now : " << taco_position << endl;
+	taco_position = -30;
+	cout << "AFTER - position of taco is now : " << taco_position << endl;
+	//show_taco();
+	//cout << "DID I SPAWN ??? I AM A TACO \n";
+    }					
+
+*/
+
+     //obama.cx = 200;   charceter.cx is to make him follow megaman
     obama.cy = 300; // y cord
     float ht = 75.0;//height of obama
     float w = ht*0.5;
@@ -353,8 +398,8 @@ void show_obama()
     glBegin(GL_QUADS);
     glTexCoord2f(tx,      ty+1.0); glVertex2i(obama.cx+w, obama.cy-ht);
     glTexCoord2f(tx,      ty+0);    glVertex2i(obama.cx+w, obama.cy+ht);
-    glTexCoord2f(tx+1.0, ty+0);    glVertex2i(obama.cx-w, obama.cy+ht);
-    glTexCoord2f(tx+1.0, ty+1.0); glVertex2i(obama.cx-w, obama.cy-ht);
+    glTexCoord2f(tx-1.0, ty+0);    glVertex2i(obama.cx-w, obama.cy+ht);
+    glTexCoord2f(tx-1.0, ty+1.0); glVertex2i(obama.cx-w, obama.cy-ht);
     glEnd();
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -381,11 +426,18 @@ void show_taco()
     float tx = (float)ax / 7.0;
     float ty = (float)ay / 1.0;
     glBegin(GL_QUADS);
-    glTexCoord2f(tx,      ty+1.0); glVertex2i(taco.cx+w, taco.cy-ht);
-    glTexCoord2f(tx,      ty+0);    glVertex2i(taco.cx+w, taco.cy+ht);
-    glTexCoord2f(tx+1.0, ty+0);    glVertex2i(taco.cx-w, taco.cy+ht);
-    glTexCoord2f(tx+1.0, ty+1.0); glVertex2i(taco.cx-w, taco.cy-ht);
-    glEnd();
+    glTexCoord2f(tx,      ty+1.0); glVertex2i(taco.cx+ taco_position  +w, taco.cy-ht);
+    glTexCoord2f(tx,      ty+0);    glVertex2i(taco.cx+ taco_position  +w, taco.cy+ht);
+    glTexCoord2f(tx+1.0, ty+0);    glVertex2i(taco.cx+ taco_position-w, taco.cy+ht);
+    glTexCoord2f(tx+1.0, ty+1.0); glVertex2i(taco.cx+ taco_position-w, taco.cy-ht);
+
+    //CONTACT WITH TACO WILL CAUSE DAMAGE ... REALLL
+    if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w){
+	if(mainChar.cy >= taco.cy + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
+	mainChar.health--;
+    }
+	
+	glEnd();
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_ALPHA_TEST);
