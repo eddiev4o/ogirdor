@@ -148,6 +148,7 @@ extern void deathScreen();
 extern void renderScore();
 extern void hudHealth();
 extern void renderCoin(Sprite*);
+extern void eddieInit();
 extern void CesarInit();
 //-----------------------------------------------------------------------------
 //Setup timers
@@ -217,6 +218,7 @@ void init()
     turret.cy = 90;
     christianInit();
     CesarInit();
+    eddieInit();
 }
 
 void cleanupXWindows(void)
