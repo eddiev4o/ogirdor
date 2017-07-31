@@ -39,6 +39,7 @@ using namespace std;
 //global variables
 int m_position = -500;
 int ss_position = -1500;
+int taco_position = 1180; // front of obama
 
 // this array will store the positions of enemies
 const int size = 4; // 0-9
@@ -176,17 +177,18 @@ Ppmimage* shooting_star_image()
 {
     system("convert ./images/shooting_star.jpg ./images/shooting_star.ppm");
     return ppm6GetImage("./images/shooting_star.ppm");
-}
+}										
+
+Ppmimage* taco_image()
+{
+    system("convert ./images/taco.jpg ./images/taco.ppm");
+    return ppm6GetImage("./images/taco.ppm");
+}										
 
 
-/*
- * void combat{
- if(mariachi.position == mainCharacter.position){
-//inflict damage on mainCharacter.health 
 
-}
-}
-*/
+
+
 
 
 //first enemy
@@ -238,9 +240,10 @@ void show_mari()
 	if(mainChar.cx >= mariEnemy.cx+m_position+temp-w &&
 		mainChar.cx <= mariEnemy.cx+m_position+temp+w){
 	    if(mainChar.cy <= y-ht || mainChar.cy >= y+ht || mainChar.cy == y+ht || mainChar.cy == y-ht){
-		mainChar.health=30; //mainChar.health;	
+		//health greater than 38? subtract, else keep adding    
+		(mainChar.health >= 50?mainChar.health--:mainChar.health+=2);
 	    }else{
-		//mainChar.health-=.20;
+		mainChar.health-=.01;
 	    }
 	}
 
@@ -256,7 +259,7 @@ void show_mari()
     cout << "position: " << m_position << endl;
 
 
-    if(m_position > -600) { //was 600
+    if (m_position > -600) { //was 600
 	// walk right
 	m_position--;
 	cout << "position: " << m_position << endl;
@@ -269,12 +272,13 @@ void show_mari()
 	//(mainChar.cx >= mariEnemy.cx+m_position+temp-w? mainChar.health--: m_position--);
 
 
-	if(mainChar.cx >= mariEnemy.cx+m_position+temp-w &&
+	if (mainChar.cx >= mariEnemy.cx+m_position+temp-w &&
 		mainChar.cx <= mariEnemy.cx+m_position+temp+w){
-	    if(mainChar.cy <= y-ht || mainChar.cy >= y+ht || mainChar.cy == y+ht || mainChar.cy == y-ht){
-		mainChar.health=30;  //health;
-	    }else{
-		//mainChar.health-=.20;
+	    if (mainChar.cy <= y-ht || mainChar.cy >= y+ht || mainChar.cy == y+ht || mainChar.cy == y-ht){
+		//mainChar.health+=2;  //health;
+		(mainChar.health >= 50?mainChar.health--:mainChar.health+=2);
+	    } else {
+		mainChar.health-=.01;
 	    }
 	}
 
@@ -329,15 +333,11 @@ void show_female()
 
 void show_obama()
 {
-    /* if (gl.initDone == 0) {
-       float x = gl.xres/1;
-       x = x-60; //x cord
-       }*/
     //obama.cx = 200;   charceter.cx is to make him follow megaman
     obama.cy = 300; // y cord
-    float ht = 75.0;//height of mari
+    float ht = 75.0;//height of obama
     float w = ht*0.5;
-
+    
     glPushMatrix();
     glColor3f(1.0, 1.0, 1.0);
     glBindTexture(GL_TEXTURE_2D, gl.obama_Texture);
@@ -359,7 +359,80 @@ void show_obama()
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_ALPHA_TEST);
-}
+}										
+
+void show_taco()
+{
+    //obama.cx = 200;   charceter.cx is to make him follow megaman
+    taco.cy = 300; // y cord
+    float ht = 25.0;//height of obama
+    float w = ht*1.0; // was .5
+    
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.taco_Texture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ax = 1;
+    int ay = 1;
+    if (1 >= 1)
+	ay = 0;
+    float tx = (float)ax / 7.0;
+    float ty = (float)ay / 1.0;
+    glBegin(GL_QUADS);
+    glTexCoord2f(tx,      ty+1.0); glVertex2i(taco.cx+w, taco.cy-ht);
+    glTexCoord2f(tx,      ty+0);    glVertex2i(taco.cx+w, taco.cy+ht);
+    glTexCoord2f(tx+1.0, ty+0);    glVertex2i(taco.cx-w, taco.cy+ht);
+    glTexCoord2f(tx+1.0, ty+1.0); glVertex2i(taco.cx-w, taco.cy-ht);
+    glEnd();
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
+}										
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
    void show_obama2()
@@ -811,7 +884,7 @@ void init_round2(){
     //int c;
     //int ar[] = {a,b,c};
 
-    //cherka
+     //cherka
 
     int i =0;
     int catcher;
@@ -881,6 +954,8 @@ void CesarInit(){
        shooting_star = array[4];
        */
 
+   obama.cx = 1200;
+   taco.cx =  1180;
     shooting_star.cx = *(array + 0);
     shooting_star.cy = *(array + 1);
 
