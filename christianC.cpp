@@ -217,6 +217,7 @@ void tileCollision(Vec *tile)
             gl.xc[0] -= 0.001;
             gl.xc[1] -= 0.001;
             moveSpriteRight(&turt1);
+            moveSpriteRight(&turt2);
             moveSpriteRight(&mariEnemy);
             moveSpriteRight(&female);
             moveSpriteRight(&obama);
@@ -236,6 +237,7 @@ void tileCollision(Vec *tile)
             gl.xc[0] += 0.001;
             gl.xc[1] += 0.001;
             moveSpriteLeft(&turt1);
+            moveSpriteLeft(&turt2);
             moveSpriteLeft(&mariEnemy);
             moveSpriteLeft(&female);
             moveSpriteLeft(&obama);
@@ -362,6 +364,7 @@ void particlePhysics(int charSelect)
         enemyParticleCollision(&gl.particle[i], &mariEnemy);
         enemyParticleCollision(&gl.particle[i], &godzilla);
         enemyParticleCollision(&gl.particle[i], &turt1);
+        enemyParticleCollision(&gl.particle[i], &turt2);
     }
 }
 
