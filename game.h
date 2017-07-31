@@ -28,7 +28,7 @@ extern class Sprite {
         }
 } turt2, turt1, heart4, heart3, heart2, heart1, speedboost1,
     shield1, mainChar, turret, turretbeam , enemy1, mariEnemy,
-    godzilla, sun, female, obama,shooting_star, bird;
+    godzilla, sun, female, obama,taco,shooting_star, bird;
 
 struct Vec {
     double x, y, z;
@@ -177,6 +177,7 @@ extern class Global {
         Ppmimage *mari_image; 
         Ppmimage *female_image; 
         Ppmimage *obama_image; 
+     	  Ppmimage *taco_image; 
         Ppmimage *sun_image; 
         Ppmimage *logoImage;
         Ppmimage *playImage;
@@ -257,6 +258,7 @@ extern class Global {
         GLuint female_Texture;
         GLuint shooting_star_Texture;
         GLuint obama_Texture;
+	GLunit taco_Texture;
         GLuint sun_Texture;
         GLuint backgroundTexture;
         GLuint platformTexture;
@@ -342,15 +344,15 @@ extern class Global {
             timeOutFrame = 0;
             attackFlag = 0;
             particleVelocity = 6;
-	    godzillaVelocity = 6;
+	          godzillaVelocity = 6;
             //use this one instead of pV
             ob_particle_velocity = 6;
             particleCount = 0;
-	    godzillaPcount = 0;
+	          godzillaPcount = 0;
             particleWidth = 7;
             particleHeight = 7;
-	    godzillaPw = 7;
-	    godzillaPh = 7;
+	          godzillaPw = 7;
+	          godzillaPh = 7;
             directionFlag = 0;
             isJumpingFlag = 0;
             facing = 0; // cesar , where character is facing
@@ -393,15 +395,16 @@ extern class Global {
             maincharacter4Image = NULL;
             mainmenubackgroundImage = NULL;
             turretImage = NULL;
-	    turretbeamImage = NULL; 
+	          turretbeamImage = NULL; 
             enemy1Image = NULL;
             godzillaImage = NULL;
             godzillaballImage = NULL;
-			birdImage = NULL;
+			      birdImage = NULL;
             mari_image = NULL; 
             female_image = NULL; 
             shooting_star_image=NULL;
             obama_image = NULL; 
+            taco_image = NULL;
             sun_image = NULL; 
             logoImage = NULL;
             playImage = NULL;
@@ -426,7 +429,7 @@ extern class Global {
             GoldImage = NULL;
             PlatinumImage = NULL;
             noobImage = NULL;
-	    coinImage = NULL;
+	          coinImage = NULL;
             WelcomeImage = NULL;
             attackdmgImage = NULL;
             blueenemyImage = NULL;
