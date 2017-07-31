@@ -39,6 +39,8 @@ int birdm = -400;
 
 int birdy= -300;
 
+int turretm = -800;
+
 class T {
 
     public:
@@ -142,15 +144,81 @@ Ppmimage *turretImage()
     return ppm6GetImage("./images/Turret.ppm");
 }
 
-//This function displays a turret on to the screen
-void showTurret() 
+
+Ppmimage *turretbeamImage() 
+{
+    system ("convert ./images/beam.png ./images/beam.ppm");
+    return ppm6GetImage("./images/beam.ppm");
+}
+
+
+
+void showturretBeam() 
+{
+    float y = 170;
+    float ht = 100.0;
+    float w = ht*.5;
+    int move = 200;
+
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.turretbeamTexture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+
+    int ax = 1;
+    int ay = 1;
+    if (1 >= 1)
+	ay = 0;
+    float tx = (float)ax / 4.0;
+    float ty = (float)ay;
+
+    glBegin(GL_QUADS);    
+    glTexCoord2f(tx+.82,      ty+1); glVertex2i(turretbeam.cx+move+w, y-ht);
+    glTexCoord2f(tx+.82,      ty);    glVertex2i(turretbeam.cx+move+w, y+ht);
+    glTexCoord2f(tx-.35, ty);    glVertex2i(turretbeam.cx+move-w, y+ht);
+    glTexCoord2f(tx-.35, ty+1); glVertex2i(turretbeam.cx+move-w, y-ht);
+
+    if (mainChar.cx > turretbeam.cx+move-w && mainChar.cx < turretbeam.cx+move+w)
+    {
+	mainChar.health--;
+
+    }
+    glEnd();
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
+
+}
+
+void showTurret()
 {
     //glClearColor(0.1,0.1,0.1,1.0);
     //glClear(GL_COLOR_BUFFER_BIT);
+    int move = 600;
+
+    if (turretm > -950) {
+	turretm--;
+    showturretBeam();
+
+    if ( turretm < -949) {
+	turretm = -1000;
+    }
+    }
+
+    if (turretm < -950) {
+	turretm++;
+
+    if (turretm > -951) {
+	turretm = -800;
+    }
+    }
+
 
     //float x = gl.xres/1.5;
-    float y = 100;
-    float ht = 20.0;
+    float y = 70;
+    float ht = 30.0;
     float w = ht*2;
 
     glPushMatrix();
@@ -163,21 +231,20 @@ void showTurret()
     int ax = 1;
     int ay = 1;
     if (1 >= 1)
-	ay = 0;
+        ay = 0;
     float tx = (float)ax / 4.0;
     float ty = (float)ay;
 
-    glBegin(GL_QUADS);
-    glTexCoord2f(tx,      ty+.5); glVertex2i(turret.cx+w, y-ht);
-    glTexCoord2f(tx,      ty);    glVertex2i(turret.cx+w, y+ht);
-    glTexCoord2f(tx+.5, ty);    glVertex2i(turret.cx-w, y+ht);
-    glTexCoord2f(tx+.5, ty+.5); glVertex2i(turret.cx-w, y-ht);
+    glBegin(GL_QUADS);    
+    glTexCoord2f(tx,      ty+.5); glVertex2i(turret.cx+move+w, y-ht);
+    glTexCoord2f(tx,      ty);    glVertex2i(turret.cx+move+w, y+ht);
+    glTexCoord2f(tx+.5, ty);    glVertex2i(turret.cx+move-w, y+ht);
+    glTexCoord2f(tx+.5, ty+.5); glVertex2i(turret.cx+move-w, y-ht);
     glEnd();
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_ALPHA_TEST);
 }
-
 //This function converts a png image to a ppm image
 Ppmimage *enemy1image()
 {
@@ -243,8 +310,8 @@ Ppmimage *godzillaimage()
 
 Ppmimage *godzillaballimage()
 {
-        system ("convert ./images/godzillaball.png ./images/godzillaball.ppm");
-	    return ppm6GetImage("./images/godzillaball.ppm");
+    system ("convert ./images/godzillaball.png ./images/godzillaball.ppm");
+    return ppm6GetImage("./images/godzillaball.ppm");
 }
 
 
@@ -290,60 +357,22 @@ void showgodzilla()
 	glTexCoord2f(tx, ty+1.0); glVertex3s(godzilla.cx+i+move-w, y-ht,0);
 
 
-	/*gl.godzillaP[gl.godzillaPcount].cx = godzilla.cx+i+move-w;
-	gl.godzillaP[gl.godzillaPcount].cy = y-ht;
-	gl.godzillaP[gl.godzillaPcount].velocity = gl.particleVelocity;
-	gl.godzillaPcount++;
-
-
-
-	for (int j = 0; j < gl.godzillaPcount; j++) {
-	     gl.godzillaP[j].cx = godzilla.cx+i+move-w;
-	}
-
-	for (int j = 0; j < gl.godzillaPcount; j++) {
-        
-	glPushMatrix();
-        glColor3f(1.0,1.0,1.0);
-        glTranslatef(gl.godzillaP[i].cx, gl.godzillaP[i].cy, 0);
-        float w = gl.godzillaPw;
-        float h = gl.godzillaPh;
-        glBindTexture(GL_TEXTURE_2D, gl.godzillaballTexture);
-        glEnable(GL_ALPHA_TEST);
-        glBegin(GL_QUADS);
-        glTexCoord2f(0.0, 1.0); glVertex2i(-w, -h);
-        glTexCoord2f(0.0, 0.0); glVertex2i(-w,  h);
-        glTexCoord2f(1.0, 0.0); glVertex2i(w,   h);
-        glTexCoord2f(1.0, 1.0); glVertex2i(w,  -h);
-        glEnd();
-        glPopMatrix();
-        glDisable(GL_ALPHA_TEST);
-        
-	//gl.godzillaP[i].cx+i+move-w = gl.godzillaP[i].cx+i+move-w - gl.particle[i].velocity;
-        if (gl.godzillaP[i].cx < 0 || gl.godzillaP[i].cx > gl.xres) {
-                gl.godzillaP[i] = gl.godzillaP[gl.godzillaPcount - 1];
-                gl.godzillaPcount--;
-        }*/
-
-
-
-	
-	}
 
 	if (mainChar.cx >= godzilla.cx+i+move-w &&
-	    mainChar.cx <= godzilla.cx+i+move+w) {
-	    if (mainChar.cy <= y-ht || mainChar.cy >= y+ht || mainChar.cy == y+ht 
-		    || mainChar.cy == y-ht) {
+		mainChar.cx <= godzilla.cx+i+move+w) {
+	    if (mainChar.cy <= y-ht || mainChar.cy >= y+ht || mainChar.cy == y+ht || mainChar.cy == y-ht) {
 		mainChar.health = mainChar.health;
 	    } else {
-		//mainChar.health--;
+		mainChar.health--;
 	    }
 	}
+
 
 
 	if( i < -949) {
 	    i = -1099;
 	}
+    }
 
     if ( i < -950) { 
 	i++;
@@ -356,13 +385,12 @@ void showgodzilla()
 	glTexCoord2f(tx, ty+1.0); glVertex3s(godzilla.cx+i+move-w, y-ht,0);
 
 	if (mainChar.cx <= godzilla.cx+i+move-w && 
-	    mainChar.cx >= godzilla.cx+i+move+w) {
+		mainChar.cx >= godzilla.cx+i+move+w) {
 
-	    if (mainChar.cy <= y-ht || mainChar.cy >= y+ht || mainChar.cy == y+ht 
-		                        || mainChar.cy == y-ht) {
+	    if (mainChar.cy <= y-ht || mainChar.cy >= y+ht || mainChar.cy == y+ht || mainChar.cy == y-ht) {
 		mainChar.health = mainChar.health;
 	    } else {
-		//mainChar.health--;
+		mainChar.health--;
 	    }
 	}
 
@@ -388,15 +416,17 @@ void birdphysics(void)
     ti.rt(&ti.tc);
     double tspan = ti.td(&ti.wt, &ti.tc);
     if (tspan > gl.birddelay) {
-        gl.birdwf++;
-        birdm++;
+	gl.birdwf++;
+	birdm++;
 	birdy--;
-        if (gl.birdwf >= 4) {
-            gl.birdwf -= 4;
-            birdm--;
+	turretm++;
+	if (gl.birdwf >= 4) {
+	    gl.birdwf -= 4;
+	    birdm--;
+	    turretm--;
 	    birdy++;
-        }
-        ti.rt(&ti.wt);
+	}
+	ti.rt(&ti.wt);
     }
 }
 
@@ -404,8 +434,8 @@ void birdphysics(void)
 
 Ppmimage *birdImage()
 {
-        system ("convert ./images/bird.png ./images/bird.ppm");
-	    return ppm6GetImage("./images/bird.ppm");
+    system ("convert ./images/bird.png ./images/bird.ppm");
+    return ppm6GetImage("./images/bird.ppm");
 }
 
 void showbird()
@@ -426,36 +456,36 @@ void showbird()
     int ax = gl.birdwf % 4;
     int ay = 0;
     if (gl.birdwf >= 4) {
-        ay = 1;
-}
+	ay = 1;
+    }
     float tx = (float)ax / 4.0;
     float ty = (float)ay / 1.0;
 
     if(birdm > -950) {
-    birdy++;
-    birdm--;
-    glBegin(GL_QUADS);
-    glTexCoord2f(tx+.25,      ty+1); glVertex2i(bird.cx+birdm+move+w, y+birdy-ht);
-    glTexCoord2f(tx+.25,      ty);    glVertex2i(bird.cx+birdm+move+w, y+birdy+ht);
-    glTexCoord2f(tx, ty);    glVertex2i(bird.cx+birdm+move-w, y+birdy+ht);
-    glTexCoord2f(tx, ty+1); glVertex2i(bird.cx+birdm+move-w, y+birdy-ht); 
-    if (birdm < -949) {
-	birdm = -1099;
+	birdy++;
+	birdm--;
+	glBegin(GL_QUADS);
+	glTexCoord2f(tx+.25,      ty+1); glVertex2i(bird.cx+birdm+move+w, y+birdy-ht);
+	glTexCoord2f(tx+.25,      ty);    glVertex2i(bird.cx+birdm+move+w, y+birdy+ht);
+	glTexCoord2f(tx, ty);    glVertex2i(bird.cx+birdm+move-w, y+birdy+ht);
+	glTexCoord2f(tx, ty+1); glVertex2i(bird.cx+birdm+move-w, y+birdy-ht); 
+	if (birdm < -949) {
+	    birdm = -1099;
+	}
     }
-    }
-    
-    if ( birdm < -950) {
-    birdm++;
-    birdy--;
-    glBegin(GL_QUADS);
-    glTexCoord2f(tx-.25,      ty+1); glVertex2i(bird.cx+birdm+move+w, y+birdy-ht);
-    glTexCoord2f(tx-.25,      ty);    glVertex2i(bird.cx+birdm+move+w, y+birdy+ht);
-    glTexCoord2f(tx, ty);    glVertex2i(bird.cx+birdm+move-w, y+birdy+ht);
-    glTexCoord2f(tx, ty+1); glVertex2i(bird.cx+birdm+move-w, y+birdy-ht);
 
-    if (birdm > -951) {
-	birdm = -800;
-    }
+    if ( birdm < -950) {
+	birdm++;
+	birdy--;
+	glBegin(GL_QUADS);
+	glTexCoord2f(tx-.25,      ty+1); glVertex2i(bird.cx+birdm+move+w, y+birdy-ht);
+	glTexCoord2f(tx-.25,      ty);    glVertex2i(bird.cx+birdm+move+w, y+birdy+ht);
+	glTexCoord2f(tx, ty);    glVertex2i(bird.cx+birdm+move-w, y+birdy+ht);
+	glTexCoord2f(tx, ty+1); glVertex2i(bird.cx+birdm+move-w, y+birdy-ht);
+
+	if (birdm > -951) {
+	    birdm = -800;
+	}
     }
     glEnd();
     glPopMatrix();
