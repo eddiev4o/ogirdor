@@ -46,7 +46,7 @@
 #include "game.h"
 extern void tileCollision(Vec *);
 extern void checkUnder(Vec *);
-
+extern void spriteDisappear(Sprite*);
 void renderBackground(int levelSelect)
 {
     // Texture of main character depends on what they select
@@ -545,6 +545,50 @@ void renderTimeDisplay()
 
 }
 
+void eddieInit()
+{
+	gl.coins[0].cx = 100;
+	gl.coins[0].cy = 90;
+	gl.coins[1].cx = 100;
+	gl.coins[1].cy = 180;
+	gl.coins[2].cx = 800;
+	gl.coins[2].cy = 90;
+}
+void renderCoin(Sprite* coinSprite)
+{
+	if (coinSprite->collected != true) {
+	float h = 15;
+	float w = 15;
+	glPushMatrix();
+	glBindTexture(GL_TEXTURE_2D, gl.coinTexture);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.0f);
+	glColor4ub(255,255,255,255);
+	int ix = 1, iy = 1;
+	float tx = (float)ix;
+	float ty = (float)iy;
+	glBegin(GL_QUADS);
+	glTexCoord2f(tx + 1, ty + 1); glVertex2i(coinSprite->cx-w, coinSprite->cy-h);
+	glTexCoord2f(tx + 1,     ty); glVertex2i(coinSprite->cx-w, coinSprite->cy+h);
+	glTexCoord2f(tx,        ty ); glVertex2i(coinSprite->cx+w, coinSprite->cy+h);
+	glTexCoord2f(tx,     ty + 1); glVertex2i(coinSprite->cx+w, coinSprite->cy-h);
+	glEnd();
+	glPopMatrix();
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_ALPHA_TEST);
+	if ((mainChar.cx > (coinSprite->cx - 10) && mainChar.cx < (coinSprite->cx + 10))
+	&& ((mainChar.cy > (coinSprite->cy - 10)) && (mainChar.cy < (coinSprite->cy + 10)))) {
+		//if character picks up power up,
+		//stop rendering and set x to -999999 to avoid
+		//picking up invisible power ups
+		printf("Picked up speed boost! Movement Speed: + 0.2!\n");
+		coinSprite->collected = true;
+		spriteDisappear(coinSprite);
+		gl.score += 10;
+	}
+    }
+
+}
 void renderScore()
 {
 	Rect r;
