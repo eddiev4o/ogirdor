@@ -220,7 +220,7 @@ void tutorial_menu(int xres, int yres)
     sCharPose(yres*0.49, xres*0.18, 35, 35*0.903, gl.mchar4Texture, 
             gl.mcharFrame%4, 3);
     //Char 5===========================================
-    sCharPose(yres*0.49, xres*0.3, 35, 35*0.903, gl.mchar4Texture, 
+    sCharPose(yres*0.49, xres*0.3, 35, 35*0.903, gl.mchar5Texture, 
             gl.mcharFrame%4, 3);
     //Char 6===========================================
     sCharPose(yres*0.49, xres*0.42, 35, 35*0.903, gl.mchar4Texture, 
@@ -695,7 +695,7 @@ void characterselection_menu(int xres, int yres)
             gl.mcharFrame%4, 3);
 
     //Char 5 Display===================================
-    sCharPose(yres*0.31, xres*0.5, 50, 50*0.903, gl.mchar4Texture, 
+    sCharPose(yres*0.31, xres*0.5, 50, 50*0.903, gl.mchar5Texture, 
             gl.mcharFrame%4, 3);
 
     //Char 6 Display===================================
@@ -735,7 +735,7 @@ void characterselection_menu(int xres, int yres)
             gl.menu_position = 1;
             gl.keys[XK_Return] = false;
         } else if (gl.menu_position == 5) {
-            gl.characterSelect = 4;       
+            gl.characterSelect = 5;       
             gl.display_characterselectionmenu = false;
             gl.display_levelselectionmenu = true;
             gl.menu_position = 1;
@@ -869,9 +869,9 @@ void credits_screen(int xres, int yres)
     //=================================================
 
     //Left Top
-    shotPoseRight(401, xres*0.15, 100, 100*.903, gl.mchar4Texture, 
+    shotPoseRight(401, xres*0.15, 100, 100*.903, gl.mchar5Texture, 
             gl.mcharFrame%4, 3);
-    renderFrame(5, 195, xres*0.5, yres*0.6865, gl.americaballTexture);
+    renderFrame(5, 195, xres*0.5, yres*0.6865, gl.applecoreTexture);
     //Left Mid
     shotPoseRight(278, xres*0.15, 100, 100*.903, gl.mchar3Texture, 
             gl.mcharFrame%4, 3);

@@ -334,7 +334,7 @@ void particlePhysics(int charSelect)
     if (charSelect == 4)
         gl.tempTexture = gl.americaballTexture;
     if (charSelect == 5)
-        gl.tempTexture = gl.americaballTexture;
+        gl.tempTexture = gl.applecoreTexture;
     if (charSelect == 6)
         gl.tempTexture = gl.americaballTexture;
    
@@ -613,7 +613,7 @@ void renderMainCharacter(int charSelect)
     if (charSelect == 4)
         gl.tempMainCharacterTexture = gl.mchar4Texture;
     if (charSelect == 5)
-        gl.tempMainCharacterTexture = gl.mchar4Texture;
+        gl.tempMainCharacterTexture = gl.mchar5Texture;
     if (charSelect == 6)
         gl.tempMainCharacterTexture = gl.mchar4Texture;
 

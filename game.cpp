@@ -491,6 +491,7 @@ void initOpengl(void)
     glGenTextures(1, &gl.mchar2Texture);
     glGenTextures(1, &gl.mchar3Texture);
     glGenTextures(1, &gl.mchar4Texture);
+    glGenTextures(1, &gl.mchar5Texture);
     glGenTextures(1, &gl.mainmenubackgroundTexture);
     glGenTextures(1, &gl.turretTexture);
     glGenTextures(1, &gl.turretbeamTexture);
@@ -1866,11 +1867,14 @@ void render(void)
     if (gl.display_characterselectionmenu) {
         characterselection_menu(gl.xres, gl.yres);
         cout << "character selection" << endl;
+        cout << "char select: " << gl.characterSelect << endl;
+        cout << "menu pos: " << gl.menu_position << endl;
     }
 
     if (gl.display_levelselectionmenu) {
         levelselection_menu(gl.xres, gl.yres);
         cout << "level selection" << endl;
+        cout << "char select: " << gl.characterSelect << endl;
     }
 
     if (gl.display_creditsmenu) {

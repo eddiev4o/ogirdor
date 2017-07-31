@@ -1024,6 +1024,8 @@ void hudHealth ()
 		gl.tempHeadTexture = gl.mainchar3headTexture;
 	if (gl.characterSelect == 4)
 		gl.tempHeadTexture = gl.mainchar4headTexture;
+	if (gl.characterSelect == 5)
+		gl.tempHeadTexture = gl.mainchar5headTexture;
 
 	glPushMatrix();
 	glEnable(GL_BLEND);
