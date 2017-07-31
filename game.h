@@ -23,8 +23,6 @@ extern class Sprite {
             height = 20;
             width = 20;
             health = 10;
-            //cx = gl.xres/2;
-            //cy = 100;
         }
 } turt2, turt1, heart4, heart3, heart2, heart1, speedboost1,
     shield1, mainChar, turret, turretbeam , enemy1, mariEnemy,
@@ -257,7 +255,7 @@ extern class Global {
         GLuint enemy1Texture;
         GLuint godzillaTexture;
         GLuint godzillaballTexture;
-		GLuint birdTexture;
+        GLuint birdTexture;
         GLuint mari_Texture;
         GLuint female_Texture;
         GLuint shooting_star_Texture;
@@ -332,7 +330,6 @@ extern class Global {
         bool speedboost1Flag;
 
         Global() {
-
             taco_count = 0;
             m_walkFrame=0;
             ss_walkFrame=0;
@@ -350,15 +347,15 @@ extern class Global {
             timeOutFrame = 0;
             attackFlag = 0;
             particleVelocity = 6;
-	          godzillaVelocity = 6;
+	    godzillaVelocity = 6;
             //use this one instead of pV
             ob_particle_velocity = 6;
             particleCount = 0;
-	          godzillaPcount = 0;
+	    godzillaPcount = 0;
             particleWidth = 7;
             particleHeight = 7;
-	          godzillaPw = 7;
-	          godzillaPh = 7;
+	    godzillaPw = 7;
+	    godzillaPh = 7;
             directionFlag = 0;
             isJumpingFlag = 0;
             facing = 0; // cesar , where character is facing
@@ -402,11 +399,11 @@ extern class Global {
             maincharacter5Image = NULL;
             mainmenubackgroundImage = NULL;
             turretImage = NULL;
-	          turretbeamImage = NULL; 
+	    turretbeamImage = NULL; 
             enemy1Image = NULL;
             godzillaImage = NULL;
             godzillaballImage = NULL;
-			      birdImage = NULL;
+            birdImage = NULL;
             mari_image = NULL; 
             female_image = NULL; 
             shooting_star_image=NULL;
@@ -436,7 +433,7 @@ extern class Global {
             GoldImage = NULL;
             PlatinumImage = NULL;
             noobImage = NULL;
-	          coinImage = NULL;
+	    coinImage = NULL;
             WelcomeImage = NULL;
             attackdmgImage = NULL;
             blueenemyImage = NULL;
