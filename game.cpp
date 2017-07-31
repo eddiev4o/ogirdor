@@ -59,7 +59,7 @@ Timers timers;
 Global gl;
 UserInput input;
 Level lev;
-Sprite turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, enemy1, mariEnemy, godzilla, female, obama, sun,shooting_star,bird;
+Sprite turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, enemy1, mariEnemy, godzilla, female, obama, sun,shooting_star,bird;
 Particle particle[20];
 Game game;
 //X Windows variables
