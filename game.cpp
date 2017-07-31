@@ -412,6 +412,7 @@ void initOpengl(void)
     gl.maincharacter2Image = ppm6GetImage("./images/mainChar2.ppm");
     gl.maincharacter3Image = ppm6GetImage("./images/mainChar3.ppm");
     gl.maincharacter4Image = ppm6GetImage("./images/mainChar4.ppm");
+    gl.maincharacter5Image = ppm6GetImage("./images/mainChar5.ppm");
     gl.logoImage = ppm6GetImage("./images/OgirdorLogo.ppm");
     gl.mainmenubackgroundImage = ppm6GetImage("./images/MainMenuBackground.ppm");
     gl.playImage = ppm6GetImage("./images/Play.ppm");
@@ -473,6 +474,7 @@ void initOpengl(void)
     gl.mainchar2headImage = ppm6GetImage("./images/mainChar2head.ppm");
     gl.mainchar3headImage = ppm6GetImage("./images/mainChar3head.ppm");
     gl.mainchar4headImage = ppm6GetImage("./images/mainChar4head.ppm");
+    gl.mainchar4headImage = ppm6GetImage("./images/mainChar5head.ppm");
     gl.pkeyImage = ppm6GetImage("./images/pkey.ppm");
     gl.ekeyImage = ppm6GetImage("./images/ekey.ppm");
     gl.keyboardImage = ppm6GetImage("./images/keyboard.ppm");
@@ -546,6 +548,7 @@ void initOpengl(void)
     glGenTextures(1, &gl.mainchar2headTexture);    
     glGenTextures(1, &gl.mainchar3headTexture);    
     glGenTextures(1, &gl.mainchar4headTexture);    
+    glGenTextures(1, &gl.mainchar5headTexture);    
     glGenTextures(1, &gl.pkeyTexture);
     glGenTextures(1, &gl.ekeyTexture);
     glGenTextures(1, &gl.keyboardTexture);
@@ -605,6 +608,21 @@ void initOpengl(void)
             GL_RGBA, GL_UNSIGNED_BYTE, maincharacter4Data);
     free(maincharacter4Data);
     unlink("./images/mainChar4.ppm");
+    //==============================================
+
+
+    //==============================================
+    // Main Character 5 
+    w = gl.maincharacter5Image->width;
+    h = gl.maincharacter5Image->height;
+    glBindTexture(GL_TEXTURE_2D, gl.mchar5Texture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *maincharacter5Data = buildAlphaData(gl.maincharacter5Image);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, maincharacter5Data);
+    free(maincharacter5Data);
+    unlink("./images/mainChar5.ppm");
     //==============================================
 
     //==============================================
@@ -1441,6 +1459,21 @@ void initOpengl(void)
     free(mainchar4headData);
     unlink("./images/mainChar4head.ppm");
     //===============================================================
+
+    //===============================================================
+    //Main Char 5 Head
+    w = gl.mainchar5headImage->width;
+    h = gl.mainchar5headImage->height;
+    glBindTexture(GL_TEXTURE_2D, gl.mainchar5headTexture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *mainchar5headData = buildAlphaData(gl.mainchar5headImage);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, mainchar5headData);
+    free(mainchar5headData);
+    unlink("./images/mainChar5head.ppm");
+    //===============================================================
+
 
     //===============================================================
     //P Key
