@@ -38,9 +38,13 @@ using namespace std;
 
 //global variables
 int taco_delay = .01;
+int pika_delay = .01;
+int p_position = -600; 
 int m_position = -500;
 int ss_position = -1500;
 int taco_position = -300; // front of obama
+int p_walkFrame = 0;
+
 
 // this array will store the positions of enemies
 const int size = 5; // 0-9
@@ -50,26 +54,26 @@ int start = 0;
 
 class my_time {
     public:
-        double physicsRate;
-        double oobillion;
-        struct timespec timeStart, timeEnd, timeCurrent;
-        struct timespec walkTime;
-        my_time() {
-            physicsRate = 1.0 / 30.0;
-            oobillion = 1.0 / 1e9;
-        }
-        double timeDiff(struct timespec *start, struct timespec *end) {
-            return (double)(end->tv_sec - start->tv_sec ) +
-                (double)(end->tv_nsec - start->tv_nsec) * oobillion;
-        }
-        void timeCopy(struct timespec *dest, struct timespec *source) {
-            memcpy(dest, source, sizeof(struct timespec));
-        }
-        void recordTime(struct timespec *t) {
-            clock_gettime(CLOCK_REALTIME, t);
-        }
+	double physicsRate;
+	double oobillion;
+	struct timespec timeStart, timeEnd, timeCurrent;
+	struct timespec walkTime;
+	my_time() {
+	    physicsRate = 1.0 / 30.0;
+	    oobillion = 1.0 / 1e9;
+	}
+	double timeDiff(struct timespec *start, struct timespec *end) {
+	    return (double)(end->tv_sec - start->tv_sec ) +
+		(double)(end->tv_nsec - start->tv_nsec) * oobillion;
+	}
+	void timeCopy(struct timespec *dest, struct timespec *source) {
+	    memcpy(dest, source, sizeof(struct timespec));
+	}
+	void recordTime(struct timespec *t) {
+	    clock_gettime(CLOCK_REALTIME, t);
+	}
 
-} tim,tacito;
+} tim,tacito, pika_time;
 
 
 void mari_physics(void)
@@ -77,15 +81,15 @@ void mari_physics(void)
     tim.recordTime(&tim.timeCurrent);
     double timeSpan = tim.timeDiff(&tim.walkTime, &tim.timeCurrent);
     if (timeSpan > gl.m_delay) {
-        m_position++;
-        gl.m_walkFrame++;
-        if (gl.m_walkFrame >= 7){
-            gl.m_walkFrame -= 7;
-            m_position--;
-        }
-        tim.recordTime(&tim.walkTime);
+	m_position++;
+	gl.m_walkFrame++;
+	if (gl.m_walkFrame >= 7){
+	    gl.m_walkFrame -= 7;
+	    m_position--;
+	}
+	tim.recordTime(&tim.walkTime);
     }
-}
+}									
 
 
 void taco_physics(void)
@@ -93,14 +97,29 @@ void taco_physics(void)
     tacito.recordTime(&tacito.timeCurrent);
     double timeSpan = tacito.timeDiff(&tacito.walkTime, &tacito.timeCurrent);
     if (timeSpan > taco_delay) { // can aldo make "gl" vars in here
-        (timeSpan > taco_delay?taco_position-=2:taco_position--);  // can aldo make "gl" vars in here
-        //taco_position--;
+	(timeSpan > taco_delay?taco_position-=2:taco_position--);  // can aldo make "gl" vars in here
+	//taco_position--;
 
-        tacito.recordTime(&tacito.walkTime);
+	tacito.recordTime(&tacito.walkTime);
     }
     cout << "TESTING !!!!!!!!!!! TACO ::::: " << taco_position << endl;
 }                                                                       
 
+void pika_physics(void)
+{
+    pika_time.recordTime(&pika_time.timeCurrent);
+    double timeSpan = pika_time.timeDiff(&pika_time.walkTime, &pika_time.timeCurrent);
+    if (timeSpan > pika_delay) {
+	p_position++;
+	p_walkFrame++;
+	if (p_walkFrame >= 4){
+	    p_walkFrame -= 4;
+	    p_position--;
+	    p_position++;
+	}
+	pika_time.recordTime(&pika_time.walkTime);
+    }
+}									
 
 //figure out proper physics for the shooting star
 void shooting_star_physics(void)
@@ -108,13 +127,13 @@ void shooting_star_physics(void)
     tim.recordTime(&tim.timeCurrent);
     double timeSpan = tim.timeDiff(&tim.walkTime, &tim.timeCurrent);
     if (timeSpan > gl.ss_delay) {
-        ss_position++;
-        gl.ss_walkFrame++;
-        if (gl.ss_walkFrame >= 64){
-            gl.ss_walkFrame -= 64;
-            ss_position=ss_position-2;
-        }
-        tim.recordTime(&tim.walkTime);
+	ss_position++;
+	gl.ss_walkFrame++;
+	if (gl.ss_walkFrame >= 64){
+	    gl.ss_walkFrame -= 64;
+	    ss_position=ss_position-2;
+	}
+	tim.recordTime(&tim.walkTime);
     }
 }
 
@@ -134,9 +153,9 @@ void make_tacos()
 void shoot_tacos()
 {
     if(gl.isPressed == true){
-        printf("TACOS GOOOOOO");
-        make_tacos();
-        gl.isPressed = false;
+	printf("TACOS GOOOOOO");
+	make_tacos();
+	gl.isPressed = false;
     }
 }
 
@@ -195,13 +214,13 @@ Ppmimage* taco_image()
     return ppm6GetImage("./images/taco.ppm");
 }                                                                               
 
-/*
-   Ppmimage* jeb_image()
-   {
-   system("convert ./images/jeb_bush.jpg ./images/jeb_bush.ppm");
-   return ppm6GetImage("./images/jeb_bush.ppm");
-   }
-   */
+
+Ppmimage* pika_image()
+{
+    system("convert ./images/pikachu.png ./images/pikachu.ppm");
+    return ppm6GetImage("./images/pikachu.ppm");
+}
+
 
 
 
@@ -228,9 +247,9 @@ void show_mari()
 
     //takes care of animation
     if (gl.m_walkFrame >= 7){
-        //if animation reaches LAST sprite
-        //start from start again
-        ay = 1;
+	//if animation reaches LAST sprite
+	//start from start again
+	ay = 1;
     }
     float tx = (float)ax / 7.0;
     float ty = (float)ay / 1.0;
@@ -240,29 +259,31 @@ void show_mari()
     cout << "position: " << m_position << endl;
 
     if(m_position < -600){  //was 600
-        //walks to the left 
-        m_position++;
-        cout << "position: " << m_position << endl;
-        glBegin(GL_QUADS);
-        glTexCoord2f(tx,      ty+.6); glVertex2i(mariEnemy.cx+ m_position+ temp +w, y-ht);
-        glTexCoord2f(tx,      ty+0);    glVertex2i(mariEnemy.cx+ m_position+ temp +w, y+ht);
-        glTexCoord2f(tx+.14, ty+0);    glVertex2i(mariEnemy.cx +m_position+ temp -w, y+ht);
-        glTexCoord2f(tx+.14, ty+.6); glVertex2i(mariEnemy.cx + m_position+ temp -w, y-ht);
+	//walks to the left 
+	m_position++;
+	cout << "position: " << m_position << endl;
+	glBegin(GL_QUADS);
+	glTexCoord2f(tx,      ty+.6); glVertex2i(mariEnemy.cx+ m_position+ temp +w, y-ht);
+	glTexCoord2f(tx,      ty+0);    glVertex2i(mariEnemy.cx+ m_position+ temp +w, y+ht);
+	glTexCoord2f(tx+.14, ty+0);    glVertex2i(mariEnemy.cx +m_position+ temp -w, y+ht);
+	glTexCoord2f(tx+.14, ty+.6); glVertex2i(mariEnemy.cx + m_position+ temp -w, y-ht);
 
-        //hopefully
-        //(mainChar.cx >= mariEnemy.cx+m_position+temp+w? mainChar.health--: m_position++);
-        if(mainChar.cx >= mariEnemy.cx+m_position+temp-w &&
-                mainChar.cx <= mariEnemy.cx+m_position+temp+w){
-            if(mainChar.cy <= y-ht || mainChar.cy >= y+ht || mainChar.cy == y+ht || mainChar.cy == y-ht){
-                //health greater than 38? subtract, else keep adding    
-                (mainChar.health >= 50?mainChar.health--:mainChar.health+=2);
-            }else{
-                mainChar.health-=.01;
-            }
-        }
+	//hopefully
+	//(mainChar.cx >= mariEnemy.cx+m_position+temp+w? mainChar.health--: m_position++);
+	if(mainChar.cx >= mariEnemy.cx+m_position+temp-w &&
+		mainChar.cx <= mariEnemy.cx+m_position+temp+w &&
+	   mainChar.cy <= y-ht-67 && mainChar.cy >= y+ht-67)
+	  {
+	    //if(mainChar.cy <= y-ht || mainChar.cy >= y+ht || mainChar.cy == y+ht || mainChar.cy == y-ht){
+		//health greater than 38? subtract, else keep adding    
+		//(mainChar.health >= 50?mainChar.health-=.01:mainChar.health += 1.5);
+	   // }else{
+		mainChar.health--;
+	    //}
+	}
 
-        //if pos > -602,set pos to -500,else pos++      
-        (m_position > -602? m_position=-500: m_position++);
+	//if pos > -602,set pos to -500,else pos++      
+	(m_position > -602? m_position=-500: m_position++);
 
 
     }
@@ -272,29 +293,33 @@ void show_mari()
 
 
     if (m_position > -600) { //was 600
-        // walk right
-        m_position--;
-        cout << "position: " << m_position << endl;
-        glBegin(GL_QUADS);
-        glTexCoord2f(tx,      ty+.6);  glVertex2i(mariEnemy.cx+ m_position+ temp +w, y-ht);
-        glTexCoord2f(tx,      ty+0);   glVertex2i(mariEnemy.cx+m_position+temp+w, y+ht);
-        glTexCoord2f(tx-.14, ty+0);    glVertex2i(mariEnemy.cx +m_position+temp -w, y+ht);
-        glTexCoord2f(tx-.14, ty+.6);   glVertex2i(mariEnemy.cx + m_position+temp -w, y-ht);
+	// walk right
+	m_position--;
+	cout << "position: " << m_position << endl;
+	glBegin(GL_QUADS);
+	glTexCoord2f(tx,      ty+.6);  glVertex2i(mariEnemy.cx+ m_position+ temp +w, y-ht);
+	glTexCoord2f(tx,      ty+0);   glVertex2i(mariEnemy.cx+m_position+temp+w, y+ht);
+	glTexCoord2f(tx-.14, ty+0);    glVertex2i(mariEnemy.cx +m_position+temp -w, y+ht);
+	glTexCoord2f(tx-.14, ty+.6);   glVertex2i(mariEnemy.cx + m_position+temp -w, y-ht);
+	cout << "\n\n\n\n\n\n\n\n\n\n\n bit x combo: "  << mariEnemy.cx + m_position + temp + w << endl;
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\ bit x combo: "  << mariEnemy.cx + m_position + temp - w << endl;
+	//(mainChar.cx >= mariEnemy.cx+m_position+temp-w? mainChar.health--: m_position--);
 
-        //(mainChar.cx >= mariEnemy.cx+m_position+temp-w? mainChar.health--: m_position--);
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\ny - : " << y-ht << endl;
+	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\ny + : " << y+ht << endl;
 
+	if (mainChar.cx >= mariEnemy.cx+m_position+temp-w &&
+		mainChar.cx <= mariEnemy.cx+m_position+temp+w &&
+		           mainChar.cy >= y-ht-67 && mainChar.cy <= y+ht-67){
+	    //if (mainChar.cy <= y-ht || mainChar.cy >= y+ht || mainChar.cy == y+ht || mainChar.cy == y-ht){
+		//mainChar.health+=2;  //health;
+	//	(mainChar.health >= 50?mainChar.health--:mainChar.health+=2);
+	   // } else {
+		mainChar.health--;
+	 //   }
+	}
 
-        if (mainChar.cx >= mariEnemy.cx+m_position+temp-w &&
-                mainChar.cx <= mariEnemy.cx+m_position+temp+w){
-            if (mainChar.cy <= y-ht || mainChar.cy >= y+ht || mainChar.cy == y+ht || mainChar.cy == y-ht){
-                //mainChar.health+=2;  //health;
-                (mainChar.health >= 50?mainChar.health--:mainChar.health+=2);
-            } else {
-                mainChar.health-=.01;
-            }
-        }
-
-        (m_position < -599?m_position=-700:m_position--);
+	(m_position < -599?m_position=-700:m_position--);
 
     }
 
@@ -312,8 +337,8 @@ void show_mari()
 void show_female() 
 {
     if (gl.initDone == 0) {
-        float x = gl.xres/1; 
-        x = x-60; //x cord
+	float x = gl.xres/1; 
+	x = x-60; //x cord
     }
     female.cy = 110; // y cord
     float ht = 50.0;//estatura de la mujer
@@ -328,7 +353,7 @@ void show_female()
     int ax = 1;   
     int ay = 1;
     if (1 >= 1)
-        ay = 0;
+	ay = 0;
     float tx = (float)ax / 8.0;
     float ty = (float)ay / 1.0;
     glBegin(GL_QUADS);
@@ -343,41 +368,48 @@ void show_female()
     glDisable(GL_ALPHA_TEST);
 }                                                                               
 
-/*
-   void show_jeb() 
-   {
-   if (gl.initDone == 0) {
-   float x = gl.xres/1; 
-   x = x-60; //x cord
-   }
-   jeb.cy = 110; // y cord
-   float ht = 50.0;//estatura de la mujer
-   float w = ht*0.5; 
 
-   glPushMatrix();
-   glColor3f(1.0, 1.0, 1.0);
-   glBindTexture(GL_TEXTURE_2D, gl.jeb_Texture); 
-   glEnable(GL_ALPHA_TEST);
-   glAlphaFunc(GL_GREATER, 0.0f);
-   glColor4ub(255,255,255,255);
-   int ax = 1;   
-   int ay = 1;
-   if (1 >= 1)
-   ay = 0;
-   float tx = (float)ax / 8.0;
-   float ty = (float)ay / 1.0;
-   glBegin(GL_QUADS);
-//image starts at 12.5 , since 8 x 8
-glTexCoord2f(tx,      ty+ .12); glVertex2i(jeb.cx +w, jeb.cy-ht);
-glTexCoord2f(tx,      ty);    glVertex2i(jeb.cx +w, jeb.cy+ht);
-glTexCoord2f(tx+.08, ty);    glVertex2i(jeb.cx-w, jeb.cy+ht);
-glTexCoord2f(tx+.08, ty+.12); glVertex2i(jeb.cx-w, jeb.cy-ht);
-glEnd();
-glPopMatrix();
-glBindTexture(GL_TEXTURE_2D, 0);
-glDisable(GL_ALPHA_TEST);
+void show_pika() 
+{
+    if (gl.initDone == 0) {
+	float x = gl.xres/1; 
+	x = x-60; //x cord
+    }
+    pika.cy = 150; // y cord
+    float ht = 100.0;//estatura de la mujer
+    float w = ht*0.5; 
+
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.pika_Texture); 
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ax = p_walkFrame % 4;
+    int ay = 0;
+    if (p_walkFrame >= 4){ // work on this later
+	if(p_position % 10 == 0){
+	    ay = 1;
+	}
+    }
+    float tx = (float)ax / 4.0;
+    float ty = (float)ay / 1.0;
+    glBegin(GL_QUADS);
+    //image starts at 12.5 , since 8 x 8
+    //first try all 1s
+    //first two have to be opposites tx only
+    //ty + - - +     x -- ++
+    // .3 1
+    glTexCoord2f(tx ,       ty + 1); glVertex2i(pika.cx +w, pika.cy-ht);
+    glTexCoord2f(tx ,       ty); glVertex2i(pika.cx +w, pika.cy+ht);
+    glTexCoord2f(tx + .25,       ty); glVertex2i(pika.cx-w, pika.cy+ht);
+    glTexCoord2f(tx + .25,       ty + 1); glVertex2i(pika.cx-w, pika.cy-ht);
+    glEnd(); // .3
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
 }                                                                               
-*/
+
 
 void show_taco();
 
@@ -415,7 +447,7 @@ void show_obama()
     int ax = 1;
     int ay = 1;
     if (1 >= 1)
-        ay = 0;
+	ay = 0;
     float tx = (float)ax / 7.0;
     float ty = (float)ay / 1.0;
     glBegin(GL_QUADS);
@@ -444,7 +476,7 @@ void show_taco()
     int ax = 1;
     int ay = 1;
     if (1 >= 1)
-        ay = 0;
+	ay = 0;
     float tx = (float)ax / 7.0;
     float ty = (float)ay / 1.0;
     glBegin(GL_QUADS);
@@ -454,9 +486,11 @@ void show_taco()
     glTexCoord2f(tx+1.0, ty+1.0); glVertex2i(taco.cx+ taco_position-w, taco.cy-ht);
 
     //CONTACT WITH TACO WILL CAUSE DAMAGE ... REALLL
-    if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w){
-        if(mainChar.cy >= taco.cy + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
-            mainChar.health--;
+    if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w &&
+	    mainChar.cy >= taco.cy-ht && mainChar.cy <= taco.cy+ht)
+    {
+	//if(mainChar.cy >= taco.cx + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
+	    mainChar.health--;
     }
 
     glEnd();
@@ -474,8 +508,8 @@ void show_taco()
 void show_sun()
 {
     if (gl.initDone == 0) {
-        float x = gl.xres/1;
-        x = x-60; //x cord
+	float x = gl.xres/1;
+	x = x-60; //x cord
     }
     sun.cx = 200;   //charceter.cx is to make him follow megaman
     sun.cy = 400; // y cord
@@ -491,7 +525,7 @@ void show_sun()
     int ax = 1;
     int ay = 1;
     if (1 >= 1)
-        ay = 0;
+	ay = 0;
     float tx = (float)ax / 7.0;
     float ty = (float)ay / 1.0;
     glBegin(GL_QUADS);
@@ -523,9 +557,9 @@ void show_shooting_star()
 
 
     if (gl.m_walkFrame >= 64){
-        //if animation reaches LAST sprite
-        //start from start again
-        ay = 1;
+	//if animation reaches LAST sprite
+	//start from start again
+	ay = 1;
     }
     float tx = (float)ax / 64.0;
     float ty = (float)ay / 8.0;
@@ -556,13 +590,13 @@ void heapify(int arr[], int n, int i);
 void bubbleSort(int* arr, int size){
     int temp;
     for(int i = 0; i <size; i++){
-        for(int j = 0; j < size - i - 1; j++){
-            if(arr[j] > arr[j+1]){
-                temp = arr[j];
-                arr[j] = arr[j+1];
-                arr[j+1] = temp;
-            }
-        }
+	for(int j = 0; j < size - i - 1; j++){
+	    if(arr[j] > arr[j+1]){
+		temp = arr[j];
+		arr[j] = arr[j+1];
+		arr[j+1] = temp;
+	    }
+	}
     }
 }
 
@@ -574,25 +608,25 @@ void selectionSort(int* arr, int n)
 
     for (int i=0; i < n-1; i++)
     {
-        pos_min = i;//set pos_min to the current index of array
+	pos_min = i;//set pos_min to the current index of array
 
-        for (int j=i+1; j < n; j++)
-        {
+	for (int j=i+1; j < n; j++)
+	{
 
-            if (arr[j] < arr[pos_min])
-                pos_min=j;
-            //pos_min will keep track of the index that min is in, 
-            //this is needed when a swap happens
-        }
+	    if (arr[j] < arr[pos_min])
+		pos_min=j;
+	    //pos_min will keep track of the index that min is in, 
+	    //this is needed when a swap happens
+	}
 
-        //if pos_min no longer equals i than a smaller value must have been found, 
-        //so a swap must occur
-        if (pos_min != i)
-        {
-            temp = arr[i];
-            arr[i] = arr[pos_min];
-            arr[pos_min] = temp;
-        }
+	//if pos_min no longer equals i than a smaller value must have been found, 
+	//so a swap must occur
+	if (pos_min != i)
+	{
+	    temp = arr[i];
+	    arr[i] = arr[pos_min];
+	    arr[pos_min] = temp;
+	}
     }
 }
 
@@ -609,41 +643,41 @@ void Merge(int *a, int low, int high, int mid)
     // Merge the two parts into temp[].
     while (i <= mid && j <= high)
     {
-        if (a[i] < a[j])
-        {
-            temp[k] = a[i];
-            k++;
-            i++;
-        }
-        else
-        {
-            temp[k] = a[j];
-            k++;
-            j++;
-        }
+	if (a[i] < a[j])
+	{
+	    temp[k] = a[i];
+	    k++;
+	    i++;
+	}
+	else
+	{
+	    temp[k] = a[j];
+	    k++;
+	    j++;
+	}
     }
 
     // Insert all the remaining values from i to mid into temp[].
     while (i <= mid)
     {
-        temp[k] = a[i];
-        k++;
-        i++;
+	temp[k] = a[i];
+	k++;
+	i++;
     }
 
     // Insert all the remaining values from j to high into temp[].
     while (j <= high)
     {
-        temp[k] = a[j];
-        k++;
-        j++;
+	temp[k] = a[j];
+	k++;
+	j++;
     }
 
 
     // Assign sorted data stored in temp[] to a[].
     for (i = low; i <= high; i++)
     {
-        a[i] = temp[i-low];
+	a[i] = temp[i-low];
     }
 }           
 
@@ -654,13 +688,13 @@ void MergeSort(int *a, int low, int high)
     int mid;
     if (low < high)
     {
-        mid=(low+high)/2;
-        // Split the data into two half.
-        MergeSort(a, low, mid);
-        MergeSort(a, mid+1, high);
-        //
-        //                         // Merge them to get sorted output.
-        Merge(a, low, high, mid);
+	mid=(low+high)/2;
+	// Split the data into two half.
+	MergeSort(a, low, mid);
+	MergeSort(a, mid+1, high);
+	//
+	//                         // Merge them to get sorted output.
+	Merge(a, low, high, mid);
     }
 }
 
@@ -672,19 +706,19 @@ void heapify(int arr[], int n, int i)
 
     // If left child is larger than root
     if (l < n && arr[l] > arr[largest])
-        largest = l;
+	largest = l;
 
     // If right child is larger than largest so far
     if (r < n && arr[r] > arr[largest])
-        largest = r;
+	largest = r;
 
     // If largest is not root
     if (largest != i)
     {
-        swap(arr[i], arr[largest]);
+	swap(arr[i], arr[largest]);
 
-        // Recursively heapify the affected sub-tree
-        heapify(arr, n, largest);
+	// Recursively heapify the affected sub-tree
+	heapify(arr, n, largest);
     }
 }
 
@@ -694,16 +728,16 @@ void heapSort(int arr[], int n)
 {
     // Build heap (rearrange array)
     for (int i = n / 2 - 1; i >= 0; i--)
-        heapify(arr, n, i);
+	heapify(arr, n, i);
 
     // One by one extract an element from heap
     for (int i=n-1; i>=0; i--)
     {
-        // Move current root to end
-        swap(arr[0], arr[i]);
+	// Move current root to end
+	swap(arr[0], arr[i]);
 
-        // call max heapify on the reduced heap
-        heapify(arr, i, 0);
+	// call max heapify on the reduced heap
+	heapify(arr, i, 0);
     }
 }
 
@@ -715,26 +749,26 @@ void quickSort(int* arr, int start, int end){
     int pivot = arr[(start + end) / 2];
 
     while(i <= j){
-        while(arr[i] < pivot){
-            i++;
-        }
-        while(arr[j] > pivot){
-            j--;
-        }
-        if(i <= j){
-            temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-            i++;
-            j--;
-        }
+	while(arr[i] < pivot){
+	    i++;
+	}
+	while(arr[j] > pivot){
+	    j--;
+	}
+	if(i <= j){
+	    temp = arr[i];
+	    arr[i] = arr[j];
+	    arr[j] = temp;
+	    i++;
+	    j--;
+	}
     }
 
     if(start < j){
-        quickSort(arr, start, j);
+	quickSort(arr, start, j);
     }
     if(i < end){
-        quickSort(arr, i, end);
+	quickSort(arr, i, end);
     }
 }
 
@@ -744,21 +778,21 @@ void quickSort(int* arr, int start, int end){
 
 class IntQueue{
     private:
-        int *array;
-        int size;
-        int front;
-        int back;
-        int items;
+	int *array;
+	int size;
+	int front;
+	int back;
+	int items;
     public:
-        IntQueue(int);
-        IntQueue(const IntQueue &);
-        ~IntQueue();
+	IntQueue(int);
+	IntQueue(const IntQueue &);
+	~IntQueue();
 
-        void enqueue(int);
-        void dequeue(int &);
-        bool isEmpty();
-        bool isFull();
-        void clear();
+	void enqueue(int);
+	void dequeue(int &);
+	bool isEmpty();
+	bool isFull();
+	void clear();
 };
 
 
@@ -779,7 +813,7 @@ IntQueue::IntQueue(const IntQueue &obj){
 
     array= new int[obj.size];
     for(int count=0; count < obj.size; count++){
-        array[count] = *(array + count);
+	array[count] = *(array + count);
     }
 }
 
@@ -789,23 +823,23 @@ IntQueue::~IntQueue(){
 
 void IntQueue::enqueue(int elem){
     if(isFull()){
-        cout << "queue is full\n";
-        return;
+	cout << "queue is full\n";
+	return;
     }else{
-        back++;
-        //rear = (rear+1) % size;
-        array[back]= elem;
-        items++;
+	back++;
+	//rear = (rear+1) % size;
+	array[back]= elem;
+	items++;
     }
 }
 
 void IntQueue::dequeue(int &recover){
     if(isEmpty()){
-        cout << "is empty\n";
+	cout << "is empty\n";
     }else{
-        front++;
-        recover= array[front];
-        items--;
+	front++;
+	recover= array[front];
+	items--;
 
     }
 }
@@ -828,8 +862,8 @@ int prime(int starting, int ending){
     int res = rand() % ending + starting;
     int a = 0;
     while((res%2==0) ||(res%3==0) || (res%4==0)||(res%5==0)||(res%6==0)|| (res%7==0)||(res%8==0)||(res%9==0)){
-        a++;
-        res = rand() % ending + starting;
+	a++;
+	res = rand() % ending + starting;
     }
     cout << "total attempts: " << a << endl;
     cout << "result is: " << res << endl;
@@ -872,19 +906,19 @@ void init_round2(){
     IntQueue Q(SIZE);
 
     for(i=0; i<SIZE; i++){
-        Q.enqueue(tmp[i]);//gets the random values into queue
+	Q.enqueue(tmp[i]);//gets the random values into queue
     }
 
 
     //get three enemies to use this on .. female is one of em
     for(i=0; i < SIZE; i++){
-        Q.dequeue(catcher);
-        if(i == 0)
-            p1 = catcher;
-        if(i==1)
-            p2 = catcher;
-        if(i==2)
-            p3 = catcher;
+	Q.dequeue(catcher);
+	if(i == 0)
+	    p1 = catcher;
+	if(i==1)
+	    p2 = catcher;
+	if(i==2)
+	    p3 = catcher;
     }
 
     //p1 .. p2 .. p3  will be the position of 3 enemies
@@ -907,25 +941,25 @@ void CesarInit(){
 
 
     switch(random_number){
-        case 1:
-            //bubble
-            bubbleSort(array,size);
-            break;
-        case 2:
-            //selection
-            selectionSort(array,size);
-            break;
-        case 3:
-            //Insertion
-            MergeSort(array, 0, size-1);
-            break;
-        case 4:
-            //quick
-            quickSort(array, start, size-1);
-        case 5:
-            //heap
-            heapSort(array, size);
-            break;
+	case 1:
+	    //bubble
+	    bubbleSort(array,size);
+	    break;
+	case 2:
+	    //selection
+	    selectionSort(array,size);
+	    break;
+	case 3:
+	    //Insertion
+	    MergeSort(array, 0, size-1);
+	    break;
+	case 4:
+	    //quick
+	    quickSort(array, start, size-1);
+	case 5:
+	    //heap
+	    heapSort(array, size);
+	    break;
     }
 
     // once it is fully ready
@@ -950,7 +984,7 @@ void CesarInit(){
     obama.cx = array[4];  //array[3]     // check out array
     //    taco.cx =  1180;  //array[4]
 
-    //jeb.cx = 800;
+    pika.cx = 800;
 
     init_round2();
 }

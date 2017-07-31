@@ -26,7 +26,7 @@ extern class Sprite {
         }
 } turt2, turt1, heart4, heart3, heart2, heart1, speedboost1,
     shield1, mainChar, turret, turretbeam , enemy1, mariEnemy,
-    godzilla, sun, female, obama, taco ,shooting_star, bird;
+    godzilla, sun, female, pika, obama, taco ,shooting_star, bird;
 
 struct Vec {
     double x, y, z;
@@ -175,6 +175,7 @@ extern class Global {
         Ppmimage *shooting_star_image;
         Ppmimage *mari_image; 
         Ppmimage *female_image; 
+        Ppmimage *pika_image; 
         Ppmimage *obama_image; 
      	Ppmimage *taco_image; 
         Ppmimage *sun_image; 
@@ -258,6 +259,7 @@ extern class Global {
         GLuint birdTexture;
         GLuint mari_Texture;
         GLuint female_Texture;
+        GLuint pika_Texture;
         GLuint shooting_star_Texture;
         GLuint obama_Texture;
         GLuint taco_Texture;
@@ -406,6 +408,7 @@ extern class Global {
             birdImage = NULL;
             mari_image = NULL; 
             female_image = NULL; 
+            pika_image = NULL; 
             shooting_star_image=NULL;
             obama_image = NULL; 
             taco_image = NULL;

@@ -59,7 +59,7 @@ Timers timers;
 Global gl;
 UserInput input;
 Level lev;
-Sprite turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, enemy1, mariEnemy, godzilla, female, obama, sun,shooting_star,taco ,bird;
+Sprite turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, enemy1, mariEnemy, godzilla, pika, female, obama, sun,shooting_star,taco ,bird;
 Particle particle[20];
 Game game;
 //X Windows variables
@@ -94,10 +94,10 @@ extern void PlayerStart(int, char [], UserInput &input);
 extern void removePPM(void);
 extern void godzillaphysics(void);
 extern void taco_physics(void);
+extern void pika_physics(void);
 extern void birdphysics(void);
 extern void mari_physics(void);
 extern void shooting_star_physics(void);
-
 //extern void generateTextures(void);
 
 //extern Ppmimage *characterImage(int);
@@ -110,6 +110,7 @@ extern Ppmimage *birdImage();
 extern Ppmimage *mari_image();
 
 //extern Ppmimage *female_image();
+extern Ppmimage *pika_image();
 //extern Ppmimage *sun_image();
 extern Ppmimage *shooting_star_image();
 extern Ppmimage *obama_image();
@@ -137,6 +138,7 @@ extern void showbird();
 extern void show_mari();
 extern void show_taco();
 //extern void show_female();
+extern void show_pika();
 //extern void show_sun();
 extern void show_obama();
 extern void show_shooting_star();
@@ -439,6 +441,7 @@ void initOpengl(void)
     //spacing is acting weird        
     gl.shooting_star_image = shooting_star_image();
     //gl.female_image = female_image();
+    gl.pika_image = pika_image();
     //gl.sun_image = sun_image();
     gl.gameoverImage = ppm6GetImage("./images/gameoverImage.ppm");
     gl.sandImage = ppm6GetImage("./images/sandImage.ppm");
@@ -501,6 +504,7 @@ void initOpengl(void)
     glGenTextures(1, &gl.mari_Texture);
     glGenTextures(1, &gl.birdTexture);
     //glGenTextures(1, &gl.female_Texture);
+    glGenTextures(1, &gl.pika_Texture);
     glGenTextures(1, &gl.obama_Texture);
     glGenTextures(1, &gl.taco_Texture);
     glGenTextures(1, &gl.shooting_star_Texture);
@@ -745,7 +749,20 @@ void initOpengl(void)
     //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
     //		GL_RGBA, GL_UNSIGNED_BYTE, female_pointer);
     //free(female_pointer); 
-    //unlink("./images/female.ppm");			
+    //unlink("./images/female.ppm");					
+    //================================================================
+    
+     //Pika
+     w = gl.pika_image->width;
+     h = gl.pika_image->height; 
+     glBindTexture(GL_TEXTURE_2D, gl.pika_Texture);
+     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+     unsigned char *pika_pointer = buildAlphaData(gl.pika_image);
+     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+     		GL_RGBA, GL_UNSIGNED_BYTE, pika_pointer);
+     free(pika_pointer); 
+     unlink("./images/pikachu.ppm");					
     //======================================================
     //Obama
     w = gl.obama_image->width;
@@ -1740,6 +1757,7 @@ void physics(void)
         moveSpriteLeft(&turt2);
         moveSpriteLeft(&mariEnemy);
         moveSpriteLeft(&female);
+        moveSpriteLeft(&pika);
         moveSpriteLeft(&shooting_star);
         moveSpriteLeft(&obama);
         moveSpriteLeft(&taco);
@@ -1786,6 +1804,7 @@ void physics(void)
         moveSpriteRight(&mariEnemy);
         moveSpriteRight(&shooting_star);
         moveSpriteRight(&female);
+        moveSpriteRight(&pika);
         moveSpriteRight(&sun);
         moveSpriteRight(&obama);
         moveSpriteRight(&taco);
@@ -1831,6 +1850,7 @@ void physics(void)
     birdphysics();
     mari_physics();
     taco_physics();
+    pika_physics();
     moveSpriteRight(&shooting_star);
 }
 
@@ -1899,6 +1919,7 @@ void render(void)
         // start_menu(gl.xres, gl.yres);
         show_shooting_star();
         //show_female();
+        show_pika();
         //show_sun();
         show_obama();
         hudHealth();
