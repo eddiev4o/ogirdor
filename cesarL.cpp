@@ -43,11 +43,9 @@ int ss_position = -1500;
 int taco_position = -300; // front of obama
 
 // this array will store the positions of enemies
-const int size = 4; // 0-9
-int array[size]= {200,300,800,1200};
+const int size = 5; // 0-9
+int array[size]= {200,300,800,1180,1200};
 int start = 0;
-
-
 
 
 class my_time {
@@ -74,8 +72,6 @@ class my_time {
 } tim,tacito;
 
 
-
-
 void mari_physics(void)
 {
     tim.recordTime(&tim.timeCurrent);
@@ -97,21 +93,13 @@ void taco_physics(void)
     tacito.recordTime(&tacito.timeCurrent);
     double timeSpan = tacito.timeDiff(&tacito.walkTime, &tacito.timeCurrent);
     if (timeSpan > taco_delay) { // can aldo make "gl" vars in here
-     (timeSpan > taco_delay?taco_position-=2:taco_position--);  // can aldo make "gl" vars in here
-	    //taco_position--;
+	(timeSpan > taco_delay?taco_position-=2:taco_position--);  // can aldo make "gl" vars in here
+	//taco_position--;
 
 	tacito.recordTime(&tacito.walkTime);
     }
     cout << "TESTING !!!!!!!!!!! TACO ::::: " << taco_position << endl;
 }									
-
-
-
-
-
-
-
-
 
 
 //figure out proper physics for the shooting star
@@ -151,8 +139,6 @@ void shoot_tacos()
 	gl.isPressed = false;
     }
 }
-
-
 
 
 Ppmimage* mari_image() 
@@ -209,9 +195,13 @@ Ppmimage* taco_image()
     return ppm6GetImage("./images/taco.ppm");
 }										
 
-
-
-
+/*
+Ppmimage* jeb_image()
+{
+        system("convert ./images/jeb_bush.jpg ./images/jeb_bush.ppm");
+	    return ppm6GetImage("./images/jeb_bush.ppm");
+}
+*/
 
 
 
@@ -351,7 +341,43 @@ void show_female()
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_ALPHA_TEST);
-}
+}										
+
+/*
+void show_jeb() 
+{
+    if (gl.initDone == 0) {
+	float x = gl.xres/1; 
+	x = x-60; //x cord
+    }
+    jeb.cy = 110; // y cord
+    float ht = 50.0;//estatura de la mujer
+    float w = ht*0.5; 
+
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.jeb_Texture); 
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ax = 1;   
+    int ay = 1;
+    if (1 >= 1)
+	ay = 0;
+    float tx = (float)ax / 8.0;
+    float ty = (float)ay / 1.0;
+    glBegin(GL_QUADS);
+    //image starts at 12.5 , since 8 x 8
+    glTexCoord2f(tx,      ty+ .12); glVertex2i(jeb.cx +w, jeb.cy-ht);
+    glTexCoord2f(tx,      ty);    glVertex2i(jeb.cx +w, jeb.cy+ht);
+    glTexCoord2f(tx+.08, ty);    glVertex2i(jeb.cx-w, jeb.cy+ht);
+    glTexCoord2f(tx+.08, ty+.12); glVertex2i(jeb.cx-w, jeb.cy-ht);
+    glEnd();
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
+}										
+*/
 
 void show_taco();
 
@@ -363,26 +389,23 @@ void show_obama()
     //position starts at -300
     show_taco();
     (taco_position == -500? taco_position= -30:taco_position--);
-   
-
 
 
     /*
-    if(taco_position == -500){
-	cout << "BEFORE - position of taco is now : " << taco_position << endl;
-	taco_position = -30;
-	cout << "AFTER - position of taco is now : " << taco_position << endl;
-	//show_taco();
-	//cout << "DID I SPAWN ??? I AM A TACO \n";
+       if(taco_position == -500){
+       cout << "BEFORE - position of taco is now : " << taco_position << endl;
+       taco_position = -30;
+       cout << "AFTER - position of taco is now : " << taco_position << endl;
+    //show_taco();
+    //cout << "DID I SPAWN ??? I AM A TACO \n";
     }					
-
 */
 
-     //obama.cx = 200;   charceter.cx is to make him follow megaman
+    //obama.cx = 200;   charceter.cx is to make him follow megaman
     obama.cy = 300; // y cord
     float ht = 75.0;//height of obama
     float w = ht*0.5;
-    
+
     glPushMatrix();
     glColor3f(1.0, 1.0, 1.0);
     glBindTexture(GL_TEXTURE_2D, gl.obama_Texture);
@@ -408,11 +431,10 @@ void show_obama()
 
 void show_taco()
 {
-    //obama.cx = 200;   charceter.cx is to make him follow megaman
     taco.cy = 300; // y cord
-    float ht = 25.0;//height of obama
+    float ht = 25.0;//estatura del tacito bien delicioso 
     float w = ht*1.0; // was .5
-    
+
     glPushMatrix();
     glColor3f(1.0, 1.0, 1.0);
     glBindTexture(GL_TEXTURE_2D, gl.taco_Texture);
@@ -434,128 +456,17 @@ void show_taco()
     //CONTACT WITH TACO WILL CAUSE DAMAGE ... REALLL
     if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w){
 	if(mainChar.cy >= taco.cy + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
-	mainChar.health--;
+	    mainChar.health--;
     }
-	
-	glEnd();
+
+    glEnd();
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_ALPHA_TEST);
 }										
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-   void show_obama2()
-   {
-   if (gl.initDone == 0) {
-   float x = gl.xres/1;
-   x = x-60; //x cord
-   }
-//obama.cx = 200;   charceter.cx is to make him follow megaman
-obama.cy = 300; // y cord
-float ht = 75.0;//height of mari
-float w = ht*0.5;
-
-glPushMatrix();
-glColor3f(1.0, 1.0, 1.0);
-glBindTexture(GL_TEXTURE_2D, gl.obama_Texture2);
-glEnable(GL_ALPHA_TEST);
-glAlphaFunc(GL_GREATER, 0.0f);
-glColor4ub(255,255,255,255);
-int ax = 1;
-int ay = 1;
-if (1 >= 1)
-ay = 0;
-float tx = (float)ax / 7.0;
-float ty = (float)ay / 1.0;
-glBegin(GL_QUADS);
-glTexCoord2f(tx,      ty+1.0); glVertex2i(obama2.cx+w, obama2.cy-ht);
-glTexCoord2f(tx,      ty+0);    glVertex2i(obama2.cx+w, obama2.cy+ht);
-glTexCoord2f(tx+1.0, ty+0);    glVertex2i(obama2.cx-w, obama2.cy+ht);
-glTexCoord2f(tx+1.0, ty+1.0); glVertex2i(obama2.cx-w, obama2.cy-ht);
-glEnd();
-glPopMatrix();
-glBindTexture(GL_TEXTURE_2D, 0);
-glDisable(GL_ALPHA_TEST);
-}
-
-
-void show_obama3()
-{
-if (gl.initDone == 0) {
-float x = gl.xres/1;
-x = x-60; //x cord
-}
-//obama.cx = 200;   charceter.cx is to make him follow megaman
-obama3.cy = 300; // y cord
-float ht = 75.0;//height of mari
-float w = ht*0.5;
-
-glPushMatrix();
-glColor3f(1.0, 1.0, 1.0);
-glBindTexture(GL_TEXTURE_2D, gl.obama_Texture3);
-glEnable(GL_ALPHA_TEST);
-glAlphaFunc(GL_GREATER, 0.0f);
-glColor4ub(255,255,255,255);
-int ax = 1;
-int ay = 1;
-if (1 >= 1)
-ay = 0;
-float tx = (float)ax / 7.0;
-float ty = (float)ay / 1.0;
-glBegin(GL_QUADS);
-glTexCoord2f(tx,      ty+1.0); glVertex2i(obama3.cx+w, obama3.cy-ht);
-glTexCoord2f(tx,      ty+0);    glVertex2i(obama3.cx+w, obama3.cy+ht);
-glTexCoord2f(tx+1.0, ty+0);    glVertex2i(obama3.cx-w, obama3.cy+ht);
-glTexCoord2f(tx+1.0, ty+1.0); glVertex2i(obama3.cx-w, obama3.cy-ht);
-glEnd();
-glPopMatrix();
-glBindTexture(GL_TEXTURE_2D, 0);
-glDisable(GL_ALPHA_TEST);
-}
-*/										
+//70 lines of code right here
 
 
 
@@ -895,28 +806,15 @@ void IntQueue::dequeue(int &recover){
 	front++;
 	recover= array[front];
 	items--;
-    }
+    
 }
 
 bool IntQueue::isEmpty(){
     return(items >= 0?true:false);
-
-    /*   if(items >= 0){
-	 return false;
-	 }else{
-	 return true;
-	 }*/
 }
 
 bool IntQueue::isFull(){
     return(items < size?true:false);
-
-
-    /*if(items < size){
-      return false;
-      }else{
-      return true;
-      }*/
 }
 
 void IntQueue::clear(){
@@ -925,42 +823,75 @@ void IntQueue::clear(){
     items = 0;
 }
 
+int prime(int starting, int ending){
+    int res = rand() % ending + starting;
+    int a = 0;
+    while((res%2==0) ||(res%3==0) || (res%4==0)||(res%5==0)||(res%6==0)|| (res%7==0)||(res%8==0)||(res%9==0)){
+	a++;
+	res = rand() % ending + starting;
+    }
+    cout << "total attempts: " << a << endl;
+    cout << "result is: " << res << endl;
+    return res;
+}
 
-
+//use random prime number generator to fill an array,
+//with each subscript having a distance of 50 NOT 150
+//then sort the array,
+//and throw into Queue
+//have queue asisgn positions
 void init_round2(){
-    //use random generator 
-    //store values from RG
-    //place them in a queue OR a stack
-    //int a;
-    //int b;
-    //int c;
-    //int ar[] = {a,b,c};
+	int i =0; //cherka cherka
+	int catcher;
 
-     //cherka
 
-    int i =0;
-    int catcher;
+    int s1 = 800, e1 = 950,p1; 
+    int s2 = 1000, e2 = 1150,p2;
+    int s3 = 1100, e3 = 1250,p3;
+
+    //store rands in here
+    int r1,r2,r3;
+    
+    
+    cout << "first round ****\n";
+    r1 = prime(s1,e1);
+    
+    cout << "second round ****\n";
+    r2 = prime(s2,e2);
+    
+    cout << "third round *****\n";
+    r3 = prime(s3,e3);
+
+
     const int SIZE = 3;
+    int tmp[SIZE] = {r3,r2,r1};
+    bubbleSort(tmp,SIZE);
+    
+    //now that it is sorted, throw into a queue
     IntQueue Q(SIZE);
 
     for(i=0; i<SIZE; i++){
-	Q.enqueue(i*5);
+	Q.enqueue(tmp[i]);//gets the random values into queue
     }
 
 
-    //get two-three Obamas on different parts of the screen
+    //get three enemies to use this on .. female is one of em
     for(i=0; i < SIZE; i++){
 	Q.dequeue(catcher);
-	//if(i == 0)
-	    //a = catcher;
-	//if(i==1)
-	    //b = catcher;
-	//if(i==2)
-	    //c = catcher;
+	if(i == 0)
+	p1 = catcher;
+	if(i==1)
+        p2 = catcher;
+	if(i==2)
+	p3 = catcher;
     }
 
-    //female.cx =
-
+    //p1 .. p2 .. p3  will be the position of 3 enemies
+    //female.cx  =
+    
+    //enemy 2.cx = 
+    
+    //enemy 3.cx = 
 }
 
 
@@ -1006,13 +937,19 @@ void CesarInit(){
        shooting_star = array[4];
        */
 
-   obama.cx = 1200;
-   taco.cx =  1180;
+    //obama.cx = 1200;
+    //taco.cx =  1180;
     shooting_star.cx = *(array + 0);
     shooting_star.cy = *(array + 1);
 
     mariEnemy.cx = *(array + 2);
     mariEnemy.cy = 0;
+ 
+    taco.cx = array[3];
+    obama.cx = array[4];  //array[3]     // check out array
+//    taco.cx =  1180;  //array[4]
+
+    //jeb.cx = 800;
 
     init_round2();
 }
