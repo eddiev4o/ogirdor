@@ -26,7 +26,7 @@ extern class Sprite {
         }
 } turt2, turt1, heart4, heart3, heart2, heart1, speedboost1,
     shield1, mainChar, turret, turretbeam , enemy1, mariEnemy,
-    godzilla, sun, female, pika, obama, taco ,shooting_star, bird;
+    godzilla, godzillaball, sun, female, pika, obama, taco ,shooting_star, bird;
 
 struct Vec {
     double x, y, z;
@@ -113,8 +113,10 @@ extern class Global {
         int initDone;
         int walk;
         int godzillawf;
+	int godzillaballwf;
         int birdwf;
         double godzilladelay;
+	double godzillaballdelay;
         double birddelay;
         int directionFlag, attackFlag, isJumpingFlag, jumpDirectionFlag;
         //Cesar 
@@ -342,8 +344,10 @@ extern class Global {
             minutes = 0;
             score = 0;
             godzillawf = 0;
+	    godzillaballwf = 0;
             birdwf = 0;
             godzilladelay = 0.1;
+	    godzillaballdelay = 0.1;
             birddelay = 0.5;
             gameFrame = 0;
             timeOutFrame = 0;

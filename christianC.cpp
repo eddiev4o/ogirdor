@@ -241,6 +241,7 @@ void tileCollision(Vec *tile)
 	    moveSpriteRight(&turretbeam);
             moveSpriteRight(&enemy1);
             moveSpriteRight(&godzilla);
+	    moveSpriteRight(&godzillaball);
         }
         if (gl.directionFlag == 1) {
             gl.camera[0] += gl.movementSpeed;
@@ -268,6 +269,7 @@ void tileCollision(Vec *tile)
 	    moveSpriteLeft(&turretbeam);
             moveSpriteLeft(&enemy1);
             moveSpriteLeft(&godzilla);
+	    moveSpriteLeft(&godzillaball);
         }
             gl.isJumpingFlag = false;
             mainChar.cy = mainChar.cy + 1;

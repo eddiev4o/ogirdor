@@ -59,7 +59,7 @@ Timers timers;
 Global gl;
 UserInput input;
 Level lev;
-Sprite turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, enemy1, mariEnemy, godzilla, pika, female, obama, sun,shooting_star,taco ,bird;
+Sprite turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, enemy1, mariEnemy, godzilla, godzillaball, pika, female, obama, sun,shooting_star,taco ,bird;
 Particle particle[20];
 Game game;
 //X Windows variables
@@ -93,6 +93,7 @@ extern void assign_playername(char [], UserInput &input);
 extern void PlayerStart(int, char [], UserInput &input);
 extern void removePPM(void);
 extern void godzillaphysics(void);
+extern void godzillaballphysics(void);
 extern void taco_physics(void);
 extern void pika_physics(void);
 extern void birdphysics(void);
@@ -212,6 +213,8 @@ void init()
     enemy1.cy = 90;
     godzilla.cx = 1000;
     godzilla.cy = 90;
+    godzillaball.cx = 1000;
+    godzillaball.cy = 100;
     bird.cx = 900;
     bird.cy = 10;	
     mainChar.pos[0] = 300.0;
@@ -1775,6 +1778,7 @@ void physics(void)
         moveSpriteLeft(&turretbeam);
         moveSpriteLeft(&enemy1);
         moveSpriteLeft(&godzilla);
+	moveSpriteLeft(&godzillaball);
         moveSpriteLeft(&bird);
         moveLevelLeft();
         timers.recordTime(&timers.timeCurrent);
@@ -1821,6 +1825,7 @@ void physics(void)
         moveSpriteRight(&turretbeam);
         moveSpriteRight(&enemy1);
         moveSpriteRight(&godzilla);
+	moveSpriteRight(&godzillaball);
         moveSpriteRight(&bird);
         moveLevelRight();
         timers.recordTime(&timers.timeCurrent);
@@ -1847,6 +1852,7 @@ void physics(void)
         }
     }
     godzillaphysics();
+    godzillaballphysics();
     birdphysics();
     mari_physics();
     taco_physics();
