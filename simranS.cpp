@@ -138,7 +138,7 @@ void showturretBeam()
     float y = 170;
     float ht = 100.0;
     float w = ht*.5;
-    int move = 200;
+    int move = 3433;
 
     glPushMatrix();
     glColor3f(1.0, 1.0, 1.0);
@@ -173,7 +173,7 @@ void showturretBeam()
 
 void showTurret()
 {
-    int move = 600;
+    int move = 3833;
 
     if (turretm > -950) {
 	turretm--;
