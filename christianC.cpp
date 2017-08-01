@@ -102,6 +102,9 @@
 //===============================================
 // Week 10 Progress
 //===============================================
+// Refactored code so it is easy to add new sprites
+// that react to player movement. Simply add them
+// to my vectors as seen in "void addToAllSprites();"
 //===============================================
 
 #include <iostream>
