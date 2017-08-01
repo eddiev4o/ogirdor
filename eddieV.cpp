@@ -53,7 +53,7 @@ extern void checkUnder(Vec *);
 extern void spriteDisappear(Sprite*);
 void renderBackground(int levelSelect)
 {
-	//Loads Background based on Level Selection
+//Loads Background based on Level Selection
 	if (levelSelect == 1)
 		gl.tempBackgroundTexture = gl.backgroundTexture;
 	if (levelSelect == 2)
@@ -248,10 +248,10 @@ void pauseScreen()
 	glColor4f(0.58,0.58,0.72,0.8);
 	glTranslated(gl.xres/2, gl.yres/2, 0);
 	glBegin(GL_QUADS);
-	        glVertex2i(-w, -h);
-	        glVertex2i(-w,  h);
-	        glVertex2i(w,   h);
-	        glVertex2i(w,  -h);
+		glVertex2i(-w, -h);
+		glVertex2i(-w,  h);
+		glVertex2i(w,   h);
+		glVertex2i(w,  -h);
 	glEnd();
 	glDisable(GL_BLEND);
 	glPopMatrix();
@@ -264,7 +264,6 @@ void pauseScreen()
 	ggprint8b(&r, 16, 0, "Press P - Play");
 	ggprint8b(&r, 16, 0, "Press E - Exit to Menu");
 	ggprint8b(&r, 16, 0, "Press Esc - Exit Game");
-
 }
 
 void startTimer()
@@ -350,99 +349,99 @@ void levelCompletion()
 		}
 		if (gl.timeOutFrame > 5 && gl.timeOutFrame <= 10) {
 			if (gl.score <= 60) {
-			//Platinum
-			glPushMatrix();
-			glColor3f(1.0,1.0,1.0);
-			glTranslatef(gl.xres/2,gl.yres/2, 0);
-			glBindTexture(GL_TEXTURE_2D, gl.PlatinumTexture);
-			glEnable(GL_ALPHA_TEST);
-			glAlphaFunc(GL_GREATER, 0.0f);
-			glBegin(GL_QUADS);
-				glTexCoord2f(0.0, 1.0); glVertex2i(-w, -h);
-				glTexCoord2f(0.0, 0.0); glVertex2i(-w, h);
-				glTexCoord2f(1.0, 0.0); glVertex2i(w, h);
-				glTexCoord2f(1.0, 1.0); glVertex2i(w, -h);
-			glEnd();
-			glPopMatrix();
-			glBindTexture(GL_TEXTURE_2D, 0);
-			glDisable(GL_ALPHA_TEST);
-			printf("Rank: Platinum\n Score is: %i\n", gl.score);
+				//Platinum
+				glPushMatrix();
+				glColor3f(1.0,1.0,1.0);
+				glTranslatef(gl.xres/2,gl.yres/2, 0);
+				glBindTexture(GL_TEXTURE_2D, gl.PlatinumTexture);
+				glEnable(GL_ALPHA_TEST);
+				glAlphaFunc(GL_GREATER, 0.0f);
+				glBegin(GL_QUADS);
+					glTexCoord2f(0.0, 1.0); glVertex2i(-w, -h);
+					glTexCoord2f(0.0, 0.0); glVertex2i(-w, h);
+					glTexCoord2f(1.0, 0.0); glVertex2i(w, h);
+					glTexCoord2f(1.0, 1.0); glVertex2i(w, -h);
+				glEnd();
+				glPopMatrix();
+				glBindTexture(GL_TEXTURE_2D, 0);
+				glDisable(GL_ALPHA_TEST);
+				printf("Rank: Platinum\n Score is: %i\n", gl.score);
 			}
 			if (gl.score > 60 && gl.score <= 120) {
-			//Gold
-			glPushMatrix();
-			glColor3f(1.0,1.0,1.0);
-			glTranslatef(gl.xres/2,gl.yres/2, 0);
-			glBindTexture(GL_TEXTURE_2D, gl.GoldTexture);	
-			glEnable(GL_ALPHA_TEST);
-			glAlphaFunc(GL_GREATER, 0.0f);
-			glBegin(GL_QUADS);
-				glTexCoord2f(0.0, 1.0); glVertex2i(-w, -h);
-				glTexCoord2f(0.0, 0.0); glVertex2i(-w, h);
-				glTexCoord2f(1.0, 0.0); glVertex2i(w, h);
-				glTexCoord2f(1.0, 1.0); glVertex2i(w, -h);
-			glEnd();
-			glPopMatrix();
-			glBindTexture(GL_TEXTURE_2D, 0);	
-			glDisable(GL_ALPHA_TEST);
-			printf("Rank: Gold\n Score is: %i\n", gl.score);
+				//Gold
+				glPushMatrix();
+				glColor3f(1.0,1.0,1.0);
+				glTranslatef(gl.xres/2,gl.yres/2, 0);
+				glBindTexture(GL_TEXTURE_2D, gl.GoldTexture);	
+				glEnable(GL_ALPHA_TEST);
+				glAlphaFunc(GL_GREATER, 0.0f);
+				glBegin(GL_QUADS);
+					glTexCoord2f(0.0, 1.0); glVertex2i(-w, -h);
+					glTexCoord2f(0.0, 0.0); glVertex2i(-w, h);
+					glTexCoord2f(1.0, 0.0); glVertex2i(w, h);
+					glTexCoord2f(1.0, 1.0); glVertex2i(w, -h);
+				glEnd();
+				glPopMatrix();
+				glBindTexture(GL_TEXTURE_2D, 0);	
+				glDisable(GL_ALPHA_TEST);
+				printf("Rank: Gold\n Score is: %i\n", gl.score);
 			}
 			if (gl.score > 120 && gl.score <= 180) {
-			//Silver
-			glPushMatrix();
-			glColor3f(1.0,1.0,1.0);
-			glTranslatef(gl.xres/2,gl.yres/2, 0);
-			glBindTexture(GL_TEXTURE_2D, gl.SilverTexture);	
-			glEnable(GL_ALPHA_TEST);
-			glAlphaFunc(GL_GREATER, 0.0f);
-			glBegin(GL_QUADS);
-				glTexCoord2f(0.0, 1.0); glVertex2i(-w, -h);
-				glTexCoord2f(0.0, 0.0); glVertex2i(-w, h);
-				glTexCoord2f(1.0, 0.0); glVertex2i(w, h);
-				glTexCoord2f(1.0, 1.0); glVertex2i(w, -h);
-			glEnd();
-			glPopMatrix();
-			glBindTexture(GL_TEXTURE_2D, 0);	
-			glDisable(GL_ALPHA_TEST);
-			printf("RanK: Silver\n Score is: %i\n", gl.score);
+				//Silver
+				glPushMatrix();
+				glColor3f(1.0,1.0,1.0);
+				glTranslatef(gl.xres/2,gl.yres/2, 0);
+				glBindTexture(GL_TEXTURE_2D, gl.SilverTexture);	
+				glEnable(GL_ALPHA_TEST);
+				glAlphaFunc(GL_GREATER, 0.0f);
+				glBegin(GL_QUADS);
+					glTexCoord2f(0.0, 1.0); glVertex2i(-w, -h);
+					glTexCoord2f(0.0, 0.0); glVertex2i(-w, h);
+					glTexCoord2f(1.0, 0.0); glVertex2i(w, h);
+					glTexCoord2f(1.0, 1.0); glVertex2i(w, -h);
+				glEnd();
+				glPopMatrix();
+				glBindTexture(GL_TEXTURE_2D, 0);	
+				glDisable(GL_ALPHA_TEST);
+				printf("RanK: Silver\n Score is: %i\n", gl.score);
 			}
 			if (gl.score > 180 && gl.score <= 240) {
-			//Bronze
-			glPushMatrix();
-			glColor3f(1.0,1.0,1.0);
-			glTranslatef(gl.xres/2,gl.yres/2, 0);
-			glBindTexture(GL_TEXTURE_2D, gl.BronzeTexture);	
-			glEnable(GL_ALPHA_TEST);
-			glAlphaFunc(GL_GREATER, 0.0f);
-			glBegin(GL_QUADS);
-				glTexCoord2f(0.0, 1.0); glVertex2i(-w, -h);
-				glTexCoord2f(0.0, 0.0); glVertex2i(-w, h);
-				glTexCoord2f(1.0, 0.0); glVertex2i(w, h);
-				glTexCoord2f(1.0, 1.0); glVertex2i(w, -h);
-			glEnd();
-			glPopMatrix();
-			glBindTexture(GL_TEXTURE_2D, 0);
-			glDisable(GL_ALPHA_TEST);
-			printf("Rank: Bronze\n Score is: %i\n", gl.score);
+				//Bronze
+				glPushMatrix();
+				glColor3f(1.0,1.0,1.0);
+				glTranslatef(gl.xres/2,gl.yres/2, 0);
+				glBindTexture(GL_TEXTURE_2D, gl.BronzeTexture);	
+				glEnable(GL_ALPHA_TEST);
+				glAlphaFunc(GL_GREATER, 0.0f);
+				glBegin(GL_QUADS);
+					glTexCoord2f(0.0, 1.0); glVertex2i(-w, -h);
+					glTexCoord2f(0.0, 0.0); glVertex2i(-w, h);
+					glTexCoord2f(1.0, 0.0); glVertex2i(w, h);
+					glTexCoord2f(1.0, 1.0); glVertex2i(w, -h);
+				glEnd();
+				glPopMatrix();
+				glBindTexture(GL_TEXTURE_2D, 0);
+				glDisable(GL_ALPHA_TEST);
+				printf("Rank: Bronze\n Score is: %i\n", gl.score);
 			}
 			if (gl.score > 240 && gl.score < 600) {
-			//Noob	
-			glPushMatrix();
-			glColor3f(1.0,1.0,1.0);
-			glTranslatef(gl.xres/2,gl.yres/2, 0);
-			glBindTexture(GL_TEXTURE_2D, gl.noobTexture);	
-			glEnable(GL_ALPHA_TEST);
-			glAlphaFunc(GL_GREATER, 0.0f);
-			glBegin(GL_QUADS);
-				glTexCoord2f(0.0, 1.0); glVertex2i(-w, -h);
-				glTexCoord2f(0.0, 0.0); glVertex2i(-w, h);
-				glTexCoord2f(1.0, 0.0); glVertex2i(w, h);
-				glTexCoord2f(1.0, 1.0); glVertex2i(w, -h);
-			glEnd();
-			glPopMatrix();
-			glBindTexture(GL_TEXTURE_2D, 0);	
-			glDisable(GL_ALPHA_TEST);
-			printf("N00B\n Score is: %i\n", gl.score);
+				//Noob	
+				glPushMatrix();
+				glColor3f(1.0,1.0,1.0);
+				glTranslatef(gl.xres/2,gl.yres/2, 0);
+				glBindTexture(GL_TEXTURE_2D, gl.noobTexture);	
+				glEnable(GL_ALPHA_TEST);
+				glAlphaFunc(GL_GREATER, 0.0f);
+				glBegin(GL_QUADS);
+					glTexCoord2f(0.0, 1.0); glVertex2i(-w, -h);
+					glTexCoord2f(0.0, 0.0); glVertex2i(-w, h);
+					glTexCoord2f(1.0, 0.0); glVertex2i(w, h);
+					glTexCoord2f(1.0, 1.0); glVertex2i(w, -h);
+				glEnd();
+				glPopMatrix();
+				glBindTexture(GL_TEXTURE_2D, 0);	
+				glDisable(GL_ALPHA_TEST);
+				printf("N00B\n Score is: %i\n", gl.score);
 			}
 		}
 		if (gl.timeOutFrame >= 15) {
@@ -523,11 +522,11 @@ void healthBar(int xres, int yres)
 		float w = s.width;
 		float h = s.height;
 		glBegin(GL_QUADS);
-		glVertex2i(-w, -h);
-		glVertex2i(-w, h);
-		glVertex2i(w, h);
-		glVertex2i(w, -h);
-		glEnd();
+			glVertex2i(-w, -h);
+			glVertex2i(-w, h);
+			glVertex2i(w, h);
+			glVertex2i(w, -h);
+			glEnd();
 		glPopMatrix();
 	}
 }
@@ -543,25 +542,29 @@ void renderTimeDisplay()
 	r.center = 0;
 	if (gl.state == STATE_GAMEPLAY) {
 		timers.recordTime(&timers.timeCurrent);
-        	double timeSpan = timers.timeDiff(&timers.gameTime, &timers.timeCurrent);
-        	if (timeSpan > gl.gameDelay) {
-                	//advance
-                	++gl.gameFrame;
-                	timers.recordTime(&timers.gameTime);
-        	}
-        	if (gl.gameFrame >= 60)
-        	{
-                	++gl.minutes;
-                	gl.gameFrame = 0;
-        	}
+		double timeSpan = timers.timeDiff(&timers.gameTime, &timers.timeCurrent);
+		if (timeSpan > gl.gameDelay) {
+			//advance
+			++gl.gameFrame;
+			timers.recordTime(&timers.gameTime);
+		}
+		if (gl.gameFrame >= 60)
+		{
+			++gl.minutes;
+			gl.gameFrame = 0;
+		}
 	}
 	ggprint16(&r, 20, c, "TIME");
 	ggprint16(&r, 32, c, "%d:%02i", gl.minutes, gl.gameFrame);
-
 }
 
 void eddieInit()
 {
+	if (gl.state == STATE_MENU) {
+		for (int i = 0; i < 100; i++) {
+		gl.coins[i].collected = false;
+		}
+	}
 	//Initializes Coin Coordinates
 		gl.coins[0].cx = 700;
 		gl.coins[0].cy = 120;
@@ -763,245 +766,37 @@ void eddieInit()
 		gl.coins[98].cy = 120;	
 		gl.coins[99].cx = 19780;
 		gl.coins[99].cy = 120;	
-
-	if (gl.levelSelect == 2) {
-		gl.coins[0].cx = 100;
-		gl.coins[0].cy = 90;
-		gl.coins[1].cx = 100;
-		gl.coins[1].cy = 180;
-		gl.coins[2].cx = 800;
-		//gl.coins[2].cy = 90;
-		//gl.coins[3].cx = 0;
-		//gl.coins[3].cy = 0;
-		//gl.coins[4].cx = 0;
-		//gl.coins[4].cy = 0;	
-		//gl.coins[5].cx = 0;
-		//gl.coins[5].cy = 0;	
-		//gl.coins[6].cx = 0;
-		//gl.coins[6].cy = 0;	
-		//gl.coins[7].cx = 0;
-		//gl.coins[7].cy = 0;	
-		//gl.coins[8].cx = 0;
-		//gl.coins[8].cy = 0;	
-		//gl.coins[9].cx = 0;
-		//gl.coins[9].cy = 0;	
-		//gl.coins[10].cx = 0;
-		//gl.coins[10].cy = 0;	
-		//gl.coins[11].cx = 0;
-		//gl.coins[11].cy = 0;	
-		//gl.coins[12].cx = 0;
-		//gl.coins[12].cy = 0;	
-		//gl.coins[13].cx = 0;
-		//gl.coins[13].cy = 0;	
-		//gl.coins[14].cx = 0;
-		//gl.coins[14].cy = 0;	
-		//gl.coins[15].cx = 0;
-		//gl.coins[15].cy = 0;	
-		//gl.coins[16].cx = 0;
-		//gl.coins[16].cy = 0;	
-		//gl.coins[17].cx = 0;
-		//gl.coins[17].cy = 0;	
-		//gl.coins[18].cx = 0;
-		//gl.coins[18].cy = 0;	
-		//gl.coins[19].cx = 0;
-		//gl.coins[19].cy = 0;	
-		//gl.coins[20].cx = 0;
-		//gl.coins[20].cy = 0;	
-		//gl.coins[21].cx = 0;
-		//gl.coins[21].cy = 0;	
-		//gl.coins[22].cx = 0;
-		//gl.coins[22].cy = 0;	
-		//gl.coins[23].cx = 0;
-		//gl.coins[23].cy = 0;	
-		//gl.coins[24].cx = 0;
-		//gl.coins[24].cy = 0;	
-		//gl.coins[25].cx = 0;
-		//gl.coins[25].cy = 0;	
-		//gl.coins[26].cx = 0;
-		//gl.coins[26].cy = 0;	
-		//gl.coins[27].cx = 0;
-		//gl.coins[27].cy = 0;	
-		//gl.coins[28].cx = 0;
-		//gl.coins[28].cy = 0;	
-		//gl.coins[29].cx = 0;
-		//gl.coins[29].cy = 0;	
-		//gl.coins[30].cx = 0;
-		//gl.coins[30].cy = 0;	
-		//gl.coins[31].cx = 0;
-		//gl.coins[31].cy = 0;	
-		//gl.coins[32].cx = 0;
-		//gl.coins[32].cy = 0;	
-		//gl.coins[33].cx = 0;
-		//gl.coins[33].cy = 0;	
-		//gl.coins[34].cx = 0;
-		//gl.coins[34].cy = 0;	
-		//gl.coins[35].cx = 0;
-		//gl.coins[35].cy = 0;	
-		//gl.coins[36].cx = 0;
-		//gl.coins[36].cy = 0;	
-		//gl.coins[37].cx = 0;
-		//gl.coins[37].cy = 0;	
-		//gl.coins[38].cx = 0;
-		//gl.coins[38].cy = 0;	
-		//gl.coins[39].cx = 0;
-		//gl.coins[39].cy = 0;	
-		//gl.coins[40].cx = 0;
-		//gl.coins[40].cy = 0;	
-		//gl.coins[41].cx = 0;
-		//gl.coins[41].cy = 0;	
-		//gl.coins[42].cx = 0;
-		//gl.coins[42].cy = 0;	
-		//gl.coins[43].cx = 0;
-		//gl.coins[43].cy = 0;	
-		//gl.coins[44].cx = 0;
-		//gl.coins[44].cy = 0;	
-		//gl.coins[45].cx = 0;
-		//gl.coins[45].cy = 0;	
-		//gl.coins[46].cx = 0;
-		//gl.coins[46].cy = 0;	
-		//gl.coins[47].cx = 0;
-		//gl.coins[47].cy = 0;	
-		//gl.coins[48].cx = 0;
-		//gl.coins[48].cy = 0;	
-		//gl.coins[49].cx = 0;
-		//gl.coins[49].cy = 0;	
-		//gl.coins[50].cx = 0;
-		//gl.coins[50].cy = 0;	
-		//gl.coins[51].cx = 0;
-		//gl.coins[51].cy = 0;	
-		//gl.coins[52].cx = 0;
-		//gl.coins[52].cy = 0;	
-		//gl.coins[53].cx = 0;
-		//gl.coins[53].cy = 0;	
-		//gl.coins[54].cx = 0;
-		//gl.coins[54].cy = 0;	
-		//gl.coins[55].cx = 0;
-		//gl.coins[55].cy = 0;	
-		//gl.coins[56].cx = 0;
-		//gl.coins[57].cy = 0;	
-		//gl.coins[57].cx = 0;
-		//gl.coins[58].cy = 0;	
-		//gl.coins[58].cx = 0;
-		//gl.coins[59].cy = 0;	
-		//gl.coins[59].cx = 0;
-		//gl.coins[60].cy = 0;	
-		//gl.coins[60].cx = 0;
-		//gl.coins[61].cy = 0;	
-		//gl.coins[61].cx = 0;
-		//gl.coins[62].cy = 0;	
-		//gl.coins[62].cx = 0;
-		//gl.coins[63].cy = 0;	
-		//gl.coins[63].cx = 0;
-		//gl.coins[64].cy = 0;	
-		//gl.coins[64].cx = 0;
-		//gl.coins[65].cy = 0;	
-		//gl.coins[65].cx = 0;
-		//gl.coins[66].cy = 0;	
-		//gl.coins[66].cx = 0;
-		//gl.coins[67].cy = 0;	
-		//gl.coins[67].cx = 0;
-		//gl.coins[68].cy = 0;	
-		//gl.coins[68].cx = 0;
-		//gl.coins[69].cy = 0;	
-		//gl.coins[69].cx = 0;
-		//gl.coins[70].cy = 0;	
-		//gl.coins[70].cx = 0;
-		//gl.coins[71].cy = 0;	
-		//gl.coins[71].cx = 0;
-		//gl.coins[72].cy = 0;	
-		//gl.coins[72].cx = 0;
-		//gl.coins[73].cy = 0;	
-		//gl.coins[73].cx = 0;
-		//gl.coins[74].cy = 0;	
-		//gl.coins[74].cx = 0;
-		//gl.coins[75].cy = 0;	
-		//gl.coins[75].cx = 0;
-		//gl.coins[76].cy = 0;	
-		//gl.coins[76].cx = 0;
-		//gl.coins[77].cy = 0;	
-		//gl.coins[77].cx = 0;
-		//gl.coins[78].cy = 0;	
-		//gl.coins[78].cx = 0;
-		//gl.coins[79].cy = 0;	
-		//gl.coins[79].cx = 0;
-		//gl.coins[80].cy = 0;	
-		//gl.coins[80].cx = 0;
-		//gl.coins[81].cy = 0;	
-		//gl.coins[81].cx = 0;
-		//gl.coins[82].cy = 0;	
-		//gl.coins[82].cx = 0;
-		//gl.coins[82].cy = 0;	
-		//gl.coins[83].cx = 0;
-		//gl.coins[83].cy = 0;	
-		//gl.coins[84].cx = 0;
-		//gl.coins[84].cy = 0;	
-		//gl.coins[85].cx = 0;
-		//gl.coins[85].cy = 0;	
-		//gl.coins[86].cx = 0;
-		//gl.coins[86].cy = 0;	
-		//gl.coins[87].cx = 0;
-		//gl.coins[87].cy = 0;	
-		//gl.coins[88].cx = 0;
-		//gl.coins[88].cy = 0;	
-		//gl.coins[89].cx = 0;
-		//gl.coins[89].cy = 0;	
-		//gl.coins[90].cx = 0;
-		//gl.coins[90].cy = 0;	
-		//gl.coins[91].cx = 0;
-		//gl.coins[91].cy = 0;	
-		//gl.coins[92].cx = 0;
-		//gl.coins[92].cy = 0;	
-		//gl.coins[93].cx = 0;
-		//gl.coins[93].cy = 0;	
-		//gl.coins[94].cx = 0;
-		//gl.coins[94].cy = 0;	
-		//gl.coins[95].cx = 0;
-		//gl.coins[95].cy = 0;	
-		//gl.coins[96].cx = 0;
-		//gl.coins[96].cy = 0;	
-		//gl.coins[97].cx = 0;
-		//gl.coins[97].cy = 0;	
-		//gl.coins[98].cx = 0;
-		//gl.coins[98].cy = 0;	
-		//gl.coins[99].cx = 0;
-		//gl.coins[99].cy = 0;
-	}
 }
 void renderCoin(Sprite* coinSprite)
 {
 	//Renders Coins based in by an array of coins
 	if (coinSprite->collected != true) {
-	float h = 15;
-	float w = 15;
-	glPushMatrix();
-	glBindTexture(GL_TEXTURE_2D, gl.coinTexture);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.0f);
-	glColor4ub(255,255,255,255);
-	int ix = 1, iy = 1;
-	float tx = (float)ix;
-	float ty = (float)iy;
-	glBegin(GL_QUADS);
-	glTexCoord2f(tx + 1, ty + 1); glVertex2i(coinSprite->cx-w, coinSprite->cy-h);
-	glTexCoord2f(tx + 1,     ty); glVertex2i(coinSprite->cx-w, coinSprite->cy+h);
-	glTexCoord2f(tx,        ty ); glVertex2i(coinSprite->cx+w, coinSprite->cy+h);
-	glTexCoord2f(tx,     ty + 1); glVertex2i(coinSprite->cx+w, coinSprite->cy-h);
-	glEnd();
-	glPopMatrix();
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glDisable(GL_ALPHA_TEST);
-	if ((mainChar.cx > (coinSprite->cx - 10) && mainChar.cx < (coinSprite->cx + 10))
-	&& ((mainChar.cy > (coinSprite->cy - 10)) && (mainChar.cy < (coinSprite->cy + 10)))) {
-		//if character picks up power up,
-		//stop rendering and set x to -999999 to avoid
-		//picking up invisible power ups
-		printf("Picked up speed boost! Movement Speed: + 0.2!\n");
-		coinSprite->collected = true;
-		spriteDisappear(coinSprite);
-		gl.score += 10;
+		float h = 15;
+		float w = 15;
+		glPushMatrix();
+		glBindTexture(GL_TEXTURE_2D, gl.coinTexture);
+		glEnable(GL_ALPHA_TEST);
+		glAlphaFunc(GL_GREATER, 0.0f);
+		glColor4ub(255,255,255,255);
+		int ix = 1, iy = 1;
+		float tx = (float)ix;
+		float ty = (float)iy;
+		glBegin(GL_QUADS);
+			glTexCoord2f(tx + 1, ty + 1); glVertex2i(coinSprite->cx-w, coinSprite->cy-h);
+			glTexCoord2f(tx + 1,     ty); glVertex2i(coinSprite->cx-w, coinSprite->cy+h);
+			glTexCoord2f(tx,        ty ); glVertex2i(coinSprite->cx+w, coinSprite->cy+h);
+			glTexCoord2f(tx,     ty + 1); glVertex2i(coinSprite->cx+w, coinSprite->cy-h);
+		glEnd();
+		glPopMatrix();
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glDisable(GL_ALPHA_TEST);
+		if ((mainChar.cx > (coinSprite->cx - 10) && mainChar.cx < (coinSprite->cx + 10))
+		&& ((mainChar.cy > (coinSprite->cy - 10)) && (mainChar.cy < (coinSprite->cy + 10)))) {
+			coinSprite->collected = true;
+			spriteDisappear(coinSprite);
+			gl.score += 10;
+		}
 	}
-    }
-
 }
 void renderScore()
 {
@@ -1014,17 +809,17 @@ void renderScore()
 	r.center = 0;
 	if (gl.state == STATE_GAMEPLAY) {
 		timers.recordTime(&timers.timeCurrent);
-        	double timeSpan = timers.timeDiff(&timers.gameTime, &timers.timeCurrent);
-        	if (timeSpan > gl.gameDelay) {
-                	//advance
-                	++gl.gameFrame;
-                	timers.recordTime(&timers.gameTime);
-        	}
-        	if (gl.gameFrame >= 60)
-        	{
-                	++gl.minutes;
-                	gl.gameFrame = 0;
-        	}	
+		double timeSpan = timers.timeDiff(&timers.gameTime, &timers.timeCurrent);
+		if (timeSpan > gl.gameDelay) {
+			//advance
+			++gl.gameFrame;
+			timers.recordTime(&timers.gameTime);
+		}
+		if (gl.gameFrame >= 60)
+		{
+			++gl.minutes;
+			gl.gameFrame = 0;
+		}	
 	}
 	ggprint16(&r, 20, c, "SCORE");	
 	r.bot = gl.yres - 50;
@@ -1068,7 +863,6 @@ void hudHealth ()
 	Shape s;
 	Shape box[200];
 		if (mainChar.health > 25 && mainChar.health <= 30) {
-			
 			for (int i = 0; i < 30 + 1; i++) {
 			box[i].width = 3;
 			box[i].height = 15;
