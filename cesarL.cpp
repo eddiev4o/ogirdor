@@ -46,6 +46,24 @@ int taco_position = -300; // front of obama
 int p_walkFrame = 0;
 
 
+int light_delay = .01;
+int light2_delay = .01;
+int light3_delay = .01;
+//int light_delay4 = .01;
+//int light_delay5 = .01;
+//int light_delay6 = .01;
+int l_position = 200; //3100
+int l2_position = 0; //3100
+//int l3_position = 200; //3100
+//int l_position4 = 200; //3100
+//int l_position5 = 200; //3100
+//int l_position6 = 200; //3100
+int l_walkFrame = 0;
+int l2_walkFrame = 0;
+//int l3_walkFrame = 0;
+
+
+
 // this array will store the positions of enemies
 const int size = 5; // 0-9
 int array[size]= {200,300,800,1180,1200};
@@ -73,7 +91,7 @@ class my_time {
 	    clock_gettime(CLOCK_REALTIME, t);
 	}
 
-} tim,tacito, pika_time;
+} tim,tacito, pika_time, light_time, light2_time;
 
 
 void mari_physics(void)
@@ -102,8 +120,46 @@ void taco_physics(void)
 
 	tacito.recordTime(&tacito.walkTime);
     }
-    cout << "TESTING !!!!!!!!!!! TACO ::::: " << taco_position << endl;
-}                                                                       
+    //cout << "TESTING !!!!!!!!!!! TACO ::::: " << taco_position << endl;
+}                                                                       				
+
+//fix lightning animation
+void light_physics(void)
+{
+    light_time.recordTime(&light_time.timeCurrent);
+    double timeSpan = light_time.timeDiff(&light_time.walkTime, &light_time.timeCurrent);
+    if (timeSpan > light_delay) { // can aldo make "gl" vars in here
+	(timeSpan > light_delay? l_position-=2:l_position--);  // can aldo make "gl" vars in here
+	//l_position++;
+	l_walkFrame++;
+	if (l_walkFrame >= 3) {
+	    l_walkFrame -= 4;
+	    //l_position--;
+	    //l_position++;
+	}
+	light_time.recordTime(&light_time.walkTime);
+    }
+}                                                                       				
+
+void light2_physics(void)
+{
+    light2_time.recordTime(&light2_time.timeCurrent);
+    double timeSpan = light2_time.timeDiff(&light2_time.walkTime, &light2_time.timeCurrent);
+    if (timeSpan > light2_delay) { // can aldo make "gl" vars in here
+	(timeSpan > light2_delay? l2_position-=2:l2_position--);  // can aldo make "gl" vars in here
+	//l_position++;
+	l2_walkFrame++;
+	if (l_walkFrame >= 3) {
+	    l2_walkFrame -= 4;
+	    //l_position--;
+	    //l_position++;
+	}
+	light2_time.recordTime(&light2_time.walkTime);
+    }
+}                                                                       				
+
+
+
 
 void pika_physics(void)
 {
@@ -164,7 +220,8 @@ Ppmimage* mari_image()
 {
     system("convert ./images/Enemy_Mariachi_3.gif ./images/Enemy_Mariachi_3.ppm");
     return ppm6GetImage("./images/Enemy_Mariachi_3.ppm");
-}
+}		
+
 
 
 Ppmimage* female_image() 
@@ -219,7 +276,77 @@ Ppmimage* pika_image()
 {
     system("convert ./images/pikachu.png ./images/pikachu.ppm");
     return ppm6GetImage("./images/pikachu.ppm");
-}
+}								
+
+
+Ppmimage* pika2_image()
+{
+    system("convert ./images/pikachu.png ./images/pikachu.ppm");
+    return ppm6GetImage("./images/pikachu.ppm");
+}								
+
+Ppmimage* pika3_image()
+{
+    system("convert ./images/pikachu.png ./images/pikachu.ppm");
+    return ppm6GetImage("./images/pikachu.ppm");
+}												
+Ppmimage* pika4_image()
+{
+    system("convert ./images/pikachu.png ./images/pikachu.ppm");
+    return ppm6GetImage("./images/pikachu.ppm");
+}								
+
+/*
+Ppmimage* pika5_image()
+{
+    system("convert ./images/pikachu.png ./images/pikachu.ppm");
+    return ppm6GetImage("./images/pikachu.ppm");
+}								
+
+Ppmimage* pika6_image()
+{
+    system("convert ./images/pikachu.png ./images/pikachu.ppm");
+    return ppm6GetImage("./images/pikachu.ppm");
+}								
+*/
+
+Ppmimage* light_image()
+{
+    system("convert ./images/light.png ./images/light.ppm");
+    return ppm6GetImage("./images/light.ppm");
+}								
+
+Ppmimage* light2_image()
+{
+    system("convert ./images/light.png ./images/light.ppm");
+    return ppm6GetImage("./images/light.ppm");
+}								
+
+Ppmimage* light3_image()
+{
+    system("convert ./images/light.png ./images/light.ppm");
+    return ppm6GetImage("./images/light.ppm");
+}								
+
+Ppmimage* light4_image()
+{
+    system("convert ./images/light.png ./images/light.ppm");
+    return ppm6GetImage("./images/light.ppm");
+}								
+
+Ppmimage* light5_image()
+{
+    system("convert ./images/light.png ./images/light.ppm");
+    return ppm6GetImage("./images/light.ppm");
+}								
+
+Ppmimage* light6_image()
+{
+    system("convert ./images/light.png ./images/light.ppm");
+    return ppm6GetImage("./images/light.ppm");
+}								
+
+
 
 
 
@@ -227,6 +354,8 @@ Ppmimage* pika_image()
 //first enemy
 void show_mari() 
 {
+    //cout << "main Character PositionX ----> : " << mainChar.cx << endl;
+    //cout << "main Character Position y ====>: " << mainChar.cy << endl;
     int y = 165;
     //mariEnemy.cy = 175; // y cord
     float ht = 100.0;//height of mari
@@ -255,13 +384,14 @@ void show_mari()
     float ty = (float)ay / 1.0;
 
 
-    cout << "before loop: " << m_position << endl; 
-    cout << "position: " << m_position << endl;
+    //aqui
+    //if (mainChar.cx < mariEnemy.cx) {
+
+
 
     if(m_position < -600){  //was 600
 	//walks to the left 
 	m_position++;
-	cout << "position: " << m_position << endl;
 	glBegin(GL_QUADS);
 	glTexCoord2f(tx,      ty+.6); glVertex2i(mariEnemy.cx+ m_position+ temp +w, y-ht);
 	glTexCoord2f(tx,      ty+0);    glVertex2i(mariEnemy.cx+ m_position+ temp +w, y+ht);
@@ -269,59 +399,40 @@ void show_mari()
 	glTexCoord2f(tx+.14, ty+.6); glVertex2i(mariEnemy.cx + m_position+ temp -w, y-ht);
 
 	//hopefully
-	//(mainChar.cx >= mariEnemy.cx+m_position+temp+w? mainChar.health--: m_position++);
 	if(mainChar.cx >= mariEnemy.cx+m_position+temp-w &&
 		mainChar.cx <= mariEnemy.cx+m_position+temp+w &&
-	   mainChar.cy <= y-ht-67 && mainChar.cy >= y+ht-67)
-	  {
-	    //if(mainChar.cy <= y-ht || mainChar.cy >= y+ht || mainChar.cy == y+ht || mainChar.cy == y-ht){
-		//health greater than 38? subtract, else keep adding    
-		//(mainChar.health >= 50?mainChar.health-=.01:mainChar.health += 1.5);
-	   // }else{
-		mainChar.health--;
-	    //}
+		mainChar.cy <= y-ht-67 && mainChar.cy >= y+ht-67)
+	{
+	    mainChar.health--;
 	}
-
-	//if pos > -602,set pos to -500,else pos++      
+	//if (mainChar.cx < mariEnemy.cx) {
 	(m_position > -602? m_position=-500: m_position++);
-
-
+	// } else {
+	//m_position = -999999;
+	//mariEnemy.cx = 5000;
     }
-
-
-    cout << "position: " << m_position << endl;
+    //}
 
 
     if (m_position > -600) { //was 600
 	// walk right
 	m_position--;
-	cout << "position: " << m_position << endl;
 	glBegin(GL_QUADS);
 	glTexCoord2f(tx,      ty+.6);  glVertex2i(mariEnemy.cx+ m_position+ temp +w, y-ht);
 	glTexCoord2f(tx,      ty+0);   glVertex2i(mariEnemy.cx+m_position+temp+w, y+ht);
 	glTexCoord2f(tx-.14, ty+0);    glVertex2i(mariEnemy.cx +m_position+temp -w, y+ht);
 	glTexCoord2f(tx-.14, ty+.6);   glVertex2i(mariEnemy.cx + m_position+temp -w, y-ht);
-	cout << "\n\n\n\n\n\n\n\n\n\n\n bit x combo: "  << mariEnemy.cx + m_position + temp + w << endl;
-	cout << "\n\n\n\n\n\n\n\n\n\n\n\ bit x combo: "  << mariEnemy.cx + m_position + temp - w << endl;
-	//(mainChar.cx >= mariEnemy.cx+m_position+temp-w? mainChar.health--: m_position--);
 
-	cout << "\n\n\n\n\n\n\n\n\n\n\n\ny - : " << y-ht << endl;
-	cout << "\n\n\n\n\n\n\n\n\n\n\n\n\ny + : " << y+ht << endl;
 
 	if (mainChar.cx >= mariEnemy.cx+m_position+temp-w &&
 		mainChar.cx <= mariEnemy.cx+m_position+temp+w &&
-		           mainChar.cy >= y-ht-67 && mainChar.cy <= y+ht-67){
-	    //if (mainChar.cy <= y-ht || mainChar.cy >= y+ht || mainChar.cy == y+ht || mainChar.cy == y-ht){
-		//mainChar.health+=2;  //health;
-	//	(mainChar.health >= 50?mainChar.health--:mainChar.health+=2);
-	   // } else {
-		mainChar.health--;
-	 //   }
+		mainChar.cy >= y-ht-67 && mainChar.cy <= y+ht-67){
+	    mainChar.health--;
 	}
-
 	(m_position < -599?m_position=-700:m_position--);
-
     }
+    // aqui
+    //m_position = -9999;
 
 
     glEnd();
@@ -332,7 +443,7 @@ void show_mari()
 
     //WORK ON TIME library to sort enemies every 3 seconds
 
-}                                                                               
+}																                                                                               
 
 void show_female() 
 {
@@ -368,26 +479,119 @@ void show_female()
     glDisable(GL_ALPHA_TEST);
 }                                                                               
 
+void show_light(void);
+void show_light2(void);
+void show_light3(void);
+void show_light4(void);
+void show_light5(void);
+void show_light6(void);
 
 void show_pika() 
 {
+    //if (mainChar.cx !> pika.cx) (
+    //show_light();
+    //distance of lightning
+    //(l_position <= -50? l_position= 200:l_position--);
+
+    // }else{
+    // l_position 
+    // <=
+/*  ----------------------- DEBUGGING PURPOSES
+    if (l_position <= -300) {
+    l_position = 200;  //pika.cx; //3200
+//l_position = pika.cx; //3200
+cout << "RREEEEEEEE ASSIGNED !!!! " << l_position << endl;
+} else {
+l_position--;
+cout << " :( :( :( regular\t: " << l_position << endl;
+cout << " :( :( :( ========= >.<\t: " << pika.cx << endl;
+}
+*/
+if(mainChar.cx > pika.cx){
+    pika.cx = -999999;
+    light.cy = 5000;
+} else {
+    show_light();
+    (l_position <= -50? l_position= 200:l_position--);
+}
+
+if (gl.initDone == 0) {
+    float x = gl.xres/1; 
+    x = x-60; //x cord
+}
+pika.cy = 100; // y cord
+float ht = 100.0;//estatura de la mujer
+float w = ht*0.5; 
+
+glPushMatrix();
+glColor3f(1.0, 1.0, 1.0);
+glBindTexture(GL_TEXTURE_2D, gl.pika_Texture); 
+glEnable(GL_ALPHA_TEST);
+glAlphaFunc(GL_GREATER, 0.0f);
+glColor4ub(255,255,255,255);
+int ax = p_walkFrame % 4;
+int ay = 0;
+if (p_walkFrame >= 4){ // work on this later
+    if(p_position % 10 == 0){
+	ay = 1;
+    }
+}
+float tx = (float)ax / 4.0;
+float ty = (float)ay / 1.0;
+glBegin(GL_QUADS);
+//image starts at 12.5 , since 8 x 8
+//first try all 1s
+//first two have to be opposites tx only
+//ty + - - +     x -- ++
+// .3 1
+glTexCoord2f(tx ,       ty + 1); glVertex2i(pika.cx +w, pika.cy-ht);
+glTexCoord2f(tx ,       ty); glVertex2i(pika.cx +w, pika.cy+ht);
+glTexCoord2f(tx + .25,       ty); glVertex2i(pika.cx-w, pika.cy+ht);
+glTexCoord2f(tx + .25,       ty + 1); glVertex2i(pika.cx-w, pika.cy-ht);
+glEnd(); // .3
+glPopMatrix();
+glBindTexture(GL_TEXTURE_2D, 0);
+glDisable(GL_ALPHA_TEST);
+}  										                                                                             
+
+void show_pika2() 
+{
+   show_light2();
+   cout << "light 2 : \t\t" << light2.cx <<  endl;
+    //distance of lightning
+    //(l2_position <= -200? l2_position= 0:l2_position--);
+
+
+
+
+    if(mainChar.cx > pika2.cx){
+	pika2.cx = -999999;
+	light2.cy = 5000;
+    } else {
+	show_light2(); // was -200 .. why ? 
+	(l2_position <= 6700? l2_position= 7000:l2_position--);
+    }
+
+
+
+
     if (gl.initDone == 0) {
 	float x = gl.xres/1; 
-	x = x-60; //x cord
+	x = x-60; 
     }
-    pika.cy = 150; // y cord
-    float ht = 100.0;//estatura de la mujer
-    float w = ht*0.5; 
+    pika2.cy = 100; 
+    float ht = 75.0;
+    float w = ht*0.3; 
 
     glPushMatrix();
     glColor3f(1.0, 1.0, 1.0);
-    glBindTexture(GL_TEXTURE_2D, gl.pika_Texture); 
+    glBindTexture(GL_TEXTURE_2D, gl.pika2_Texture); 
     glEnable(GL_ALPHA_TEST);
     glAlphaFunc(GL_GREATER, 0.0f);
     glColor4ub(255,255,255,255);
     int ax = p_walkFrame % 4;
     int ay = 0;
-    if (p_walkFrame >= 4){ // work on this later
+    if (p_walkFrame >= 4){ // 
 	if(p_position % 10 == 0){
 	    ay = 1;
 	}
@@ -395,43 +599,195 @@ void show_pika()
     float tx = (float)ax / 4.0;
     float ty = (float)ay / 1.0;
     glBegin(GL_QUADS);
-    //image starts at 12.5 , since 8 x 8
-    //first try all 1s
-    //first two have to be opposites tx only
-    //ty + - - +     x -- ++
-    // .3 1
-    glTexCoord2f(tx ,       ty + 1); glVertex2i(pika.cx +w, pika.cy-ht);
-    glTexCoord2f(tx ,       ty); glVertex2i(pika.cx +w, pika.cy+ht);
-    glTexCoord2f(tx + .25,       ty); glVertex2i(pika.cx-w, pika.cy+ht);
-    glTexCoord2f(tx + .25,       ty + 1); glVertex2i(pika.cx-w, pika.cy-ht);
+    glTexCoord2f(tx ,       ty + 1); glVertex2i(pika2.cx +w, pika2.cy-ht);
+    glTexCoord2f(tx ,       ty); glVertex2i(pika2.cx +w, pika2.cy+ht);
+    glTexCoord2f(tx + .25,       ty); glVertex2i(pika2.cx-w, pika2.cy+ht);
+    glTexCoord2f(tx + .25,       ty + 1); glVertex2i(pika2.cx-w, pika2.cy-ht);
     glEnd(); // .3
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_ALPHA_TEST);
-}                                                                               
+}  										                                      
+
+
+void show_pika3()
+{
+    show_light3();
+    //distance of lightning
+    //(l_position <= -50? l_position= 200:l_position--);
+
+    if (gl.initDone == 0) {
+	float x = gl.xres/1;
+	x = x-60;
+    }
+    pika3.cy = 100;
+    float ht = 100.0;
+    float w = ht*0.5;
+
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.pika3_Texture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ax = p_walkFrame % 4;
+    int ay = 0;
+    if (p_walkFrame >= 4){ // 
+	if(p_position % 10 == 0){
+	    ay = 1;
+	}
+    }
+    float tx = (float)ax / 4.0;
+    float ty = (float)ay / 1.0;
+    glBegin(GL_QUADS);
+    glTexCoord2f(tx ,       ty + 1); glVertex2i(pika3.cx +w, pika3.cy-ht);
+    glTexCoord2f(tx ,       ty); glVertex2i(pika3.cx +w, pika3.cy+ht);
+    glTexCoord2f(tx + .25,       ty); glVertex2i(pika3.cx-w, pika3.cy+ht);
+    glTexCoord2f(tx + .25,       ty + 1); glVertex2i(pika3.cx-w, pika3.cy-ht);
+    glEnd(); // .3
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
+}
+
+void show_pika4()
+{
+    show_light4();
+    //distance of lightning
+    //(l_position <= -50? l_position= 200:l_position--);
+
+    if (gl.initDone == 0) {
+	float x = gl.xres/1;
+	x = x-60;
+    }
+    pika4.cy = 485;
+    float ht = 100.0;
+    float w = ht*0.5;
+
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.pika4_Texture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ax = p_walkFrame % 4;
+    int ay = 0;
+    if (p_walkFrame >= 4){ // 
+	if(p_position % 10 == 0){
+	    ay = 1;
+	}
+    }
+    float tx = (float)ax / 4.0;
+    float ty = (float)ay / 1.0;
+    glBegin(GL_QUADS);
+    glTexCoord2f(tx ,       ty + 1); glVertex2i(pika4.cx +w, pika4.cy-ht);
+    glTexCoord2f(tx ,       ty); glVertex2i(pika4.cx +w, pika4.cy+ht);
+    glTexCoord2f(tx + .25,       ty); glVertex2i(pika4.cx-w, pika4.cy+ht);
+    glTexCoord2f(tx + .25,       ty + 1); glVertex2i(pika4.cx-w, pika4.cy-ht);
+    glEnd(); // .3
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
+}										
+
+/*
+void show_pika5()
+{
+    show_light5();
+    //distance of lightning
+    //(l_position <= -50? l_position= 200:l_position--);
+
+    if (gl.initDone == 0) {
+	float x = gl.xres/1;
+	x = x-60;
+    }
+    pika5.cy = 325;
+    float ht = 100.0;
+    float w = ht*0.5;
+
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.pika5_Texture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ax = p_walkFrame % 4;
+    int ay = 0;
+    if (p_walkFrame >= 4){ // 
+	if(p_position % 10 == 0){
+	    ay = 1;
+	}
+    }
+    float tx = (float)ax / 4.0;
+    float ty = (float)ay / 1.0;
+    glBegin(GL_QUADS);
+    glTexCoord2f(tx ,       ty + 1); glVertex2i(pika5.cx +w, pika5.cy-ht);
+    glTexCoord2f(tx ,       ty); glVertex2i(pika5.cx +w, pika5.cy+ht);
+    glTexCoord2f(tx + .25,       ty); glVertex2i(pika5.cx-w, pika5.cy+ht);
+    glTexCoord2f(tx + .25,       ty + 1); glVertex2i(pika5.cx-w, pika5.cy-ht);
+    glEnd(); // .3
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
+}										
+
+void show_pika6()
+{
+    show_light6();
+    //distance of lightning
+    //(l_position <= -50? l_position= 200:l_position--);
+
+    if (gl.initDone == 0) {
+	float x = gl.xres/1;
+	x = x-60;
+    }
+    pika6.cy = 100;
+    float ht = 100.0;
+    float w = ht*0.5;
+
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.pika6_Texture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ax = p_walkFrame % 4;
+    int ay = 0;
+    if (p_walkFrame >= 4){ // 
+	if(p_position % 10 == 0){
+	    ay = 1;
+	}
+    }
+    float tx = (float)ax / 4.0;
+    float ty = (float)ay / 1.0;
+    glBegin(GL_QUADS);
+    glTexCoord2f(tx ,       ty + 1); glVertex2i(pika6.cx +w, pika6.cy-ht);
+    glTexCoord2f(tx ,       ty); glVertex2i(pika6.cx +w, pika6.cy+ht);
+    glTexCoord2f(tx + .25,       ty); glVertex2i(pika6.cx-w, pika6.cy+ht);
+    glTexCoord2f(tx + .25,       ty + 1); glVertex2i(pika6.cx-w, pika6.cy-ht);
+    glEnd(); // .3
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
+}										
+*/
+
+
 
 
 void show_taco();
 
-
-
-
 void show_obama()
 {
     //position starts at -300
-    show_taco();
-    (taco_position == -500? taco_position= -30:taco_position--);
 
-
-    /*
-       if(taco_position == -500){
-       cout << "BEFORE - position of taco is now : " << taco_position << endl;
-       taco_position = -30;
-       cout << "AFTER - position of taco is now : " << taco_position << endl;
-    //show_taco();
-    //cout << "DID I SPAWN ??? I AM A TACO \n";
-    }                                   
-    */
+    if (mainChar.cx < obama.cx) {
+	show_taco();
+	(taco_position == -500? taco_position= -30:taco_position--);
+    } else {
+	obama.cx = 5000;
+	taco_position = -999999;
+    }
 
     //obama.cx = 200;   charceter.cx is to make him follow megaman
     obama.cy = 300; // y cord
@@ -485,25 +841,267 @@ void show_taco()
     glTexCoord2f(tx+1.0, ty+0);    glVertex2i(taco.cx+ taco_position-w, taco.cy+ht);
     glTexCoord2f(tx+1.0, ty+1.0); glVertex2i(taco.cx+ taco_position-w, taco.cy-ht);
 
-    //CONTACT WITH TACO WILL CAUSE DAMAGE ... REALLL
+    //CONTAC1 WITH TACO WILL CAUSE DAMAGE ... REALLL
     if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w &&
 	    mainChar.cy >= taco.cy-ht && mainChar.cy <= taco.cy+ht)
     {
 	//if(mainChar.cy >= taco.cx + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
-	    mainChar.health--;
+	mainChar.health--;
     }
 
     glEnd();
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_ALPHA_TEST);
-}                                                                               
+}
+
+//lightning
+void show_light()
+{
+    light.cy = 100; // y cord
+    float ht = 50.0;//estatura del tacito bien delicioso 
+    float w = ht*.3; // was .5
+
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.light_Texture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ax = l_walkFrame  % 3;
+    int ay = 1;
+    if (l_walkFrame >= 3)
+	ay = 1;
+    float tx = (float)ax / 3.0;
+    float ty = (float)ay / 1.0;
+    glBegin(GL_QUADS);
+    glTexCoord2f(tx,      ty+1.0); glVertex2i(light.cx+ l_position+  w, light.cy-ht);
+    glTexCoord2f(tx,      ty+0);    glVertex2i(light.cx+ l_position+ w, light.cy+ht);
+    glTexCoord2f(tx+.3, ty+0);    glVertex2i(light.cx  +l_position -w, light.cy+ht);
+    glTexCoord2f(tx+.3, ty+1.0); glVertex2i(light.cx   +l_position-w, light.cy-ht);
+
+    //CONTACT WITH TACO WILL CAUSE DAMAGE ... REALLL
+    // ---------- 
+    // luz  
+    if(mainChar.cx >= light.cx+l_position-w && mainChar.cx <= light.cx+l_position+w &&
+	    mainChar.cy >= light.cy-ht && mainChar.cy <= light.cy+ht)
+    {
+	//if(mainChar.cy >= light.cx + light_position - w && mainChar.cy <= light.cy + light_position+w)
+	mainChar.health-=.2;
+    }
+
+    glEnd();
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
+} 																								
+
+void show_light2()
+{
+    light2.cy = 150; // y cord
+    float ht = 75.0;//estatura del tacito bien delicioso 
+    float w = ht*.3; // was .5
 
 
-//70 lines of code right here
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.light2_Texture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ax = l_walkFrame  % 3;
+    int ay = 1;
+    if (l_walkFrame >= 3)
+	ay = 1;
+    float tx = (float)ax / 3.0;
+    float ty = (float)ay / 1.0;
+    glBegin(GL_QUADS);
+    glTexCoord2f(tx,      ty+1.0); glVertex2i(light2.cx /*+ l_position2*/+  w, light2.cy-ht);
+    glTexCoord2f(tx,      ty+0);    glVertex2i(light2.cx/*+ l_position2*/+ w, light2.cy+ht);
+    glTexCoord2f(tx+.3, ty+0);    glVertex2i(light2.cx  /*+l_position2*/ -w, light2.cy+ht);
+    glTexCoord2f(tx+.3, ty+1.0); glVertex2i(light2.cx   /*+l_position2*/-w, light2.cy-ht);
 
+    //CONTACT WITH TACO WILL CAUSE DAMAGE ... REALLL
+    // ---------- 
+    // MAKE MODIFICATION for LIGHT
+    /*if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w &&
+      mainChar.cy >= taco.cy-ht && mainChar.cy <= taco.cy+ht)
+      {
+    //if(mainChar.cy >= taco.cx + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
+    mainChar.health--;
+    }*/
 
+    glEnd();
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
+} 													
 
+void show_light3()
+{
+    light3.cy = 200; // y cord
+    float ht = 150.0;//estatura del tacito bien delicioso 
+    float w = ht*1.0; // was .5
+
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.light3_Texture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ax = l_walkFrame  % 3;
+    int ay = 1;
+    if (l_walkFrame >= 3)
+	ay = 1;
+    float tx = (float)ax / 3.0;
+    float ty = (float)ay / 1.0;
+    glBegin(GL_QUADS);
+    glTexCoord2f(tx,      ty+1.0); glVertex2i(light3.cx /*+ l_position2*/+  w, light3.cy-ht);
+    glTexCoord2f(tx,      ty+0);    glVertex2i(light3.cx/*+ l_position2*/+ w, light3.cy+ht);
+    glTexCoord2f(tx+.3, ty+0);    glVertex2i(light3.cx  /*+l_position2*/ -w, light3.cy+ht);
+    glTexCoord2f(tx+.3, ty+1.0); glVertex2i(light3.cx   /*+l_position2*/-w, light3.cy-ht);
+
+    //CONTACT WITH TACO WILL CAUSE DAMAGE ... REALLL
+    // ---------- 
+    // MAKE MODIFICATION for LIGHT
+    /*if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w &&
+      mainChar.cy >= taco.cy-ht && mainChar.cy <= taco.cy+ht)
+      {
+    //if(mainChar.cy >= taco.cx + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
+    mainChar.health--;
+    }*/
+
+    glEnd();
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
+} 													
+
+void show_light4()
+{
+    light4.cy = 485; // y cord
+    float ht = 150.0;//estatura del tacito bien delicioso 
+    float w = ht*1.0; // was .5
+
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.light4_Texture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ax = l_walkFrame  % 3;
+    int ay = 1;
+    if (l_walkFrame >= 3)
+	ay = 1;
+    float tx = (float)ax / 3.0;
+    float ty = (float)ay / 1.0;
+    glBegin(GL_QUADS);
+    glTexCoord2f(tx,      ty+1.0); glVertex2i(light4.cx /*+ l_position4*/+  w, light4.cy-ht);
+    glTexCoord2f(tx,      ty+0);    glVertex2i(light4.cx/*+ l_position4*/+ w, light4.cy+ht);
+    glTexCoord2f(tx+.3, ty+0);    glVertex2i(light4.cx  /*+l_position4*/ -w, light4.cy+ht);
+    glTexCoord2f(tx+.3, ty+1.0); glVertex2i(light4.cx   /*+l_position4*/-w, light4.cy-ht);
+
+    //CONTACT WITH TACO WILL CAUSE DAMAGE ... REALLL
+    // ---------- 
+    // MAKE MODIFICATION for LIGHT
+    /*if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w &&
+      mainChar.cy >= taco.cy-ht && mainChar.cy <= taco.cy+ht)
+      {
+    //if(mainChar.cy >= taco.cx + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
+    mainChar.health--;
+    }*/
+
+    glEnd();
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
+} 													
+/*
+void show_light5()
+{
+    light5.cy = 325; // y cord
+    float ht = 150.0;//estatura del tacito bien delicioso 
+    float w = ht*1.0; // was .5
+
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.light5_Texture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ax = l_walkFrame  % 3;
+    int ay = 1;
+    if (l_walkFrame >= 3)
+	ay = 1;
+    float tx = (float)ax / 3.0;
+    float ty = (float)ay / 1.0;
+    glBegin(GL_QUADS);
+
+    */
+   // glTexCoord2f(tx,      ty+1.0); glVertex2i(light5.cx /*+ l_position5*/+  w, light5.cy-ht);
+   // glTexCoord2f(tx,      ty+0);    glVertex2i(light5.cx/*+ l_position5*/+ w, light5.cy+ht);
+   // glTexCoord2f(tx+.3, ty+0);    glVertex2i(light5.cx  /*+l_position5*/ -w, light5.cy+ht);
+   // glTexCoord2f(tx+.3, ty+1.0); glVertex2i(light5.cx   /*+l_position5*/-w, light5.cy-ht);
+
+    //CONTACT WITH TACO WILL CAUSE DAMAGE ... REALLL
+    // ---------- 
+    // MAKE MODIFICATION for LIGHT
+    /*if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w &&
+      mainChar.cy >= taco.cy-ht && mainChar.cy <= taco.cy+ht)
+      {
+    //if(mainChar.cy >= taco.cx + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
+    mainChar.health--;
+    }*/
+/*
+    glEnd();
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
+} 													
+*/
+
+/*
+void show_light6()
+{
+    light6.cy = 100; // y cord
+    float ht = 150.0;//estatura del tacito bien delicioso 
+    float w = ht*1.0; // was .5
+
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.light6_Texture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+    int ax = l_walkFrame  % 3;
+    int ay = 1;
+    if (l_walkFrame >= 3)
+	ay = 1;
+    float tx = (float)ax / 3.0;
+    float ty = (float)ay / 1.0;
+    glBegin(GL_QUADS);
+  */  
+    //glTexCoord2f(tx,      ty+1.0); glVertex2i(light6.cx /*+ l_position6*/+  w, light6.cy-ht);
+    //glTexCoord2f(tx,      ty+0);    glVertex2i(light6.cx/*+ l_position6*/+ w, light6.cy+ht);
+    //glTexCoord2f(tx+.3, ty+0);    glVertex2i(light6.cx  /*+l_position6*/ -w, light6.cy+ht);
+    //glTexCoord2f(tx+.3, ty+1.0); glVertex2i(light6.cx   /*+l_position6*/-w, light6.cy-ht);
+/*
+    //CONTACT WITH TACO WILL CAUSE DAMAGE ... REALLL
+    // ---------- 
+    // MAKE MODIFICATION for LIGHT
+    if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w &&
+      mainChar.cy >= taco.cy-ht && mainChar.cy <= taco.cy+ht)
+      {
+    //if(mainChar.cy >= taco.cx + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
+    mainChar.health--;
+    }
+
+    glEnd();
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
+} 
+*/													
 
 void show_sun()
 {
@@ -512,7 +1110,7 @@ void show_sun()
 	x = x-60; //x cord
     }
     sun.cx = 200;   //charceter.cx is to make him follow megaman
-    sun.cy = 400; // y cord
+    sun.cy = 475; // y cord
     float ht = 75.0;//height of mari
     float w = ht*0.5;
 
@@ -576,8 +1174,6 @@ void show_shooting_star()
     glDisable(GL_ALPHA_TEST);
 }
 
-
-
 void quickSort(int*, int, int);
 void bubbleSort(int*, int);
 void selectionSort(int*, int);
@@ -585,7 +1181,6 @@ void Merge(int*,int,int,int);
 void MergeSort(int*,int,int);
 void heapSort(int arr[],int n);
 void heapify(int arr[], int n, int i);
-
 
 void bubbleSort(int* arr, int size){
     int temp;
@@ -599,7 +1194,6 @@ void bubbleSort(int* arr, int size){
 	}
     }
 }
-
 
 void selectionSort(int* arr, int n)
 {
@@ -658,8 +1252,7 @@ void Merge(int *a, int low, int high, int mid)
     }
 
     // Insert all the remaining values from i to mid into temp[].
-    while (i <= mid)
-    {
+    while (i <= mid) {
 	temp[k] = a[i];
 	k++;
 	i++;
@@ -673,15 +1266,12 @@ void Merge(int *a, int low, int high, int mid)
 	j++;
     }
 
-
     // Assign sorted data stored in temp[] to a[].
     for (i = low; i <= high; i++)
     {
 	a[i] = temp[i-low];
     }
 }           
-
-
 
 void MergeSort(int *a, int low, int high)
 {
@@ -722,8 +1312,6 @@ void heapify(int arr[], int n, int i)
     }
 }
 
-
-
 void heapSort(int arr[], int n)
 {
     // Build heap (rearrange array)
@@ -740,7 +1328,6 @@ void heapSort(int arr[], int n)
 	heapify(arr, i, 0);
     }
 }
-
 
 void quickSort(int* arr, int start, int end){
     int temp;
@@ -793,6 +1380,7 @@ class IntQueue{
 	bool isEmpty();
 	bool isFull();
 	void clear();
+	void print();
 };
 
 
@@ -813,7 +1401,9 @@ IntQueue::IntQueue(const IntQueue &obj){
 
     array= new int[obj.size];
     for(int count=0; count < obj.size; count++){
-	array[count] = *(array + count);
+	//array[count] = *(array + count);
+	array[count] = obj.array[count];
+	cout << "in copy constructor: " << array[count] << endl;
     }
 }
 
@@ -823,7 +1413,7 @@ IntQueue::~IntQueue(){
 
 void IntQueue::enqueue(int elem){
     if(isFull()){
-	cout << "queue is full\n";
+	//cout << "queue is full\n";
 	return;
     }else{
 	back++;
@@ -835,7 +1425,7 @@ void IntQueue::enqueue(int elem){
 
 void IntQueue::dequeue(int &recover){
     if(isEmpty()){
-	cout << "is empty\n";
+	//cout << "is empty\n";
     }else{
 	front++;
 	recover= array[front];
@@ -858,10 +1448,16 @@ void IntQueue::clear(){
     items = 0;
 }
 
+void IntQueue::print(){
+    for (int i =0; i < size; i++)
+	cout << "in the queue: " << array[i] << endl;
+
+}
+
 int prime(int starting, int ending){
     int res = rand() % ending + starting;
     int a = 0;
-    while((res%2==0) ||(res%3==0) || (res%4==0)||(res%5==0)||(res%6==0)|| (res%7==0)||(res%8==0)||(res%9==0)){
+    while ((res%2==0) ||(res%3==0) || (res%4==0)||(res%5==0)||(res%6==0)|| (res%7==0)||(res%8==0)||(res%9==0)) {
 	a++;
 	res = rand() % ending + starting;
     }
@@ -879,14 +1475,13 @@ void init_round2(){
     int i =0; //cherka cherka
     int catcher;
 
-
-    int s1 = 800, e1 = 950,p1; 
-    int s2 = 1000, e2 = 1150,p2;
-    int s3 = 1100, e3 = 1250,p3;
+    //3100
+    int s1 = 3089, e1 = 3109, p1=0; //3100
+    int s2 = 3190, e2 = 3210, p2=0; //3200
+    int s3 = 7128, e3 = 7460, p3=0; //7150
 
     //store rands in here
     int r1,r2,r3;
-
 
     cout << "first round ****\n";
     r1 = prime(s1,e1);
@@ -897,11 +1492,13 @@ void init_round2(){
     cout << "third round *****\n";
     r3 = prime(s3,e3);
 
-
+    // r 1 2 3 are positions of enemies
     const int SIZE = 3;
-    int tmp[SIZE] = {r3,r2,r1};
+    int tmp[SIZE] = {3200,3100,7100};
     bubbleSort(tmp,SIZE);
 
+    for(i=0; i< SIZE; i++)
+	cout << "pos : " << tmp[i] << endl;
     //now that it is sorted, throw into a queue
     IntQueue Q(SIZE);
 
@@ -910,23 +1507,57 @@ void init_round2(){
     }
 
 
+    Q.print();
+
     //get three enemies to use this on .. female is one of em
-    for(i=0; i < SIZE; i++){
+    for (i=0; i < SIZE; i++){
 	Q.dequeue(catcher);
-	if(i == 0)
+	if (i == 0)
 	    p1 = catcher;
-	if(i==1)
+	if (i==1)
 	    p2 = catcher;
-	if(i==2)
-	    p3 = catcher;
+	if (i==2)
+	    p3 = catcher; // were p3 etc
     }
 
     //p1 .. p2 .. p3  will be the position of 3 enemies
     //female.cx  =
 
-    //enemy 2.cx = 
-
+    //cout << "light position is : " << p1 << endl;
+    //light.cx = r1;
+    // cout << "pika  position is : " << p2 << endl;
+    // pika.cx = r2;
+    //cout << "pika 2 position is : " << p3 << endl;
+    // pika2.cx = r3;
     //enemy 3.cx = 
+    // */
+
+    pika.cx  = 3200;
+    cout << "pika1.cx  \t: " << pika.cx << endl;
+    pika2.cx = 7100; // second
+    cout << "pika2.cx  \t: " << pika2.cx << endl;
+
+
+    light.cx =  3100;
+    light2.cx = 7000;
+    light3.cx = 7900;
+    light4.cx = 8700;
+    //light5.cx = 10400;
+    //light6.cx = 12000;
+
+    //pika4.cx = 6300;
+    //pika5.cx = 7000;
+    // pika6.cx = 8000;
+
+    //7300 is too close   .. 7500
+    pika3.cx = 8000; //  
+    cout << "pika3.cx  \t: " << pika3.cx << endl;
+    pika4.cx = 8800; //8k
+    cout << "pika4.cx  \t: " << pika4.cx << endl;
+
+   // pika5.cx = 10500; 
+    //pika6.cx = 12100; 
+
 }
 
 
@@ -940,7 +1571,7 @@ void CesarInit(){
     int random_number = rand() % 5 + 1;
 
 
-    switch(random_number){
+    switch (random_number) {
 	case 1:
 	    //bubble
 	    bubbleSort(array,size);
@@ -964,16 +1595,7 @@ void CesarInit(){
 
     // once it is fully ready
 
-    /*
-       sun.cx = array[0];
-       obama.cx = array[1];
-       female.cx = array[2];
-       mari.cx = array[3];
-       shooting_star = array[4];
-       */
 
-    //obama.cx = 1200;
-    //taco.cx =  1180;
     shooting_star.cx = *(array + 0);
     shooting_star.cy = *(array + 1);
 
@@ -983,8 +1605,6 @@ void CesarInit(){
     taco.cx = array[3];
     obama.cx = array[4];  //array[3]     // check out array
     //    taco.cx =  1180;  //array[4]
-
-    pika.cx = 800;
 
     init_round2();
 }

@@ -59,7 +59,7 @@ Timers timers;
 Global gl;
 UserInput input;
 Level lev;
-Sprite offset, turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, star, enemy1, mariEnemy, godzillaheart, godzilla, godzillaball, pika, female, obama, sun,shooting_star,taco ,bird;
+Sprite offset, turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, star, enemy1, mariEnemy, godzillaheart, godzilla, godzillaball, pika, pika2, pika3, pika4, light, light2, light3, light4, female, obama, sun,shooting_star,taco ,bird;
 Particle particle[20];
 Game game;
 //X Windows variables
@@ -98,6 +98,7 @@ extern void godzillaphysics(void);
 //extern void godzillaheartphysics(void);
 extern void godzillaballphysics(void);
 extern void taco_physics(void);
+extern void light_physics(void);
 extern void pika_physics(void);
 extern void birdphysics(void);
 extern void mari_physics(void);
@@ -117,6 +118,13 @@ extern Ppmimage *mari_image();
 
 //extern Ppmimage *female_image();
 extern Ppmimage *pika_image();
+extern Ppmimage *pika2_image();
+extern Ppmimage *pika3_image();
+extern Ppmimage *pika4_image();
+extern Ppmimage *light_image();
+extern Ppmimage *light2_image();
+extern Ppmimage *light3_image();
+extern Ppmimage *light4_image();
 //extern Ppmimage *sun_image();
 extern Ppmimage *shooting_star_image();
 extern Ppmimage *obama_image();
@@ -147,7 +155,14 @@ extern void showbird();
 extern void show_mari();
 extern void show_taco();
 //extern void show_female();
+extern void show_light();
+extern void show_light2();
+extern void show_light3();
+extern void show_light4();
 extern void show_pika();
+extern void show_pika2();
+extern void show_pika3();
+extern void show_pika4();
 //extern void show_sun();
 extern void show_obama();
 extern void show_shooting_star();
@@ -461,7 +476,14 @@ void initOpengl(void)
     //spacing is acting weird        
     gl.shooting_star_image = shooting_star_image();
     //gl.female_image = female_image();
-    gl.pika_image = pika_image();
+    gl.light_image =  light_image();
+    gl.light2_image =  light2_image();
+    gl.light3_image =  light3_image();
+    gl.light4_image =  light4_image();
+    gl.pika_image =  pika_image();
+    gl.pika2_image = pika2_image();
+    gl.pika3_image = pika3_image();
+    gl.pika4_image = pika4_image();
     //gl.sun_image = sun_image();
     gl.gameoverImage = ppm6GetImage("./images/gameoverImage.ppm");
     gl.sandImage = ppm6GetImage("./images/sandImage.ppm");
@@ -526,7 +548,14 @@ void initOpengl(void)
     glGenTextures(1, &gl.mari_Texture);
     glGenTextures(1, &gl.birdTexture);
     //glGenTextures(1, &gl.female_Texture);
+    glGenTextures(1, &gl.light_Texture);
+    glGenTextures(1, &gl.light2_Texture);
+    glGenTextures(1, &gl.light3_Texture);
+    glGenTextures(1, &gl.light4_Texture);
     glGenTextures(1, &gl.pika_Texture);
+    glGenTextures(1, &gl.pika2_Texture);
+    glGenTextures(1, &gl.pika3_Texture);
+    glGenTextures(1, &gl.pika4_Texture);
     glGenTextures(1, &gl.obama_Texture);
     glGenTextures(1, &gl.taco_Texture);
     glGenTextures(1, &gl.shooting_star_Texture);
@@ -797,8 +826,56 @@ void initOpengl(void)
     //free(female_pointer); 
     //unlink("./images/female.ppm");					
     //================================================================
-    
-     //Pika
+   
+    //light
+     w = gl.light_image->width;
+     h = gl.light_image->height; 
+     glBindTexture(GL_TEXTURE_2D, gl.light_Texture);
+     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+     unsigned char *light_pointer = buildAlphaData(gl.light_image);
+     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+     		GL_RGBA, GL_UNSIGNED_BYTE, light_pointer);
+     free(light_pointer); 
+     unlink("./images/pikachu.ppm");					
+  //====================================================================
+ //light 2
+  w = gl.light2_image->width;
+  h = gl.light2_image->height; 
+  glBindTexture(GL_TEXTURE_2D, gl.light2_Texture);
+  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+  unsigned char *light2_pointer = buildAlphaData(gl.light2_image);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+  		GL_RGBA, GL_UNSIGNED_BYTE, light2_pointer);
+  free(light2_pointer); 
+  unlink("./images/pikachu.ppm");					
+  //====================================================================
+ //light 3
+  w = gl.light3_image->width;
+  h = gl.light3_image->height; 
+  glBindTexture(GL_TEXTURE_2D, gl.light3_Texture);
+  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+  unsigned char *light3_pointer = buildAlphaData(gl.light3_image);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+  		GL_RGBA, GL_UNSIGNED_BYTE, light3_pointer);
+  free(light3_pointer); 
+  unlink("./images/pikachu.ppm");					
+//====================================================================
+ //light 4
+  w = gl.light4_image->width;
+  h = gl.light4_image->height; 
+  glBindTexture(GL_TEXTURE_2D, gl.light4_Texture);
+  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+  unsigned char *light4_pointer = buildAlphaData(gl.light4_image);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+  		GL_RGBA, GL_UNSIGNED_BYTE, light4_pointer);
+  free(light4_pointer); 
+  unlink("./images/pikachu.ppm");					
+//====================================================================
+////Pika
      w = gl.pika_image->width;
      h = gl.pika_image->height; 
      glBindTexture(GL_TEXTURE_2D, gl.pika_Texture);
@@ -809,7 +886,43 @@ void initOpengl(void)
      		GL_RGBA, GL_UNSIGNED_BYTE, pika_pointer);
      free(pika_pointer); 
      unlink("./images/pikachu.ppm");					
-    //======================================================
+    //================================================================
+     //Pika2
+     w = gl.pika2_image->width;
+     h = gl.pika2_image->height; 
+     glBindTexture(GL_TEXTURE_2D, gl.pika2_Texture);
+     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+     unsigned char *pika2_pointer = buildAlphaData(gl.pika2_image);
+     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+     		GL_RGBA, GL_UNSIGNED_BYTE, pika2_pointer);
+     free(pika2_pointer); 
+     unlink("./images/pikachu.ppm");				       
+    //================================================================
+     //Pika 3
+     w = gl.pika3_image->width;
+     h = gl.pika3_image->height; 
+     glBindTexture(GL_TEXTURE_2D, gl.pika3_Texture);
+     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+     unsigned char *pika3_pointer = buildAlphaData(gl.pika3_image);
+     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+     		GL_RGBA, GL_UNSIGNED_BYTE, pika3_pointer);
+     free(pika3_pointer); 
+     unlink("./images/pikachu.ppm");				       
+    //================================================================
+  //Pika 4
+  w = gl.pika4_image->width;
+  h = gl.pika4_image->height; 
+  glBindTexture(GL_TEXTURE_2D, gl.pika4_Texture);
+  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+  unsigned char *pika4_pointer = buildAlphaData(gl.pika4_image);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+  		GL_RGBA, GL_UNSIGNED_BYTE, pika4_pointer);
+  free(pika4_pointer); 
+  unlink("./images/pikachu.ppm");				       
+ //================================================================
     //Obama
     w = gl.obama_image->width;
     h = gl.obama_image->height; 
@@ -1866,6 +1979,7 @@ void physics(void)
     mari_physics();
     taco_physics();
     pika_physics();
+    light_physics();
     }
     moveSpriteRight(&shooting_star);
 }
@@ -1938,6 +2052,13 @@ void render(void)
         show_shooting_star();
         //show_female();
         show_pika();
+        show_pika2();
+        show_pika3();
+        show_pika4();
+        show_light();
+        show_light2();
+        show_light3();
+        show_light4();
         //show_sun();
         show_obama();
 	}

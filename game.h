@@ -26,8 +26,8 @@ extern class Sprite {
         }
 } offset, turt2, turt1, heart4, heart3, heart2, heart1, speedboost1,
     shield1, mainChar, turret, turretbeam,star, enemy1, mariEnemy,
-    godzillaheart, godzilla, godzillaball, sun, female, pika, obama, taco ,
-    shooting_star, bird;
+    godzillaheart, godzilla, godzillaball, sun, female, pika,pika2, pika3, pika4, obama, taco ,
+    shooting_star, bird, light, light2, light3, light4;
 
 struct Vec {
     double x, y, z;
@@ -186,7 +186,14 @@ extern class Global {
         Ppmimage *mari_image; 
         Ppmimage *female_image; 
         Ppmimage *pika_image; 
+        Ppmimage *pika2_image; 
+        Ppmimage *pika3_image; 
+        Ppmimage *pika4_image; 
         Ppmimage *obama_image; 
+        Ppmimage *light_image; 
+        Ppmimage *light2_image; 
+        Ppmimage *light3_image; 
+        Ppmimage *light4_image; 
      	Ppmimage *taco_image; 
         Ppmimage *sun_image; 
         Ppmimage *logoImage;
@@ -272,8 +279,15 @@ extern class Global {
         GLuint mari_Texture;
         GLuint female_Texture;
         GLuint pika_Texture;
+        GLuint pika2_Texture;
+        GLuint pika3_Texture;
+        GLuint pika4_Texture;
         GLuint shooting_star_Texture;
         GLuint obama_Texture;
+        GLuint light_Texture;
+        GLuint light2_Texture;
+        GLuint light3_Texture;
+        GLuint light4_Texture;
         GLuint taco_Texture;
         GLuint sun_Texture;
         GLuint backgroundTexture;
@@ -430,8 +444,15 @@ extern class Global {
             mari_image = NULL; 
             female_image = NULL; 
             pika_image = NULL; 
+            pika2_image = NULL; 
+            pika3_image = NULL; 
+            pika4_image = NULL; 
             shooting_star_image=NULL;
             obama_image = NULL; 
+            light_image = NULL; 
+            light2_image = NULL; 
+            light3_image = NULL; 
+            light4_image = NULL; 
             taco_image = NULL;
             sun_image = NULL; 
             logoImage = NULL;
