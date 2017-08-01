@@ -312,10 +312,39 @@ void tileCollision(Vec *tile)
                 moveSpriteLeft(&gl.coins[i]);
             }
         }
-        gl.isJumpingFlag = false;
-        mainChar.cy = mainChar.cy + 1;
-    }
+        if (!((((mainChar.cy) >= (tile->y + 5))
+        && ((mainChar.cy) <= (tile->y + 5) + lev.tilesize[1] + 20))
+        && (((mainChar.cx + lev.tilesize[0] - 2) >= (tile->x))
+        && ((((mainChar.cx + lev.tilesize[0] - 2) <= (tile->x) + lev.tilesize[0]))
+	|| (((mainChar.cx - lev.tilesize[0] + 2) >= (tile->x))
+        && ((mainChar.cx - lev.tilesize[0] + 2) <= (tile->x) + lev.tilesize[0])))))) {
+            if (gl.directionFlag == 0) {
+                gl.camera[0] += gl.movementSpeed;
+                gl.xc[0] += 0.001;
+                gl.xc[1] += 0.001;
+                for (unsigned int i = 0;  i < allSprites.size(); i++) {
+                    moveSpriteLeft(allSprites[i]);
+                }
+                for (int i = 0; i < 100; i++) {
+                    moveSpriteLeft(&gl.coins[i]);
+                }
+            }
+            if (gl.directionFlag == 1) {
+                gl.camera[0] -= gl.movementSpeed;
+                gl.xc[0] -= 0.001;
+                gl.xc[1] -= 0.001;
+                for (unsigned int i = 0;  i < allSprites.size(); i++) {
+                    moveSpriteRight(allSprites[i]);
+                }
+                for (int i = 0; i < 100; i++) {
+                    moveSpriteRight(&gl.coins[i]);
+                }
+            }
+        }
+    gl.isJumpingFlag = false;
+    mainChar.cy = mainChar.cy + 1;
     // each time you hit a tile, reset initialJumpCy so you can fall
+    }
     gl.initialJumpCy = 0;
 }
 
