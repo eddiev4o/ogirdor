@@ -340,6 +340,7 @@ void spriteDisappear(Sprite* sprt)
     // this is used to make a sprite disappear
     // used for: power up pick up, coin pick up, enemy death
     sprt->cx = -9999999;
+    sprt->cy = -9999999;
 }
 
 
