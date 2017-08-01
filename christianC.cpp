@@ -566,6 +566,7 @@ void checkJump()
         if (mainChar.cy <= gl.initialJumpCy) {
             mainChar.cy = gl.initialJumpCy;
             //gl.isJumpingFlag = 0;
+            //is set by my tile collision function
         }
     }
 }
