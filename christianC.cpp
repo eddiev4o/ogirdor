@@ -233,6 +233,7 @@ void addToShootableSprites()
 // Each layer have different speeds (background and foreground)
 void moveSpriteRight(Sprite *sprt)
 {
+    //this is mostly for collision
     if (gl.camera[0] > 0 && gl.cantMove == false) {
         sprt->cx = sprt->cx + gl.movementSpeed;
     }
@@ -240,6 +241,7 @@ void moveSpriteRight(Sprite *sprt)
 
 void moveSpriteLeft(Sprite *sprt)
 {
+    //this is mostly for collision
     if (gl.cantMove == false) {
         sprt->cx = sprt->cx - gl.movementSpeed;
     }
@@ -261,6 +263,7 @@ void moveLevelLeft()
 
 void mainMoveSpriteRight()
 {
+    //this function is called from main. It is for main movement 
     for (unsigned int i = 0;  i < allSprites.size(); i++) {
         moveSpriteRight(allSprites[i]);
     }
@@ -268,6 +271,7 @@ void mainMoveSpriteRight()
 
 void mainMoveSpriteLeft()
 {
+    //this function is called from main. It is for main movement 
     for (unsigned int i = 0;  i < allSprites.size(); i++) {
         moveSpriteLeft(allSprites[i]);
     }
