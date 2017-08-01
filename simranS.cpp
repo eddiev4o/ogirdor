@@ -181,6 +181,7 @@ void starphysics(void)
 	stary++;
 	if (starwf >= 12) {
 	    starwf -= 12;
+	    //starwf--;
 	    stary--;
 	}
 	t2.rt(&t2.wt);
@@ -190,10 +191,10 @@ void starphysics(void)
 
 
 void showstar() {
-    float y = 300;
+    float y = 100;
     float ht = 30.0;
     float w = ht*.5;
-    int move = 333;
+    int move = 4000;
 
     glPushMatrix();
     glColor3f(1.0, 1.0, 1.0);
@@ -210,11 +211,20 @@ void showstar() {
     float tx = (float)ax / 12.0;
     float ty = (float)ay/1.0;
 
-    glBegin(GL_QUADS);
-    glTexCoord2f(tx+.25,      ty+.3); glVertex2i(star.cx+move+w, y+stary-ht);
-    glTexCoord2f(tx+.25,      ty);    glVertex2i(star.cx+move+w, y+stary+ht);
-    glTexCoord2f(tx, ty);    glVertex2i(star.cx+move-w, y+stary+ht);
-    glTexCoord2f(tx, ty+.3); glVertex2i(star.cx+move-w, y+stary-ht);
+    stary++;
+
+    if (stary >= -300) {
+	stary++;
+	glBegin(GL_QUADS);
+	glTexCoord2f(tx+.25,      ty+.3); glVertex2i(star.cx+move+w, y-stary-ht);
+	glTexCoord2f(tx+.25,      ty);    glVertex2i(star.cx+move+w, y-stary+ht);
+	glTexCoord2f(tx, ty);    glVertex2i(star.cx+move-w, y-stary+ht);
+	glTexCoord2f(tx, ty+.3); glVertex2i(star.cx+move-w, y-stary-ht);
+
+	if (stary > -100) {
+	    stary = -400;
+	}
+    }
 
     // if (mainChar.cx > turretbeam.cx+move-w &&
     //	    mainChar.cx < turretbeam.cx+move+w)
@@ -386,12 +396,6 @@ void godzillaphysics(void)
     }
 }
 
-/*Ppmimage *godzillaheart image()
-{
-    system ("convert ./images/dheart.png ./images/godzillaheart.ppm");
-        return ppm6GetImage("./images/godzillaheart.ppm");
-}*/
-
 
 Ppmimage *godzillaimage()
 {
@@ -409,10 +413,10 @@ void showgodzillaball();
 
 void showgodzilla()
 {
-    // if (godzillaballm > -800) {
-    //godzillaballm++;
     showgodzillaball();
-    // }
+    if (godzilla.cx == -9999999) {
+	godzillaball.cx = -9999999;
+    }
     float y = 160;
     float ht = 100.0;
     float w = ht*2;
@@ -444,8 +448,8 @@ void showgodzilla()
 	glTexCoord2f(tx, ty);    glVertex3s(godzilla.cx-w, y+ht,0);
 	glTexCoord2f(tx, ty+1.0); glVertex3s(godzilla.cx-w, y-ht,0);
 
-	if (mainChar.cx >= godzilla.cx+i+move-w &&
-		mainChar.cx <= godzilla.cx+i+move+w) {
+	if (mainChar.cx >= godzilla.cx-w &&
+		mainChar.cx <= godzilla.cx+w) {
 	    if (mainChar.cy <= y-ht || 
 		    mainChar.cy >= y+ht || 
 		    mainChar.cy == y+ht || 
@@ -594,24 +598,24 @@ Ppmimage *birdImage()
 
 void showbird()
 {
-    if (stary > -950) {
-	stary--;
-	showstar();
+    //if (stary > -950) {
+    //	stary--;
+    showstar();
 
-	if (stary > -949) {
-	stary = -1200;
-	} 
-    }
-    if (stary < -950) {
-	stary++;
-	if (stary > -951) {
-	    stary = -300;
-	}
-    }
+    //	if (stary < -949) {
+    //	stary = -1200;
+    //	} 
+    //  }
+    //if (stary < -950) {
+    //	stary++;
+    //	if (stary > -951) {
+    //	    stary = -300;
+    //	}
+    //  }
     float y = 70;
     float ht = 30.0;
     float w = ht*2;
-    int move = 500; //5000
+    int move = 4500; //5000
 
     glPushMatrix();
     glColor3f(1.0, 1.0, 1.0);
