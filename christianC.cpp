@@ -280,7 +280,7 @@ void tileCollision(Vec *tile)
     && (((mainChar.cx) >= (tile->x))
     && ((mainChar.cx) <= (tile->x) + lev.tilesize[0]))) {
         // if character is walking into tile, move sprites and level to counteract
-	// default sprite movement bounded to XK_Left and XK_Right
+        // default sprite movement bounded to XK_Left and XK_Right
         if (gl.directionFlag == 0) {
             gl.camera[0] -= gl.movementSpeed;
             gl.xc[0] -= 0.001;
@@ -711,7 +711,7 @@ void renderSpeedboost1()
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_ALPHA_TEST);
         
-	if ((mainChar.cx > (speedboost1.cx - 10)
+        if ((mainChar.cx > (speedboost1.cx - 10)
         && mainChar.cx < (speedboost1.cx + 10))
         && ((mainChar.cy > (speedboost1.cy - 10))
         && (mainChar.cy < (speedboost1.cy + 10)))) {
@@ -750,7 +750,7 @@ void renderShield1()
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_ALPHA_TEST);
         
-	if ((mainChar.cx > (shield1.cx - 10)
+        if ((mainChar.cx > (shield1.cx - 10)
         && mainChar.cx < (shield1.cx + 10))
         && ((mainChar.cy > (shield1.cy - 10))
         && (mainChar.cy < (shield1.cy + 10)))) {
@@ -788,7 +788,7 @@ void renderHeart1()
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_ALPHA_TEST);
         
-	if ((mainChar.cx > (heart1.cx - 10)
+        if ((mainChar.cx > (heart1.cx - 10)
         && mainChar.cx < (heart1.cx + 10))
         && ((mainChar.cy > (heart1.cy - 10))
         && (mainChar.cy < (heart1.cy + 10)))) {
@@ -832,7 +832,7 @@ void renderHeart2()
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_ALPHA_TEST);
         
-	if ((mainChar.cx > (heart2.cx - 10)
+        if ((mainChar.cx > (heart2.cx - 10)
         && mainChar.cx < (heart2.cx + 10))
         && ((mainChar.cy > (heart2.cy - 10))
         && (mainChar.cy < (heart2.cy + 10)))) {
@@ -876,7 +876,7 @@ void renderHeart3()
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_ALPHA_TEST);
         
-	if ((mainChar.cx > (heart3.cx - 10)
+        if ((mainChar.cx > (heart3.cx - 10)
         && mainChar.cx < (heart3.cx + 10))
         && ((mainChar.cy > (heart3.cy - 10))
         && (mainChar.cy < (heart3.cy + 10)))) {
@@ -920,7 +920,7 @@ void renderHeart4()
         glBindTexture(GL_TEXTURE_2D, 0);
         glDisable(GL_ALPHA_TEST);
         
-	if ((mainChar.cx > (heart4.cx - 10)
+        if ((mainChar.cx > (heart4.cx - 10)
         && mainChar.cx < (heart4.cx + 10))
         && ((mainChar.cy > (heart4.cy - 10))
         && (mainChar.cy < (heart4.cy + 10)))) {
