@@ -182,6 +182,8 @@ vector<Sprite*> shootableSprites;
 void addToAllSprites()
 {
     //add every sprite here that reacts to player movement
+    //this is so all can be accessed through a for loop
+    //when checking for movement 
     if (allSprites.size() < 2) {
         allSprites.push_back(&turt1);
         allSprites.push_back(&turt2);
@@ -206,6 +208,8 @@ void addToAllSprites()
 void addToShootableSprites()
 {
     //add every sprite here that reacts to player shooting
+    //this is so all can be accessed through a for loop
+    //when checking for collision
     if (shootableSprites.size() < 2) {
         shootableSprites.push_back(&turt1);
         shootableSprites.push_back(&turt2);
@@ -393,12 +397,11 @@ void particlePhysics(int charSelect)
         }
         // projectilecollisions. Pass each particle and check if it collides
         // with the sprites
-        enemyParticleCollision(&gl.particle[i], &enemy1);
-        enemyParticleCollision(&gl.particle[i], &turret);
-        enemyParticleCollision(&gl.particle[i], &mariEnemy);
-        enemyParticleCollision(&gl.particle[i], &godzilla);
-        enemyParticleCollision(&gl.particle[i], &turt1);
-        enemyParticleCollision(&gl.particle[i], &turt2);
+        for (int i =0; i < gl.particleCount; i++) {
+            for (int j = 0; j < shootableSprites.size(); j++) {
+                enemyParticleCollision(&gl.particle[i], shootableSprites[j]);
+            }
+        }
     }
 }
 
@@ -921,6 +924,7 @@ void renderHeart4()
 
 void christianInit()
 {
+    addToShootableSprites();
     addToAllSprites();
     if (gl.levelSelect == 2) {
         turt2.cx = 850;
