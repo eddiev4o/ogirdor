@@ -120,11 +120,13 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <sys/stat.h>
+
+#include <vector>
+
 #ifdef USE_OPENAL_SOUND
 #include </usr/include/AL/alut.h>
 #endif //USE_OPENAL_SOUND
 
-Sprite movementSprites[100];
 // Everything about tile collision and
 // Movement
 void tileCollision(Vec*);
@@ -174,6 +176,48 @@ void renderChristianSprites(int);
 void clearScreen();
 using namespace std;
 
+vector<Sprite*> allSprites;
+vector<Sprite*> shootableSprites;
+
+void addToAllSprites()
+{
+    //add every sprite here that reacts to player movement
+    if (allSprites.size() < 2) {
+        allSprites.push_back(&turt1);
+        allSprites.push_back(&turt2);
+        allSprites.push_back(&mariEnemy);
+        allSprites.push_back(&female);
+        allSprites.push_back(&obama);
+        allSprites.push_back(&sun);
+        allSprites.push_back(&heart1);
+        allSprites.push_back(&heart2);
+        allSprites.push_back(&heart3);
+        allSprites.push_back(&heart4);
+        allSprites.push_back(&shield1);
+        allSprites.push_back(&speedboost1);
+        allSprites.push_back(&turret);
+        allSprites.push_back(&turretbeam);
+        allSprites.push_back(&enemy1);
+        allSprites.push_back(&godzilla);
+        allSprites.push_back(&godzillaball);
+    }
+}
+
+void addToShootableSprites()
+{
+    //add every sprite here that reacts to player shooting
+    if (shootableSprites.size() < 2) {
+        shootableSprites.push_back(&turt1);
+        shootableSprites.push_back(&turt2);
+        shootableSprites.push_back(&mariEnemy);
+        shootableSprites.push_back(&female);
+        shootableSprites.push_back(&obama);
+        shootableSprites.push_back(&turret);
+        shootableSprites.push_back(&enemy1);
+        shootableSprites.push_back(&godzilla);
+    }
+} 
+
 // These functions move sprites based on character movement
 // and collision.
 // If main character presses right, sprites and level move left
@@ -219,60 +263,26 @@ void tileCollision(Vec *tile)
             gl.camera[0] -= gl.movementSpeed;
             gl.xc[0] -= 0.001;
             gl.xc[1] -= 0.001;
-	    for (int i = 0; i < 100; i++) {
-	        moveSpriteRight(&movementSprites[i]);
-	    }
-            moveSpriteRight(&turt1);
-            moveSpriteRight(&turt2);
-            moveSpriteRight(&mariEnemy);
-            moveSpriteRight(&female);
-            moveSpriteRight(&obama);
-            moveSpriteRight(&sun);
-            moveSpriteRight(&heart1);
-            moveSpriteRight(&heart2);
-            moveSpriteRight(&heart3);
-            moveSpriteRight(&heart4);
-            moveSpriteRight(&shield1);
-            moveSpriteRight(&speedboost1);
+            for (unsigned int i = 0;  i < allSprites.size(); i++) {
+                moveSpriteRight(allSprites[i]);
+            }
             for (int i = 0; i < 100; i++) {
                 moveSpriteRight(&gl.coins[i]);
             }
-            moveSpriteRight(&turret);
-	    moveSpriteRight(&turretbeam);
-            moveSpriteRight(&enemy1);
-            moveSpriteRight(&godzilla);
-	    moveSpriteRight(&godzillaball);
         }
         if (gl.directionFlag == 1) {
             gl.camera[0] += gl.movementSpeed;
             gl.xc[0] += 0.001;
             gl.xc[1] += 0.001;
-            for (int i = 0; i < 100; i++) {
-                moveSpriteLeft(&movementSprites[i]);
+            for (unsigned int i = 0;  i < allSprites.size(); i++) {
+                moveSpriteLeft(allSprites[i]);
             }
-            moveSpriteLeft(&turt1);
-            moveSpriteLeft(&turt2);
-            moveSpriteLeft(&mariEnemy);
-            moveSpriteLeft(&female);
-            moveSpriteLeft(&obama);
-            moveSpriteLeft(&sun);
-            moveSpriteLeft(&heart1);
-            moveSpriteLeft(&heart2);
-            moveSpriteLeft(&heart3);
-            moveSpriteLeft(&heart4);
-            moveSpriteLeft(&shield1);
-            moveSpriteLeft(&speedboost1); 
             for (int i = 0; i < 100; i++) {
                 moveSpriteLeft(&gl.coins[i]);
             }
-            moveSpriteLeft(&turret);
-	    moveSpriteLeft(&turretbeam);
-            moveSpriteLeft(&enemy1);
-            moveSpriteLeft(&godzilla);
-	    moveSpriteLeft(&godzillaball);
         }
-            gl.isJumpingFlag = false;
-            mainChar.cy = mainChar.cy + 1;
+        gl.isJumpingFlag = false;
+        mainChar.cy = mainChar.cy + 1;
     }
     // if your character jumps, the lowest Y coordinate it can go is 0. This utilizes my checkJump function
     if (!((((mainChar.cy - 3) >= (tile->y))
@@ -911,6 +921,7 @@ void renderHeart4()
 
 void christianInit()
 {
+    addToAllSprites();
     if (gl.levelSelect == 2) {
         turt2.cx = 850;
         turt2.cy = 95;
