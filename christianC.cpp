@@ -438,7 +438,7 @@ void shootParticle()
     // XK_space allows you to shoot. However, you can only shoot once
     // per press of the space key. This is done using a flag
     // that resets when pressing of space key is stopped.
-    if(gl.oneOffShootFlag == true) {
+    if (gl.oneOffShootFlag == true) {
         printf("Shoot\n");
         makeParticle(); 
         gl.oneOffShootFlag = false;
@@ -1052,13 +1052,13 @@ void renderTurt1()
 
 void turt1Movement()
 {
-    if(gl.turt1Flag == 0)
+    if (gl.turt1Flag == 0)
     {
         turt1.cx++;
         if (turt1.cx >= 700)
             gl.turt1Flag = 1;
     }
-    if(gl.turt1Flag == 1)
+    if (gl.turt1Flag == 1)
     {
         turt1.cx--;
         if (turt1.cx < 400)
@@ -1108,13 +1108,13 @@ void renderTurt2()
 
 void turt2Movement()
 {
-    if(gl.turt2Flag == 0)
+    if (gl.turt2Flag == 0)
     {
         turt2.cx++;
         if (turt2.cx >= 1000)
             gl.turt2Flag = 1;
     }
-    if(gl.turt2Flag == 1)
+    if (gl.turt2Flag == 1)
     {
         turt2.cx--;
         if (turt2.cx < 800)
