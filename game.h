@@ -24,9 +24,10 @@ extern class Sprite {
             width = 20;
             health = 10;
         }
-} turt2, turt1, heart4, heart3, heart2, heart1, speedboost1,
+} offset, turt2, turt1, heart4, heart3, heart2, heart1, speedboost1,
     shield1, mainChar, turret, turretbeam,star, enemy1, mariEnemy,
-    godzilla, godzillaball, sun, female, pika, obama, taco ,shooting_star, bird;
+    godzillaheart, godzilla, godzillaball, sun, female, pika, obama, taco ,
+    shooting_star, bird;
 
 struct Vec {
     double x, y, z;
@@ -113,9 +114,14 @@ extern class Global {
         int initDone;
         int walk;
         int godzillawf;
+	int godzillaheartwf;
+	int godzillai;
+	int godzillahearti;
+	int godzillamove;
 	int godzillaballwf;
         int birdwf;
         double godzilladelay;
+	double godzillaheartdelay;
 	double godzillaballdelay;
         double birddelay;
         int directionFlag, attackFlag, isJumpingFlag, jumpDirectionFlag;
@@ -173,7 +179,8 @@ extern class Global {
         Ppmimage *turretbeamImage;
         Ppmimage *starImage;	
         Ppmimage *enemy1Image;
-        Ppmimage *godzillaImage;
+        Ppmimage *godzillaheartImage;
+	Ppmimage *godzillaImage;
         Ppmimage *godzillaballImage;
         Ppmimage *shooting_star_image;
         Ppmimage *mari_image; 
@@ -258,7 +265,8 @@ extern class Global {
         GLuint turretbeamTexture;
         GLuint starTexture;	
         GLuint enemy1Texture;
-        GLuint godzillaTexture;
+        GLuint godzillaheartTexture;
+	GLuint godzillaTexture;
         GLuint godzillaballTexture;
         GLuint birdTexture;
         GLuint mari_Texture;
@@ -346,9 +354,14 @@ extern class Global {
             minutes = 0;
             score = 0;
             godzillawf = 0;
+	    godzillaheartwf = 0;
+	    godzillai = -400;
+	    godzillahearti = -400;
+	    godzillamove = 2133;
 	    godzillaballwf = 0;
             birdwf = 0;
             godzilladelay = 0.1;
+	    godzillaheartdelay = 0.1;
 	    godzillaballdelay = 0.1;
             birddelay = 0.5;
             gameFrame = 0;
@@ -410,7 +423,8 @@ extern class Global {
 	    turretbeamImage = NULL;
 	    starImage = NULL; 
             enemy1Image = NULL;
-            godzillaImage = NULL;
+            godzillaheartImage = NULL;
+	    godzillaImage = NULL;
             godzillaballImage = NULL;
             birdImage = NULL;
             mari_image = NULL; 

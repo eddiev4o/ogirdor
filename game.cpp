@@ -59,7 +59,7 @@ Timers timers;
 Global gl;
 UserInput input;
 Level lev;
-Sprite turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, star, enemy1, mariEnemy, godzilla, godzillaball, pika, female, obama, sun,shooting_star,taco ,bird;
+Sprite offset, turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, star, enemy1, mariEnemy, godzillaheart, godzilla, godzillaball, pika, female, obama, sun,shooting_star,taco ,bird;
 Particle particle[20];
 Game game;
 //X Windows variables
@@ -95,6 +95,7 @@ extern void removePPM(void);
 extern void starphysics(void);
 extern void enemy1physics(void);
 extern void godzillaphysics(void);
+//extern void godzillaheartphysics(void);
 extern void godzillaballphysics(void);
 extern void taco_physics(void);
 extern void pika_physics(void);
@@ -109,6 +110,7 @@ extern Ppmimage *turretbeamImage();
 extern Ppmimage *enemy1image();
 extern Ppmimage *starImage();
 extern Ppmimage *godzillaimage();
+//extern Ppmimage *godzillaheartimage();
 extern Ppmimage *godzillaballimage();
 extern Ppmimage *birdImage();
 extern Ppmimage *mari_image();
@@ -139,6 +141,7 @@ extern void csound(const char *a);
 extern void showTurret();
 extern void showturretBeam();
 extern void showenemy1();
+//extern void showgodzillaheart();
 extern void showgodzilla();
 extern void showbird();
 extern void show_mari();
@@ -212,12 +215,17 @@ void init()
     //can be offscreen. You can also set y here
     //gl.camera[1] = 0.0;
     //gl.camera[0] = 0.0;
+    offset.cx = 0;
     turt1.cx = 200;
     turt1.cx = 90;
     enemy1.cx = 600;
     enemy1.cy = 90;
-    godzilla.cx = 1000;
+    godzillaheart.cx = 500 + gl.godzillahearti;
+    godzillaheart.cy = 90;
+    godzilla.cx = 1000 + gl.godzillai + gl.godzillamove;
     godzilla.cy = 90;
+    godzilla.height = 500;
+    godzilla.width = 100;
     godzillaball.cx = 1000;
     godzillaball.cy = 100;
     bird.cx = 900;
@@ -443,6 +451,7 @@ void initOpengl(void)
     gl.turretbeamImage = turretbeamImage();
     gl.starImage = starImage();
     gl.enemy1Image = enemy1image();
+    //gl.godzillaheartImage = godzillaheartimage();
     gl.godzillaImage = godzillaimage();
     gl.godzillaballImage = godzillaballimage();
     gl.birdImage = birdImage();
@@ -511,6 +520,7 @@ void initOpengl(void)
     glGenTextures(1, &gl.turretbeamTexture);
     glGenTextures(1, &gl.starTexture);
     glGenTextures(1, &gl.enemy1Texture);
+    //glGenTextures(1, &gl.godzillaheartTexture);
     glGenTextures(1, &gl.godzillaTexture);
     glGenTextures(1, &gl.godzillaballTexture);
     glGenTextures(1, &gl.mari_Texture);
@@ -714,6 +724,18 @@ void initOpengl(void)
     //===================================================
 
     //===================================================
+    //godzillaheart
+   /* w = gl.godzillaheartImage->width;
+    h = gl.godzillaheartImage->height;
+    glBindTexture(GL_TEXTURE_2D, gl.godzillaheartTexture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *godzillaheartstuff = buildAlphaData(gl.godzillaheartImage);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, godzillaheartstuff);
+    free(godzillaheartstuff);
+    unlink("./images/godzillaheart.ppm");
+    *///===================================================
     //godzilla
     w = gl.godzillaImage->width;
     h = gl.godzillaImage->height;
@@ -1832,7 +1854,11 @@ void physics(void)
             gl.xc[1] -= 0.001;
         }
     }
+
+    if (gl.levelSelect ==1) {
+
     godzillaphysics();
+    //godzillaheartphysics();
     starphysics();
     godzillaballphysics();
     enemy1physics();
@@ -1840,6 +1866,7 @@ void physics(void)
     mari_physics();
     taco_physics();
     pika_physics();
+    }
     moveSpriteRight(&shooting_star);
 }
 
@@ -1900,9 +1927,11 @@ void render(void)
 	for (int i = 0; i < 100; i++) {
 		renderCoin(&gl.coins[i]);
 	}
+	if(gl.levelSelect ==1 ) {	
 	showTurret();
         showenemy1();
-        showgodzilla();
+        //showgodzillaheart();
+	showgodzilla();
         showbird();
         show_mari();
         // start_menu(gl.xres, gl.yres);
@@ -1911,6 +1940,7 @@ void render(void)
         show_pika();
         //show_sun();
         show_obama();
+	}
         hudHealth();
         healthBar(gl.xres, gl.yres);
         renderTimeDisplay();

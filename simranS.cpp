@@ -377,14 +377,20 @@ void godzillaphysics(void)
     double tspan = t.td(&t.wt, &t.tc);
     if (tspan > gl.godzilladelay) {
 	gl.godzillawf++;
-	i++;
+	gl.godzillahearti++;
 	if (gl.godzillawf >= 3) {
 	    gl.godzillawf -= 3;
-	    i--;
+	    gl.godzillahearti--;
 	}
 	t.rt(&t.wt);
     }
 }
+
+/*Ppmimage *godzillaheart image()
+{
+    system ("convert ./images/dheart.png ./images/godzillaheart.ppm");
+        return ppm6GetImage("./images/godzillaheart.ppm");
+}*/
 
 
 Ppmimage *godzillaimage()
@@ -427,15 +433,16 @@ void showgodzilla()
     float tx = (float)ax / 3.0;
     float ty = (float)ay/ 1.0;
 
-    if (i > -950) {
-	i--;
+    if (gl.godzillai > -950) {
+	gl.godzillai--;
+	godzilla.cx--;
 	glBegin(GL_QUADS);
 	glTexCoord2f(tx-.334,      ty+1.0); 
-	glVertex3s(godzilla.cx+i+move+w, y-ht,0);
+	glVertex3s(godzilla.cx+w, y-ht,0);
 	glTexCoord2f(tx-.334,      ty);    
-	glVertex3s(godzilla.cx+i+move+w, y+ht,0);
-	glTexCoord2f(tx, ty);    glVertex3s(godzilla.cx+i+move-w, y+ht,0);
-	glTexCoord2f(tx, ty+1.0); glVertex3s(godzilla.cx+i+move-w, y-ht,0);
+	glVertex3s(godzilla.cx+w, y+ht,0);
+	glTexCoord2f(tx, ty);    glVertex3s(godzilla.cx-w, y+ht,0);
+	glTexCoord2f(tx, ty+1.0); glVertex3s(godzilla.cx-w, y-ht,0);
 
 	if (mainChar.cx >= godzilla.cx+i+move-w &&
 		mainChar.cx <= godzilla.cx+i+move+w) {
@@ -449,20 +456,21 @@ void showgodzilla()
 	    }
 	}
 
-	if( i < -949) {
-	    i = -1099;
+	if( gl.godzillai < -949) {
+	    gl.godzillai = -1099;
 	}
     }
 
-    if ( i < -950) { 
-	i++;
+    if ( gl.godzillai < -950) { 
+	gl.godzillai++;
+	godzilla.cx++;
 	glBegin(GL_QUADS);
 	glTexCoord2f(tx+.33,      ty+1.0); 
-	glVertex3s(godzilla.cx+i+move+w, y-ht,0);
+	glVertex3s(godzilla.cx+w, y-ht,0);
 	glTexCoord2f(tx+.33,      ty);    
-	glVertex3s(godzilla.cx+i+move+w, y+ht,0);
-	glTexCoord2f(tx, ty);    glVertex3s(godzilla.cx+i+move-w, y+ht,0);
-	glTexCoord2f(tx, ty+1.0); glVertex3s(godzilla.cx+i+move-w, y-ht,0);
+	glVertex3s(godzilla.cx+w, y+ht,0);
+	glTexCoord2f(tx, ty);    glVertex3s(godzilla.cx-w, y+ht,0);
+	glTexCoord2f(tx, ty+1.0); glVertex3s(godzilla.cx-w, y-ht,0);
 
 	if (mainChar.cx <= godzilla.cx+i+move-w && 
 		mainChar.cx >= godzilla.cx+i+move+w) {
@@ -477,8 +485,8 @@ void showgodzilla()
 	    }
 	}
 
-	if (i > -951) {
-	    i = -800;
+	if (gl.godzillai > -951) {
+	    gl.godzillai = -800;
 	}
     }
 
