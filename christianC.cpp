@@ -204,6 +204,8 @@ void addToAllSprites()
         allSprites.push_back(&enemy1);
         allSprites.push_back(&godzilla);
         allSprites.push_back(&godzillaball);
+        allSprites.push_back(&pika);
+        allSprites.push_back(&taco);
     }
 }
 
