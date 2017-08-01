@@ -32,6 +32,10 @@
 // Score, GameOver Frameworks
 // Level 2 Progress
 //=============================================
+//Week 9 Progress
+// Health Hud, Health Bar Change, Coins 
+// Score Logic Fix
+//============================================
 
 #include <math.h>
 #include <stdio.h>
@@ -49,12 +53,11 @@ extern void checkUnder(Vec *);
 extern void spriteDisappear(Sprite*);
 void renderBackground(int levelSelect)
 {
-    // Texture of main character depends on what they select
-    if (levelSelect == 1)
-        gl.tempBackgroundTexture = gl.backgroundTexture;
-    if (levelSelect == 2)
-        gl.tempBackgroundTexture = gl.desertTexture;
-
+	//Loads Background based on Level Selection
+	if (levelSelect == 1)
+		gl.tempBackgroundTexture = gl.backgroundTexture;
+	if (levelSelect == 2)
+		gl.tempBackgroundTexture = gl.desertTexture;
 
 	glPushMatrix();
 	glColor3f(1.0,1.0,1.0);
@@ -71,6 +74,8 @@ void renderBackground(int levelSelect)
 
 void renderTiles()
 {
+	//Loads proper txt file for tiles depending
+	//on Level Character Selection
 	if (gl.levelSelect == 1) {
 		FILE *fpi1 = fopen("level.txt","r");
 		if (fpi1) {
@@ -232,6 +237,8 @@ void renderTiles()
 
 void pauseScreen()
 {
+	//Renders Pause Screen
+	//Ability to go back to Menu
 	Rect r; 
 	float h = 100.0;
 	float w = 200.0;
@@ -269,6 +276,9 @@ void startTimer()
 
 void levelCompletion()
 {
+	//Renders Level Completion Texture
+	//Calculates score and renders appropriate Rank
+	//Uses Timers to for completion and exit to Menu
 	float h = 300;
 	float w = 300;
 	if(STATE_COMPLETION) {
@@ -449,6 +459,8 @@ void levelCompletion()
 
 void deathScreen()
 {
+	//Renders GameOver if Health is less than 1
+	//Or if character falls into a pit (below cy 54)
 	mainChar.health -= 1;	
 	timers.recordTime(&timers.timeCurrent);
 	double timeSpan = timers.timeDiff(&timers.timeOut, &timers.timeCurrent);
@@ -489,6 +501,7 @@ void deathScreen()
 void healthBar(int xres, int yres)
 {
 //generate a healthbar on top left of the screen
+//dynamic based on mainChar.health
 	Rect r;
 	unsigned int c = 0x002d88d8;
 	r.bot = yres-30;
@@ -521,6 +534,8 @@ void healthBar(int xres, int yres)
 
 void renderTimeDisplay()
 {
+	//Renders Time in Seconds and Minutes
+	//Uses timers to keep track
 	Rect r;
 	unsigned int c = 0x002d88d8;
 	r.bot = gl.yres - 30;
@@ -547,6 +562,7 @@ void renderTimeDisplay()
 
 void eddieInit()
 {
+	//Initializes Coin Coordinates
 		gl.coins[0].cx = 700;
 		gl.coins[0].cy = 120;
 		gl.coins[1].cx = 730;
@@ -953,6 +969,7 @@ void eddieInit()
 }
 void renderCoin(Sprite* coinSprite)
 {
+	//Renders Coins based in by an array of coins
 	if (coinSprite->collected != true) {
 	float h = 15;
 	float w = 15;
@@ -988,6 +1005,8 @@ void renderCoin(Sprite* coinSprite)
 }
 void renderScore()
 {
+	//Renders Score on top-right of screen
+	//Dynamic based on amount of coins collected
 	Rect r;
 	unsigned int c = 0x002d88d8;
 	r.bot = gl.yres - 30;
@@ -1015,7 +1034,9 @@ void renderScore()
 }
 void hudHealth ()
 {
-	
+	//Renders HUD along with a mainChar head
+	//Checks for Character Selected
+	//Grows with the health bar	
 	if (gl.characterSelect == 1)
 		gl.tempHeadTexture = gl.mainchar1headTexture;
 	if (gl.characterSelect == 2)
