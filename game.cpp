@@ -59,7 +59,7 @@ Timers timers;
 Global gl;
 UserInput input;
 Level lev;
-Sprite turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, enemy1, mariEnemy, godzilla, godzillaball, pika, female, obama, sun,shooting_star,taco ,bird;
+Sprite turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, star, enemy1, mariEnemy, godzilla, godzillaball, pika, female, obama, sun,shooting_star,taco ,bird;
 Particle particle[20];
 Game game;
 //X Windows variables
@@ -92,6 +92,8 @@ extern void getPlayerName(int, UserInput &input);
 extern void assign_playername(char [], UserInput &input);
 extern void PlayerStart(int, char [], UserInput &input);
 extern void removePPM(void);
+extern void starphysics(void);
+extern void enemy1physics(void);
 extern void godzillaphysics(void);
 extern void godzillaballphysics(void);
 extern void taco_physics(void);
@@ -105,6 +107,7 @@ extern void shooting_star_physics(void);
 extern Ppmimage *turretImage();
 extern Ppmimage *turretbeamImage();
 extern Ppmimage *enemy1image();
+extern Ppmimage *starImage();
 extern Ppmimage *godzillaimage();
 extern Ppmimage *godzillaballimage();
 extern Ppmimage *birdImage();
@@ -230,6 +233,8 @@ void init()
     turret.cy = 90;
     turretbeam.cx = 700;
     turretbeam.cy = 100;
+    star.cx = 700;
+    star.cy = 100;
     christianInit();
     CesarInit();
     eddieInit();
@@ -436,6 +441,7 @@ void initOpengl(void)
     gl.frameImage = ppm6GetImage("./images/Frame.ppm");
     gl.turretImage = turretImage();
     gl.turretbeamImage = turretbeamImage();
+    gl.starImage = starImage();
     gl.enemy1Image = enemy1image();
     gl.godzillaImage = godzillaimage();
     gl.godzillaballImage = godzillaballimage();
@@ -503,6 +509,7 @@ void initOpengl(void)
     glGenTextures(1, &gl.mainmenubackgroundTexture);
     glGenTextures(1, &gl.turretTexture);
     glGenTextures(1, &gl.turretbeamTexture);
+    glGenTextures(1, &gl.starTexture);
     glGenTextures(1, &gl.enemy1Texture);
     glGenTextures(1, &gl.godzillaTexture);
     glGenTextures(1, &gl.godzillaballTexture);
@@ -676,6 +683,18 @@ void initOpengl(void)
             GL_RGBA, GL_UNSIGNED_BYTE, turretbeamstuff);
     free(turretbeamstuff);
     unlink("./images/beam.ppm");
+    //====================================================
+    //star beam;
+    w = gl.starImage->width;
+    h = gl.starImage->height;
+    glBindTexture(GL_TEXTURE_2D, gl.starTexture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *starstuff = buildAlphaData(gl.starImage);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, starstuff);
+    free(starstuff);
+    unlink("./images/s.ppm");
 
 
     //====================================================
@@ -1814,7 +1833,9 @@ void physics(void)
         }
     }
     godzillaphysics();
+    starphysics();
     godzillaballphysics();
+    enemy1physics();
     birdphysics();
     mari_physics();
     taco_physics();

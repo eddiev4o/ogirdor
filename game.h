@@ -25,7 +25,7 @@ extern class Sprite {
             health = 10;
         }
 } turt2, turt1, heart4, heart3, heart2, heart1, speedboost1,
-    shield1, mainChar, turret, turretbeam , enemy1, mariEnemy,
+    shield1, mainChar, turret, turretbeam,star, enemy1, mariEnemy,
     godzilla, godzillaball, sun, female, pika, obama, taco ,shooting_star, bird;
 
 struct Vec {
@@ -170,7 +170,8 @@ extern class Global {
         Ppmimage *mainmenubackgroundImage;
         Ppmimage *birdImage;
         Ppmimage *turretImage;
-        Ppmimage *turretbeamImage;	
+        Ppmimage *turretbeamImage;
+        Ppmimage *starImage;	
         Ppmimage *enemy1Image;
         Ppmimage *godzillaImage;
         Ppmimage *godzillaballImage;
@@ -254,7 +255,8 @@ extern class Global {
         GLuint characterselectionTexture;
         GLuint frameTexture;
         GLuint turretTexture;
-        GLuint turretbeamTexture;	
+        GLuint turretbeamTexture;
+        GLuint starTexture;	
         GLuint enemy1Texture;
         GLuint godzillaTexture;
         GLuint godzillaballTexture;
@@ -405,7 +407,8 @@ extern class Global {
             maincharacter5Image = NULL;
             mainmenubackgroundImage = NULL;
             turretImage = NULL;
-	    turretbeamImage = NULL; 
+	    turretbeamImage = NULL;
+	    starImage = NULL; 
             enemy1Image = NULL;
             godzillaImage = NULL;
             godzillaballImage = NULL;

@@ -22,15 +22,10 @@
 using namespace std;
 
 
-int i = -400;
-
-int birdm = -400;
-
-int birdy= -300;
-
-int turretm = -800;
-
-int godzillaballm = -400;
+int i = -400; int birdm = -400; int birdy= -300; int turretm = -800;
+int godzillaballm = -400; int enemy1wf = 0; int enemy1m = -800;
+double enemy1delay = 0.1; int starwf = 0; double stardealy = 0.1;
+int stary = -300;
 
 class T {
 
@@ -54,7 +49,7 @@ class T {
 	    clock_gettime(CLOCK_REALTIME, t);
 	}
 
-} t, ti, tii;
+} t, ti, tii, t1, t2;
 
 
 bool h = false;
@@ -171,6 +166,70 @@ void showturretBeam()
 
 }
 
+Ppmimage *starImage()
+{
+    system ("convert ./images/s.png ./images/s.ppm");
+    return ppm6GetImage("./images/s.ppm");
+}
+
+void starphysics(void)
+{
+    t2.rt(&t2.tc);
+    double tspan = t2.td(&t2.wt, &t2.tc);
+    if (tspan > enemy1delay) {
+	starwf++;
+	stary++;
+	if (starwf >= 12) {
+	    starwf -= 12;
+	    stary--;
+	}
+	t2.rt(&t2.wt);
+    }
+
+}
+
+
+void showstar() {
+    float y = 300;
+    float ht = 30.0;
+    float w = ht*.5;
+    int move = 333;
+
+    glPushMatrix();
+    glColor3f(1.0, 1.0, 1.0);
+    glBindTexture(GL_TEXTURE_2D, gl.starTexture);
+    glEnable(GL_ALPHA_TEST);
+    glAlphaFunc(GL_GREATER, 0.0f);
+    glColor4ub(255,255,255,255);
+
+    int ax = starwf % 12;
+    int ay = 0;
+    if (starwf >= 12) {
+	ay =1;
+    }
+    float tx = (float)ax / 12.0;
+    float ty = (float)ay/1.0;
+
+    glBegin(GL_QUADS);
+    glTexCoord2f(tx+.25,      ty+.3); glVertex2i(star.cx+move+w, y+stary-ht);
+    glTexCoord2f(tx+.25,      ty);    glVertex2i(star.cx+move+w, y+stary+ht);
+    glTexCoord2f(tx, ty);    glVertex2i(star.cx+move-w, y+stary+ht);
+    glTexCoord2f(tx, ty+.3); glVertex2i(star.cx+move-w, y+stary-ht);
+
+    // if (mainChar.cx > turretbeam.cx+move-w &&
+    //	    mainChar.cx < turretbeam.cx+move+w)
+    //  {
+    //	mainChar.health--;
+
+    //  }
+    glEnd();
+    glPopMatrix();
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glDisable(GL_ALPHA_TEST);
+
+}
+
+
 void showTurret()
 {
     int move = 3833;
@@ -221,15 +280,32 @@ void showTurret()
 
 Ppmimage *enemy1image()
 {
-    system ("convert ./images/enemy1.png ./images/enemy1.ppm");
+    system ("convert ./images/dodge.png ./images/enemy1.ppm");
     return ppm6GetImage("./images/enemy1.ppm");
+}
+
+void enemy1physics(void)
+{
+    t1.rt(&t1.tc);
+    double tspan = t1.td(&t1.wt, &t1.tc);
+    if (tspan > enemy1delay) {
+	enemy1wf++;
+	enemy1m++;
+	if (enemy1wf >= 12) {
+	    enemy1wf -= 12;
+	    enemy1m--;
+	}
+	t1.rt(&t1.wt);
+    }
+
 }
 
 void showenemy1() 
 {
-    float y = 100;
+    float y = 90;
     float ht = 30.0;
     float w = ht*2;
+    int move = 4125;
 
     glPushMatrix();
     glColor3f(1.0, 1.0, 1.0);
@@ -238,16 +314,57 @@ void showenemy1()
     glAlphaFunc(GL_GREATER, 0.0f);
     glColor4ub(255,255,255,255);
 
-    int ax = 1;
-    int ay = 1;
-    float tx = (float)ax / 4.0;
-    float ty = (float)ay;
+    int ax = enemy1wf % 12;
+    int ay = 0;
+    if (enemy1wf >=12) {
+	ay = 1;
+    }
+    float tx = (float)ax / 12.0;
+    float ty = (float)ay/1.0;
 
-    glBegin(GL_QUADS);
-    glTexCoord2f(tx,      ty+.5); glVertex2i(enemy1.cx+w, y-ht);
-    glTexCoord2f(tx,      ty);    glVertex2i(enemy1.cx+w, y+ht);
-    glTexCoord2f(tx+.5, ty);    glVertex2i(enemy1.cx-w, y+ht);
-    glTexCoord2f(tx+.5, ty+.5); glVertex2i(enemy1.cx-w, y-ht);
+    if (enemy1m > -950) {
+	enemy1m--;
+	glBegin(GL_QUADS);
+	glTexCoord2f(tx-.0845,      ty+1); 
+	glVertex2i(enemy1.cx+move+enemy1m+w, y-ht);
+	glTexCoord2f(tx-.0845,      ty);    
+	glVertex2i(enemy1.cx+move+enemy1m+w, y+ht);
+	glTexCoord2f(tx, ty);
+	glVertex2i(enemy1.cx+move+enemy1m-w, y+ht);
+	glTexCoord2f(tx, ty+1); 
+	glVertex2i(enemy1.cx+move+enemy1m-w, y-ht);
+
+	if (mainChar.cx >= enemy1.cx+enemy1m+move-w &&
+		mainChar.cx <= enemy1.cx+enemy1m+move+w
+		&& mainChar.cx >= y-ht && mainChar.cy <= y+ht) {
+	    mainChar.health--;
+	}
+
+	if ( enemy1m < -949) {
+	    enemy1m = -1102;
+	}
+    }
+
+    if (enemy1m < -950) {
+	enemy1m++;
+	glBegin(GL_QUADS);
+	glTexCoord2f(tx+.085,      ty+1); 
+	glVertex2i(enemy1.cx+move+enemy1m+w, y-ht);
+	glTexCoord2f(tx+.085,      ty);    
+	glVertex2i(enemy1.cx+move+enemy1m+w, y+ht);
+	glTexCoord2f(tx, ty);    
+	glVertex2i(enemy1.cx+move+enemy1m-w, y+ht);
+	glTexCoord2f(tx, ty+1); glVertex2i(enemy1.cx+move+enemy1m-w, y-ht);
+
+	if (mainChar.cx >= enemy1.cx+enemy1m+move-w && 
+		mainChar.cx <= enemy1.cx+enemy1m+move+w
+		&& mainChar.cy >= y-ht && mainChar.cy <= y+ht) {
+	    mainChar.health--;
+	}    
+	if (enemy1m > -951) {
+	    enemy1m = -800;
+	}
+    }
     glEnd();
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -286,10 +403,10 @@ void showgodzillaball();
 
 void showgodzilla()
 {
-   // if (godzillaballm > -800) {
-	//godzillaballm++;
-	showgodzillaball();
-   // }
+    // if (godzillaballm > -800) {
+    //godzillaballm++;
+    showgodzillaball();
+    // }
     float y = 160;
     float ht = 100.0;
     float w = ht*2;
@@ -424,11 +541,11 @@ void showgodzillaball()
 	glVertex3s(godzillaball.cx+move+godzillaballm-w, y-ht,0);
 
 	if (mainChar.cx >= godzillaball.cx+godzillaballm+move-w &&
-                mainChar.cx <= godzillaball.cx+godzillaballm+move+w &&
+		mainChar.cx <= godzillaball.cx+godzillaballm+move+w &&
 		mainChar.cy >= y-ht && mainChar.cy <= y+ht) {
 
-                mainChar.health--;
-        }
+	    mainChar.health--;
+	}
 
 	if (godzillaballm < - 799) {
 	    godzillaballm = -400;
@@ -469,10 +586,24 @@ Ppmimage *birdImage()
 
 void showbird()
 {
-    float y = 100;
+    if (stary > -950) {
+	stary--;
+	showstar();
+
+	if (stary > -949) {
+	stary = -1200;
+	} 
+    }
+    if (stary < -950) {
+	stary++;
+	if (stary > -951) {
+	    stary = -300;
+	}
+    }
+    float y = 70;
     float ht = 30.0;
     float w = ht*2;
-    int move = 1700;
+    int move = 500; //5000
 
     glPushMatrix();
     glColor3f(1.0, 1.0, 1.0);
@@ -499,6 +630,7 @@ void showbird()
 	glVertex2i(bird.cx+birdm+move+w, y+birdy+ht);
 	glTexCoord2f(tx, ty);    glVertex2i(bird.cx+birdm+move-w, y+birdy+ht);
 	glTexCoord2f(tx, ty+1); glVertex2i(bird.cx+birdm+move-w, y+birdy-ht); 
+
 	if (birdm < -949) {
 	    birdm = -1099;
 	}
