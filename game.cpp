@@ -1759,36 +1759,10 @@ void physics(void)
         //man is walking...
         //when time is up, advance the frame.
         mainMoveSpriteLeft();
-        /*
-        moveSpriteLeft(&turt1);
-        moveSpriteLeft(&turt2);
-        moveSpriteLeft(&mariEnemy);
-        moveSpriteLeft(&female);
-        moveSpriteLeft(&pika);
-        moveSpriteLeft(&shooting_star);
-        moveSpriteLeft(&obama);
-        moveSpriteLeft(&taco);
-        moveSpriteLeft(&sun);
-        moveSpriteLeft(&heart1);
-        moveSpriteLeft(&heart2);
-        moveSpriteLeft(&heart3);
-        moveSpriteLeft(&heart4);
-        moveSpriteLeft(&shield1);
-        moveSpriteLeft(&speedboost1);
-        */
-	for (int i = 0; i < 100; i++) {
-		moveSpriteLeft(&gl.coins[i]);
+        for (int i = 0; i < 100; i++) {
+	    moveSpriteLeft(&gl.coins[i]);
 	}
-        /*
-        moveSpriteLeft(&turret);
-        moveSpriteLeft(&turretbeam);
-        moveSpriteLeft(&enemy1);
-        moveSpriteLeft(&godzilla);
-	moveSpriteLeft(&godzillaball);
-        moveSpriteLeft(&bird);
-        */
         moveLevelLeft();
-        
         timers.recordTime(&timers.timeCurrent);
         double timeSpan =
             timers.timeDiff(&timers.maincharacterTime,
@@ -1804,42 +1778,17 @@ void physics(void)
             gl.box[i].x -= 1.0 * (0.05 / gl.delay);
             if (gl.box[i].x < -10.0)
                 gl.box[i].x += gl.xres + 10.0;
-            //if (gl.camera[0] < 1.0)
-            //    gl.camera[0] = 1.0;
+            if (gl.camera[0] < 0)
+                gl.camera[0] = 0;
         }
         gl.xc[0] += 0.001;
         gl.xc[1] += 0.001;
     }
     if (gl.walk || gl.keys[XK_Left]) {
         mainMoveSpriteRight();
-        /*
-        moveSpriteRight(&turt1);
-        moveSpriteRight(&turt2);
-        moveSpriteRight(&mariEnemy);
-        moveSpriteRight(&shooting_star);
-        moveSpriteRight(&female);
-        moveSpriteRight(&pika);
-        moveSpriteRight(&sun);
-        moveSpriteRight(&obama);
-        moveSpriteRight(&taco);
-        moveSpriteRight(&heart1);
-        moveSpriteRight(&heart2);
-        moveSpriteRight(&heart3);
-        moveSpriteRight(&heart4);
-        moveSpriteRight(&shield1);
-        */
-	for (int i = 0; i < 100; i++) {
-		moveSpriteRight(&gl.coins[i]);
+        for (int i = 0; i < 100; i++) {
+	    moveSpriteRight(&gl.coins[i]);
 	}
-        /*
-        moveSpriteRight(&speedboost1);
-        moveSpriteRight(&turret);
-        moveSpriteRight(&turretbeam);
-        moveSpriteRight(&enemy1);
-        moveSpriteRight(&godzilla);
-	moveSpriteRight(&godzillaball);
-        moveSpriteRight(&bird);
-        */
         moveLevelRight();
         timers.recordTime(&timers.timeCurrent);
         double timeSpan =
@@ -1856,8 +1805,8 @@ void physics(void)
             if (gl.box[i].x > gl.xres + 10.0)
                 gl.box[i].x -= gl.xres + 10.0;
             
-	    //if (gl.camera[0] < 1.0)
-            //    gl.camera[0] = 0.0;
+	    if (gl.camera[0] < 0)
+                gl.camera[0] = 0.0;
         }
         if (gl.camera[0] > 0) {
             gl.xc[0] -= 0.001;
