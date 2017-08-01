@@ -315,13 +315,8 @@ void tileCollision(Vec *tile)
         gl.isJumpingFlag = false;
         mainChar.cy = mainChar.cy + 1;
     }
-    // if your character jumps, the lowest Y coordinate it can go is 0. This utilizes my checkJump function
-    if (!((((mainChar.cy - 3) >= (tile->y))
-    && ((mainChar.cy - 3) <= (tile->y - 20) + lev.tilesize[1]))
-    && (((mainChar.cx) >= (tile->x))
-    && ((mainChar.cx) <= (tile->x + 20) + lev.tilesize[0])))) {
-        gl.initialJumpCy = 0;
-    }
+    // each time you hit a tile, reset initialJumpCy so you can fall
+    gl.initialJumpCy = 0;
 }
 
 void checkUnder(Vec *tile)
