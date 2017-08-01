@@ -135,6 +135,8 @@ void moveSpriteRight(Sprite*);
 void moveSpriteLeft(Sprite*);
 void moveLevelRight();
 void moveLevelLeft();
+void mainMoveSpriteRight();
+void mainMoveSpriteLeft();
 void spriteDisappear(Sprite*);
 
 // Everything about particles and combat
@@ -252,6 +254,20 @@ void moveLevelLeft()
 {
     if (gl.cantMove == false) {
         gl.camera[0] += gl.movementSpeed;
+    }
+}
+
+void mainMoveSpriteRight()
+{
+    for (unsigned int i = 0;  i < allSprites.size(); i++) {
+        moveSpriteRight(allSprites[i]);
+    }
+}
+
+void mainMoveSpriteLeft()
+{
+    for (unsigned int i = 0;  i < allSprites.size(); i++) {
+        moveSpriteLeft(allSprites[i]);
     }
 }
 

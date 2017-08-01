@@ -130,6 +130,8 @@ extern void moveLevelRight();
 extern void moveLevelLeft();
 extern void moveSpriteRight(Sprite *);
 extern void moveSpriteLeft(Sprite *);
+extern void mainMoveSpriteRight();
+extern void mainMoveSpriteLeft();
 extern void csound(const char *a);
 extern void showTurret();
 extern void showturretBeam();
@@ -1756,6 +1758,8 @@ void physics(void)
     if (gl.walk || gl.keys[XK_Right]) {
         //man is walking...
         //when time is up, advance the frame.
+        mainMoveSpriteLeft();
+        /*
         moveSpriteLeft(&turt1);
         moveSpriteLeft(&turt2);
         moveSpriteLeft(&mariEnemy);
@@ -1771,16 +1775,20 @@ void physics(void)
         moveSpriteLeft(&heart4);
         moveSpriteLeft(&shield1);
         moveSpriteLeft(&speedboost1);
+        */
 	for (int i = 0; i < 100; i++) {
 		moveSpriteLeft(&gl.coins[i]);
 	}
+        /*
         moveSpriteLeft(&turret);
         moveSpriteLeft(&turretbeam);
         moveSpriteLeft(&enemy1);
         moveSpriteLeft(&godzilla);
 	moveSpriteLeft(&godzillaball);
         moveSpriteLeft(&bird);
+        */
         moveLevelLeft();
+        
         timers.recordTime(&timers.timeCurrent);
         double timeSpan =
             timers.timeDiff(&timers.maincharacterTime,
@@ -1803,6 +1811,8 @@ void physics(void)
         gl.xc[1] += 0.001;
     }
     if (gl.walk || gl.keys[XK_Left]) {
+        mainMoveSpriteRight();
+        /*
         moveSpriteRight(&turt1);
         moveSpriteRight(&turt2);
         moveSpriteRight(&mariEnemy);
@@ -1816,10 +1826,12 @@ void physics(void)
         moveSpriteRight(&heart2);
         moveSpriteRight(&heart3);
         moveSpriteRight(&heart4);
-        moveSpriteRight(&shield1);	
+        moveSpriteRight(&shield1);
+        */
 	for (int i = 0; i < 100; i++) {
 		moveSpriteRight(&gl.coins[i]);
 	}
+        /*
         moveSpriteRight(&speedboost1);
         moveSpriteRight(&turret);
         moveSpriteRight(&turretbeam);
@@ -1827,6 +1839,7 @@ void physics(void)
         moveSpriteRight(&godzilla);
 	moveSpriteRight(&godzillaball);
         moveSpriteRight(&bird);
+        */
         moveLevelRight();
         timers.recordTime(&timers.timeCurrent);
         double timeSpan =
