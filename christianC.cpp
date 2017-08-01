@@ -398,7 +398,7 @@ void particlePhysics(int charSelect)
         // projectilecollisions. Pass each particle and check if it collides
         // with the sprites
         for (int i =0; i < gl.particleCount; i++) {
-            for (int j = 0; j < shootableSprites.size(); j++) {
+            for (unsigned int j = 0; j < shootableSprites.size(); j++) {
                 enemyParticleCollision(&gl.particle[i], shootableSprites[j]);
             }
         }
