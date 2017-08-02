@@ -994,10 +994,10 @@ void christianInit()
     }
     if (gl.levelSelect == 1) {
         //initialize my sprites' x and y positions
-        //turt2.cx = 850;
-        //turt2.cy = 95;
-        //turt1.cx = 500;
-        //turt1.cy = 95;
+        turt2.cx = 850;
+        turt2.cy = 95;
+        turt1.cx = 500;
+        turt1.cy = 95;
         mainChar.cy = 85;
         shield1.cx = 14490;
         shield1.cy = 437;
