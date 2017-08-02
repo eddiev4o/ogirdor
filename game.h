@@ -402,7 +402,7 @@ extern class Global {
             jumpDirectionFlag = 0;
             jumpRate = .06;
             jumpHeight = 100;
-            movementSpeed = 2;
+            movementSpeed = 2.4;
             initialJumpCy = 0;
             finalJumpCy = 0;
             done=0;
