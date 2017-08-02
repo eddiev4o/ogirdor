@@ -348,7 +348,7 @@ Ppmimage* light6_image()
 
 
 
-
+void show_taco();
 
 
 //first enemy
@@ -491,7 +491,7 @@ void show_pika()
     //if (mainChar.cx !> pika.cx) (
     //show_light();
     //distance of lightning
-    //(l_position <= -50? l_position= 200:l_position--);
+    (l_position <= -50? l_position= 200:l_position--);
 
     // }else{
     // l_position 
@@ -507,8 +507,9 @@ cout << " :( :( :( regular\t: " << l_position << endl;
 cout << " :( :( :( ========= >.<\t: " << pika.cx << endl;
 }
 */
+
 if(mainChar.cx > pika.cx){
-    pika.cx = -999999;
+    pika.cx = 3400;
     light.cy = 5000;
 } else {
     show_light();
@@ -786,7 +787,8 @@ void show_obama()
 	(taco_position == -500? taco_position= -30:taco_position--);
     } else {
 	obama.cx = 5000;
-	taco_position = -999999;
+	mainChar.health = 50;
+	//taco_position = -999999;
     }
 
     //obama.cx = 200;   charceter.cx is to make him follow megaman
@@ -1363,108 +1365,6 @@ void quickSort(int* arr, int start, int end){
 // FIX the IF() spaces !!!!!
 
 
-class IntQueue{
-    private:
-	int *array;
-	int size;
-	int front;
-	int back;
-	int items;
-    public:
-	IntQueue(int);
-	IntQueue(const IntQueue &);
-	~IntQueue();
-
-	void enqueue(int);
-	void dequeue(int &);
-	bool isEmpty();
-	bool isFull();
-	void clear();
-	void print();
-};
-
-
-
-IntQueue::IntQueue(int temp){
-    array= new int[temp];
-    size=temp;
-    front= -1;
-    back= -1;
-    items=0;
-}
-
-IntQueue::IntQueue(const IntQueue &obj){
-    front = obj.front;
-    back = obj.back;
-    items = obj.items;
-    size = obj.size;
-
-    array= new int[obj.size];
-    for(int count=0; count < obj.size; count++){
-	//array[count] = *(array + count);
-	array[count] = obj.array[count];
-	cout << "in copy constructor: " << array[count] << endl;
-    }
-}
-
-IntQueue::~IntQueue(){
-    delete [] array;
-}
-
-void IntQueue::enqueue(int elem){
-    if(isFull()){
-	//cout << "queue is full\n";
-	return;
-    }else{
-	back++;
-	//rear = (rear+1) % size;
-	array[back]= elem;
-	items++;
-    }
-}
-
-void IntQueue::dequeue(int &recover){
-    if(isEmpty()){
-	//cout << "is empty\n";
-    }else{
-	front++;
-	recover= array[front];
-	items--;
-
-    }
-}
-
-bool IntQueue::isEmpty(){
-    return(items >= 0?true:false);
-}
-
-bool IntQueue::isFull(){
-    return(items < size?true:false);
-}
-
-void IntQueue::clear(){
-    front = size-1;
-    back = size-1;
-    items = 0;
-}
-
-void IntQueue::print(){
-    for (int i =0; i < size; i++)
-	cout << "in the queue: " << array[i] << endl;
-
-}
-
-int prime(int starting, int ending){
-    int res = rand() % ending + starting;
-    int a = 0;
-    while ((res%2==0) ||(res%3==0) || (res%4==0)||(res%5==0)||(res%6==0)|| (res%7==0)||(res%8==0)||(res%9==0)) {
-	a++;
-	res = rand() % ending + starting;
-    }
-    cout << "total attempts: " << a << endl;
-    cout << "result is: " << res << endl;
-    return res;
-}
 
 //use random prime number generator to fill an array,
 //with each subscript having a distance of 50 NOT 150
@@ -1472,54 +1372,6 @@ int prime(int starting, int ending){
 //and throw into Queue
 //have queue asisgn positions
 void init_round2(){
-    int i =0; //cherka cherka
-    int catcher;
-
-    //3100
-    int s1 = 3089, e1 = 3109, p1=0; //3100
-    int s2 = 3190, e2 = 3210, p2=0; //3200
-    int s3 = 7128, e3 = 7460, p3=0; //7150
-
-    //store rands in here
-    int r1,r2,r3;
-
-    cout << "first round ****\n";
-    r1 = prime(s1,e1);
-
-    cout << "second round ****\n";
-    r2 = prime(s2,e2);
-
-    cout << "third round *****\n";
-    r3 = prime(s3,e3);
-
-    // r 1 2 3 are positions of enemies
-    const int SIZE = 3;
-    int tmp[SIZE] = {3200,3100,7100};
-    bubbleSort(tmp,SIZE);
-
-    for(i=0; i< SIZE; i++)
-	cout << "pos : " << tmp[i] << endl;
-    //now that it is sorted, throw into a queue
-    IntQueue Q(SIZE);
-
-    for(i=0; i<SIZE; i++){
-	Q.enqueue(tmp[i]);//gets the random values into queue
-    }
-
-
-    Q.print();
-
-    //get three enemies to use this on .. female is one of em
-    for (i=0; i < SIZE; i++){
-	Q.dequeue(catcher);
-	if (i == 0)
-	    p1 = catcher;
-	if (i==1)
-	    p2 = catcher;
-	if (i==2)
-	    p3 = catcher; // were p3 etc
-    }
-
     //p1 .. p2 .. p3  will be the position of 3 enemies
     //female.cx  =
 
