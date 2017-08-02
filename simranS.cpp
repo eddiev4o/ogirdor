@@ -25,7 +25,7 @@ using namespace std;
 int i = -400; int birdm = -400; int birdy= -300; int turretm = -800;
 int godzillaballm = -400; int enemy1wf = 0; int enemy1m = -800;
 double enemy1delay = 0.1; int starwf = 0; double stardealy = 0.1;
-int stary = -300;
+int stary = -600;
 
 class T {
 
@@ -191,10 +191,10 @@ void starphysics(void)
 
 
 void showstar() {
-    float y = 100;
+    float y = 10;
     float ht = 30.0;
     float w = ht*.5;
-    int move = 4000;
+    int move = 3800;
 
     glPushMatrix();
     glColor3f(1.0, 1.0, 1.0);
@@ -213,7 +213,7 @@ void showstar() {
 
     stary++;
 
-    if (stary >= -300) {
+    if (stary >= -600) {
 	stary++;
 	glBegin(GL_QUADS);
 	glTexCoord2f(tx+.25,      ty+.3); glVertex2i(star.cx+move+w, y-stary-ht);
@@ -222,16 +222,16 @@ void showstar() {
 	glTexCoord2f(tx, ty+.3); glVertex2i(star.cx+move-w, y-stary-ht);
 
 	if (stary > -100) {
-	    stary = -400;
+	    stary = -750;
 	}
     }
 
-    // if (mainChar.cx > turretbeam.cx+move-w &&
-    //	    mainChar.cx < turretbeam.cx+move+w)
-    //  {
-    //	mainChar.health--;
+     if (mainChar.cx > star.cx+move-w &&
+    	    mainChar.cx < star.cx+move+w)
+      {
+    	mainChar.health--;
 
-    //  }
+      }
     glEnd();
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -315,7 +315,6 @@ void showenemy1()
     float y = 90;
     float ht = 30.0;
     float w = ht*2;
-    int move = 4125;
 
     glPushMatrix();
     glColor3f(1.0, 1.0, 1.0);
@@ -332,47 +331,49 @@ void showenemy1()
     float tx = (float)ax / 12.0;
     float ty = (float)ay/1.0;
 
-    if (enemy1m > -950) {
-	enemy1m--;
+    if (gl.enemy1m > -950) {
+	gl.enemy1m--;
+	enemy1.cx--;
 	glBegin(GL_QUADS);
 	glTexCoord2f(tx-.0845,      ty+1); 
-	glVertex2i(enemy1.cx+move+enemy1m+w, y-ht);
+	glVertex2i(enemy1.cx+w, y-ht);
 	glTexCoord2f(tx-.0845,      ty);    
-	glVertex2i(enemy1.cx+move+enemy1m+w, y+ht);
+	glVertex2i(enemy1.cx+w, y+ht);
 	glTexCoord2f(tx, ty);
-	glVertex2i(enemy1.cx+move+enemy1m-w, y+ht);
+	glVertex2i(enemy1.cx-w, y+ht);
 	glTexCoord2f(tx, ty+1); 
-	glVertex2i(enemy1.cx+move+enemy1m-w, y-ht);
+	glVertex2i(enemy1.cx-w, y-ht);
 
-	if (mainChar.cx >= enemy1.cx+enemy1m+move-w &&
-		mainChar.cx <= enemy1.cx+enemy1m+move+w
+	if (mainChar.cx >= enemy1.cx-w &&
+		mainChar.cx <= enemy1.cx+w
 		&& mainChar.cx >= y-ht && mainChar.cy <= y+ht) {
 	    mainChar.health--;
 	}
 
-	if ( enemy1m < -949) {
-	    enemy1m = -1102;
+	if ( gl.enemy1m < -949) {
+	    gl.enemy1m = -1102;
 	}
     }
 
-    if (enemy1m < -950) {
-	enemy1m++;
+    if (gl.enemy1m < -950) {
+	gl.enemy1m++;
+	enemy1.cx++;
 	glBegin(GL_QUADS);
 	glTexCoord2f(tx+.085,      ty+1); 
-	glVertex2i(enemy1.cx+move+enemy1m+w, y-ht);
+	glVertex2i(enemy1.cx+w, y-ht);
 	glTexCoord2f(tx+.085,      ty);    
-	glVertex2i(enemy1.cx+move+enemy1m+w, y+ht);
+	glVertex2i(enemy1.cx+w, y+ht);
 	glTexCoord2f(tx, ty);    
-	glVertex2i(enemy1.cx+move+enemy1m-w, y+ht);
-	glTexCoord2f(tx, ty+1); glVertex2i(enemy1.cx+move+enemy1m-w, y-ht);
+	glVertex2i(enemy1.cx-w, y+ht);
+	glTexCoord2f(tx, ty+1); glVertex2i(enemy1.cx-w, y-ht);
 
-	if (mainChar.cx >= enemy1.cx+enemy1m+move-w && 
-		mainChar.cx <= enemy1.cx+enemy1m+move+w
+	if (mainChar.cx >= enemy1.cx-w && 
+		mainChar.cx <= enemy1.cx+w
 		&& mainChar.cy >= y-ht && mainChar.cy <= y+ht) {
 	    mainChar.health--;
 	}    
-	if (enemy1m > -951) {
-	    enemy1m = -800;
+	if (gl.enemy1m > -951) {
+	    gl.enemy1m = -800;
 	}
     }
     glEnd();
@@ -420,7 +421,7 @@ void showgodzilla()
     float y = 160;
     float ht = 100.0;
     float w = ht*2;
-    int move = 2133;
+    //int move = 2133;
 
     glPushMatrix();
     glColor3f(1.0, 1.0, 1.0);
@@ -476,8 +477,8 @@ void showgodzilla()
 	glTexCoord2f(tx, ty);    glVertex3s(godzilla.cx-w, y+ht,0);
 	glTexCoord2f(tx, ty+1.0); glVertex3s(godzilla.cx-w, y-ht,0);
 
-	if (mainChar.cx <= godzilla.cx+i+move-w && 
-		mainChar.cx >= godzilla.cx+i+move+w) {
+	if (mainChar.cx <= godzilla.cx-w && 
+		mainChar.cx >= godzilla.cx+w) {
 
 	    if (mainChar.cy <= y-ht || 
 		    mainChar.cy >= y+ht || 
@@ -598,21 +599,7 @@ Ppmimage *birdImage()
 
 void showbird()
 {
-    //if (stary > -950) {
-    //	stary--;
-    showstar();
-
-    //	if (stary < -949) {
-    //	stary = -1200;
-    //	} 
-    //  }
-    //if (stary < -950) {
-    //	stary++;
-    //	if (stary > -951) {
-    //	    stary = -300;
-    //	}
-    //  }
-    float y = 70;
+    float y = 400.0;
     float ht = 30.0;
     float w = ht*2;
     int move = 4500; //5000
@@ -663,6 +650,7 @@ void showbird()
 	    birdm = -800;
 	}
     }
+    showstar();
     glEnd();
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
