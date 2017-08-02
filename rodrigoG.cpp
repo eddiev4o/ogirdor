@@ -109,8 +109,7 @@ void border(int, int, int, int, int, int, int, int, int);
 void stripes(int, int, int, int, int, int, int);
 int menu_position_highlight;
 unsigned int white = 0xffffff;
-void extern eddieInit();
-
+void extern init();
 void start_menu(int xres, int yres)
 {
     int highlight_x;
@@ -856,7 +855,7 @@ void levelselection_menu(int xres, int yres)
     if (gl.keys[XK_Return]) {
         if (gl.menu_position == 1) {
             gl.levelSelect = 1;
-            eddieInit();
+            init();
             gl.display_levelselectionmenu = false;
             gl.display_startinggame = true;
             gl.keys[XK_Return] = false;
@@ -865,7 +864,7 @@ void levelselection_menu(int xres, int yres)
             gl.state = STATE_GAMEPLAY;
         } else if (gl.menu_position == 2) {
             gl.levelSelect = 2;        // need to change later
-            eddieInit();
+            init();
             gl.display_levelselectionmenu = false;
             gl.display_startinggame = true;
             gl.keys[XK_Return] = false;

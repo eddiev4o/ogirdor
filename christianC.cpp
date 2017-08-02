@@ -983,38 +983,16 @@ void christianInit()
 {
     addToShootableSprites();
     addToAllSprites();
-    if (gl.levelSelect == 2) {
-        turt2.cx = 850;
-        turt2.cy = 95;
-        turt1.cx = 500;
-        turt1.cy = 95;
-        mainChar.cy = 85;
-        shield1.cx = 800;
-        shield1.cy = 180;
-        heart1.cx = 1000;
-        heart1.cy = 90;
-        heart2.cx = 800;
-        heart2.cy = 120;
-        heart3.cx = 800;
-        heart3.cy = 90;
-        heart4.cx = 800;
-        heart4.cy = 200;
-        speedboost1.cx= 800;
-        speedboost1.cy = 90;
-        // render sprite set to true.
-        // when flase, stop rendering. This is for
-        // picking up power ups
-        gl.shield1Flag = true;
-        gl.heart1Flag = true; 
-        gl.heart2Flag = true; 
-        gl.heart3Flag = true; 
-        gl.heart4Flag = true;
-        gl.speedboost1Flag = true;
-        // these prevent the variables
-        // from storing trash values which caused problems
-        gl.finalJumpCy = mainChar.cy + 20;
-        gl.initialJumpCy = mainChar.cy + 20;
-    } else {
+    mainChar.cy = 85;
+    if (gl.state == STATE_MENU) {
+        for (unsigned int i = 0; i < allSprites.size(); i++) {
+            spriteDisappear(allSprites[i]);
+        }
+        for (unsigned int i = 0; i < allSprites.size(); i++) {
+            allSprites[i]->health = 10;
+        }
+    }
+    if (gl.levelSelect == 1) {
         //initialize my sprites' x and y positions
         turt2.cx = 850;
         turt2.cy = 95;
@@ -1047,6 +1025,38 @@ void christianInit()
         gl.finalJumpCy = mainChar.cy + 20;
         gl.initialJumpCy = mainChar.cy + 20;
         //if different level
+    }
+    if (gl.levelSelect == 2) {
+        turt2.cx = 850;
+        turt2.cy = 95;
+        turt1.cx = 500;
+        turt1.cy = 95;
+        mainChar.cy = 85;
+        shield1.cx = 800;
+        shield1.cy = 180;
+        heart1.cx = 1000;
+        heart1.cy = 90;
+        heart2.cx = 800;
+        heart2.cy = 120;
+        heart3.cx = 800;
+        heart3.cy = 90;
+        heart4.cx = 800;
+        heart4.cy = 200;
+        speedboost1.cx= 800;
+        speedboost1.cy = 90;
+        // render sprite set to true.
+        // when flase, stop rendering. This is for
+        // picking up power ups
+        gl.shield1Flag = true;
+        gl.heart1Flag = true; 
+        gl.heart2Flag = true; 
+        gl.heart3Flag = true; 
+        gl.heart4Flag = true;
+        gl.speedboost1Flag = true;
+        // these prevent the variables
+        // from storing trash values which caused problems
+        gl.finalJumpCy = mainChar.cy + 20;
+        gl.initialJumpCy = mainChar.cy + 20;
     }
 }
 
