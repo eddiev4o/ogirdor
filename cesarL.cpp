@@ -101,7 +101,7 @@ void mari_physics(void)
     if (timeSpan > gl.m_delay) {
 	m_position++;
 	gl.m_walkFrame++;
-	if (gl.m_walkFrame >= 7){
+	if (gl.m_walkFrame >= 7) {
 	    gl.m_walkFrame -= 7;
 	    m_position--;
 	}
@@ -168,7 +168,7 @@ void pika_physics(void)
     if (timeSpan > pika_delay) {
 	p_position++;
 	p_walkFrame++;
-	if (p_walkFrame >= 4){
+	if (p_walkFrame >= 4) {
 	    p_walkFrame -= 4;
 	    p_position--;
 	    p_position++;
@@ -185,7 +185,7 @@ void shooting_star_physics(void)
     if (timeSpan > gl.ss_delay) {
 	ss_position++;
 	gl.ss_walkFrame++;
-	if (gl.ss_walkFrame >= 64){
+	if (gl.ss_walkFrame >= 64) {
 	    gl.ss_walkFrame -= 64;
 	    ss_position=ss_position-2;
 	}
@@ -208,7 +208,7 @@ void make_tacos()
 
 void shoot_tacos()
 {
-    if(gl.isPressed == true){
+    if (gl.isPressed == true) {
 	printf("TACOS GOOOOOO");
 	make_tacos();
 	gl.isPressed = false;
@@ -375,7 +375,7 @@ void show_mari()
     int ay = 0;
 
     //takes care of animation
-    if (gl.m_walkFrame >= 7){
+    if (gl.m_walkFrame >= 7) {
 	//if animation reaches LAST sprite
 	//start from start again
 	ay = 1;
@@ -389,7 +389,7 @@ void show_mari()
 
 
 
-    if(m_position < -600){  //was 600
+    if (m_position < -600) {  //was 600
 	//walks to the left 
 	m_position++;
 	glBegin(GL_QUADS);
@@ -426,7 +426,7 @@ void show_mari()
 
 	if (mainChar.cx >= mariEnemy.cx+m_position+temp-w &&
 		mainChar.cx <= mariEnemy.cx+m_position+temp+w &&
-		mainChar.cy >= y-ht-67 && mainChar.cy <= y+ht-67){
+		mainChar.cy >= y-ht-67 && mainChar.cy <= y+ht-67) {
 	    mainChar.health--;
 	}
 	(m_position < -599?m_position=-700:m_position--);
@@ -508,7 +508,7 @@ cout << " :( :( :( ========= >.<\t: " << pika.cx << endl;
 }
 */
 
-if(mainChar.cx > pika.cx){
+if (mainChar.cx > pika.cx) {
     pika.cx = 3400;
     light.cy = 5000;
 } else {
@@ -532,8 +532,8 @@ glAlphaFunc(GL_GREATER, 0.0f);
 glColor4ub(255,255,255,255);
 int ax = p_walkFrame % 4;
 int ay = 0;
-if (p_walkFrame >= 4){ // work on this later
-    if(p_position % 10 == 0){
+if (p_walkFrame >= 4) { // work on this later
+    if (p_position % 10 == 0) {
 	ay = 1;
     }
 }
@@ -565,7 +565,7 @@ void show_pika2()
 
 
 
-    if(mainChar.cx > pika2.cx){
+    if (mainChar.cx > pika2.cx) {
 	pika2.cx = -999999;
 	light2.cy = 5000;
     } else {
@@ -592,8 +592,8 @@ void show_pika2()
     glColor4ub(255,255,255,255);
     int ax = p_walkFrame % 4;
     int ay = 0;
-    if (p_walkFrame >= 4){ // 
-	if(p_position % 10 == 0){
+    if (p_walkFrame >= 4) { // 
+	if (p_position % 10 == 0) {
 	    ay = 1;
 	}
     }
@@ -633,8 +633,8 @@ void show_pika3()
     glColor4ub(255,255,255,255);
     int ax = p_walkFrame % 4;
     int ay = 0;
-    if (p_walkFrame >= 4){ // 
-	if(p_position % 10 == 0){
+    if (p_walkFrame >= 4) { // 
+	if (p_position % 10 == 0) {
 	    ay = 1;
 	}
     }
@@ -673,8 +673,8 @@ void show_pika4()
     glColor4ub(255,255,255,255);
     int ax = p_walkFrame % 4;
     int ay = 0;
-    if (p_walkFrame >= 4){ // 
-	if(p_position % 10 == 0){
+    if (p_walkFrame >= 4) { // 
+	if (p_position % 10 == 0) {
 	    ay = 1;
 	}
     }
@@ -821,6 +821,10 @@ void show_obama()
 
 void show_taco()
 {
+   if (taco_position < -600) {
+       taco_position = -200;
+   }
+   
     taco.cy = 300; // y cord
     float ht = 25.0;//estatura del tacito bien delicioso 
     float w = ht*1.0; // was .5
@@ -1156,7 +1160,7 @@ void show_shooting_star()
     int ay = 0;
 
 
-    if (gl.m_walkFrame >= 64){
+    if (gl.m_walkFrame >= 64) {
 	//if animation reaches LAST sprite
 	//start from start again
 	ay = 1;
@@ -1183,12 +1187,13 @@ void Merge(int*,int,int,int);
 void MergeSort(int*,int,int);
 void heapSort(int arr[],int n);
 void heapify(int arr[], int n, int i);
+void insertion(int*, int);
 
-void bubbleSort(int* arr, int size){
+void bubbleSort(int* arr, int size) {
     int temp;
-    for(int i = 0; i <size; i++){
-	for(int j = 0; j < size - i - 1; j++){
-	    if(arr[j] > arr[j+1]){
+    for (int i = 0; i <size; i++) {
+	for (int j = 0; j < size - i - 1; j++) {
+	    if (arr[j] > arr[j+1]) {
 		temp = arr[j];
 		arr[j] = arr[j+1];
 		arr[j+1] = temp;
@@ -1196,6 +1201,21 @@ void bubbleSort(int* arr, int size){
 	}
     }
 }
+
+void insertion(int* arr, int size)
+{
+    int j, temp;
+    for (int i = 1; i < size; i++) {
+	j = i;
+	while (j > 0 && arr[j-1] > arr[j]) {
+	    temp = arr[j];
+	    arr[j] = arr[j-1];
+	    arr[j-1] = temp;
+	    j--;
+	}
+    }
+}
+
 
 void selectionSort(int* arr, int n)
 {
@@ -1331,20 +1351,20 @@ void heapSort(int arr[], int n)
     }
 }
 
-void quickSort(int* arr, int start, int end){
+void quickSort(int* arr, int start, int end) {
     int temp;
     int i = start;
     int j = end;
     int pivot = arr[(start + end) / 2];
 
-    while(i <= j){
-	while(arr[i] < pivot){
+    while (i <= j) {
+	while (arr[i] < pivot) {
 	    i++;
 	}
-	while(arr[j] > pivot){
+	while (arr[j] > pivot) {
 	    j--;
 	}
-	if(i <= j){
+	if (i <= j) {
 	    temp = arr[i];
 	    arr[i] = arr[j];
 	    arr[j] = temp;
@@ -1353,10 +1373,10 @@ void quickSort(int* arr, int start, int end){
 	}
     }
 
-    if(start < j){
+    if (start < j) {
 	quickSort(arr, start, j);
     }
-    if(i < end){
+    if (i < end) {
 	quickSort(arr, i, end);
     }
 }
@@ -1371,7 +1391,7 @@ void quickSort(int* arr, int start, int end){
 //then sort the array,
 //and throw into Queue
 //have queue asisgn positions
-void init_round2(){
+void init_round2() {
     //p1 .. p2 .. p3  will be the position of 3 enemies
     //female.cx  =
 
@@ -1414,13 +1434,13 @@ void init_round2(){
 
 
 
-void CesarInit(){
+void CesarInit() {
 
     //find POSITIONS of where you want them to be
 
     //dummy numbers right now 
     srand(time(NULL));
-    int random_number = rand() % 5 + 1;
+    int random_number = rand() % 6 + 1;
 
 
     switch (random_number) {
@@ -1442,6 +1462,9 @@ void CesarInit(){
 	case 5:
 	    //heap
 	    heapSort(array, size);
+	    break;
+	case 6:
+	    insertion(array, size);
 	    break;
     }
 
