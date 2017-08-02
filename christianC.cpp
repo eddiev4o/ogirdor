@@ -986,9 +986,6 @@ void christianInit()
     mainChar.cy = 85;
     if (gl.state == STATE_MENU) {
         for (unsigned int i = 0; i < allSprites.size(); i++) {
-            spriteDisappear(allSprites[i]);
-        }
-        for (unsigned int i = 0; i < allSprites.size(); i++) {
             allSprites[i]->health = 10;
         }
     }
@@ -1027,6 +1024,9 @@ void christianInit()
         //if different level
     }
     if (gl.levelSelect == 2) {
+        for (unsigned int i = 0; i < allSprites.size(); i++) {
+            spriteDisappear(allSprites[i]);
+        }
         turt2.cx = 300;
         turt2.cy = 500;
         turt1.cx = 500;
