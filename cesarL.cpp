@@ -72,24 +72,24 @@ int start = 0;
 
 class my_time {
     public:
-	double physicsRate;
-	double oobillion;
-	struct timespec timeStart, timeEnd, timeCurrent;
-	struct timespec walkTime;
-	my_time() {
-	    physicsRate = 1.0 / 30.0;
-	    oobillion = 1.0 / 1e9;
-	}
-	double timeDiff(struct timespec *start, struct timespec *end) {
-	    return (double)(end->tv_sec - start->tv_sec ) +
-		(double)(end->tv_nsec - start->tv_nsec) * oobillion;
-	}
-	void timeCopy(struct timespec *dest, struct timespec *source) {
-	    memcpy(dest, source, sizeof(struct timespec));
-	}
-	void recordTime(struct timespec *t) {
-	    clock_gettime(CLOCK_REALTIME, t);
-	}
+        double physicsRate;
+        double oobillion;
+        struct timespec timeStart, timeEnd, timeCurrent;
+        struct timespec walkTime;
+        my_time() {
+            physicsRate = 1.0 / 30.0;
+            oobillion = 1.0 / 1e9;
+        }
+        double timeDiff(struct timespec *start, struct timespec *end) {
+            return (double)(end->tv_sec - start->tv_sec ) +
+                (double)(end->tv_nsec - start->tv_nsec) * oobillion;
+        }
+        void timeCopy(struct timespec *dest, struct timespec *source) {
+            memcpy(dest, source, sizeof(struct timespec));
+        }
+        void recordTime(struct timespec *t) {
+            clock_gettime(CLOCK_REALTIME, t);
+        }
 
 } tim,tacito, pika_time, light_time, light2_time;
 
@@ -99,15 +99,15 @@ void mari_physics(void)
     tim.recordTime(&tim.timeCurrent);
     double timeSpan = tim.timeDiff(&tim.walkTime, &tim.timeCurrent);
     if (timeSpan > gl.m_delay) {
-	m_position++;
-	gl.m_walkFrame++;
-	if (gl.m_walkFrame >= 7) {
-	    gl.m_walkFrame -= 7;
-	    m_position--;
-	}
-	tim.recordTime(&tim.walkTime);
+        m_position++;
+        gl.m_walkFrame++;
+        if (gl.m_walkFrame >= 7) {
+            gl.m_walkFrame -= 7;
+            m_position--;
+        }
+        tim.recordTime(&tim.walkTime);
     }
-}									
+}                                                                       
 
 
 void taco_physics(void)
@@ -115,13 +115,13 @@ void taco_physics(void)
     tacito.recordTime(&tacito.timeCurrent);
     double timeSpan = tacito.timeDiff(&tacito.walkTime, &tacito.timeCurrent);
     if (timeSpan > taco_delay) { // can aldo make "gl" vars in here
-	(timeSpan > taco_delay?taco_position-=2:taco_position--);  // can aldo make "gl" vars in here
-	//taco_position--;
+        (timeSpan > taco_delay?taco_position-=2:taco_position--);  // can aldo make "gl" vars in here
+        //taco_position--;
 
-	tacito.recordTime(&tacito.walkTime);
+        tacito.recordTime(&tacito.walkTime);
     }
     //cout << "TESTING !!!!!!!!!!! TACO ::::: " << taco_position << endl;
-}                                                                       				
+}                                                                                                       
 
 //fix lightning animation
 void light_physics(void)
@@ -129,34 +129,34 @@ void light_physics(void)
     light_time.recordTime(&light_time.timeCurrent);
     double timeSpan = light_time.timeDiff(&light_time.walkTime, &light_time.timeCurrent);
     if (timeSpan > light_delay) { // can aldo make "gl" vars in here
-	(timeSpan > light_delay? l_position-=2:l_position--);  // can aldo make "gl" vars in here
-	//l_position++;
-	l_walkFrame++;
-	if (l_walkFrame >= 3) {
-	    l_walkFrame -= 4;
-	    //l_position--;
-	    //l_position++;
-	}
-	light_time.recordTime(&light_time.walkTime);
+        (timeSpan > light_delay? l_position-=2:l_position--);  // can aldo make "gl" vars in here
+        //l_position++;
+        l_walkFrame++;
+        if (l_walkFrame >= 3) {
+            l_walkFrame -= 4;
+            //l_position--;
+            //l_position++;
+        }
+        light_time.recordTime(&light_time.walkTime);
     }
-}                                                                       				
+}                                                                                                       
 
 void light2_physics(void)
 {
     light2_time.recordTime(&light2_time.timeCurrent);
     double timeSpan = light2_time.timeDiff(&light2_time.walkTime, &light2_time.timeCurrent);
     if (timeSpan > light2_delay) { // can aldo make "gl" vars in here
-	(timeSpan > light2_delay? l2_position-=2:l2_position--);  // can aldo make "gl" vars in here
-	//l_position++;
-	l2_walkFrame++;
-	if (l_walkFrame >= 3) {
-	    l2_walkFrame -= 4;
-	    //l_position--;
-	    //l_position++;
-	}
-	light2_time.recordTime(&light2_time.walkTime);
+        (timeSpan > light2_delay? l2_position-=2:l2_position--);  // can aldo make "gl" vars in here
+        //l_position++;
+        l2_walkFrame++;
+        if (l_walkFrame >= 3) {
+            l2_walkFrame -= 4;
+            //l_position--;
+            //l_position++;
+        }
+        light2_time.recordTime(&light2_time.walkTime);
     }
-}                                                                       				
+}                                                                                                       
 
 
 
@@ -166,16 +166,16 @@ void pika_physics(void)
     pika_time.recordTime(&pika_time.timeCurrent);
     double timeSpan = pika_time.timeDiff(&pika_time.walkTime, &pika_time.timeCurrent);
     if (timeSpan > pika_delay) {
-	p_position++;
-	p_walkFrame++;
-	if (p_walkFrame >= 4) {
-	    p_walkFrame -= 4;
-	    p_position--;
-	    p_position++;
-	}
-	pika_time.recordTime(&pika_time.walkTime);
+        p_position++;
+        p_walkFrame++;
+        if (p_walkFrame >= 4) {
+            p_walkFrame -= 4;
+            p_position--;
+            p_position++;
+        }
+        pika_time.recordTime(&pika_time.walkTime);
     }
-}									
+}                                                                       
 
 //figure out proper physics for the shooting star
 void shooting_star_physics(void)
@@ -183,13 +183,13 @@ void shooting_star_physics(void)
     tim.recordTime(&tim.timeCurrent);
     double timeSpan = tim.timeDiff(&tim.walkTime, &tim.timeCurrent);
     if (timeSpan > gl.ss_delay) {
-	ss_position++;
-	gl.ss_walkFrame++;
-	if (gl.ss_walkFrame >= 64) {
-	    gl.ss_walkFrame -= 64;
-	    ss_position=ss_position-2;
-	}
-	tim.recordTime(&tim.walkTime);
+        ss_position++;
+        gl.ss_walkFrame++;
+        if (gl.ss_walkFrame >= 64) {
+            gl.ss_walkFrame -= 64;
+            ss_position=ss_position-2;
+        }
+        tim.recordTime(&tim.walkTime);
     }
 }
 
@@ -209,9 +209,9 @@ void make_tacos()
 void shoot_tacos()
 {
     if (gl.isPressed == true) {
-	printf("TACOS GOOOOOO");
-	make_tacos();
-	gl.isPressed = false;
+        printf("TACOS GOOOOOO");
+        make_tacos();
+        gl.isPressed = false;
     }
 }
 
@@ -220,7 +220,7 @@ Ppmimage* mari_image()
 {
     system("convert ./images/Enemy_Mariachi_3.gif ./images/Enemy_Mariachi_3.ppm");
     return ppm6GetImage("./images/Enemy_Mariachi_3.ppm");
-}		
+}               
 
 
 
@@ -276,75 +276,75 @@ Ppmimage* pika_image()
 {
     system("convert ./images/pikachu.png ./images/pikachu.ppm");
     return ppm6GetImage("./images/pikachu.ppm");
-}								
+}                                                               
 
 
 Ppmimage* pika2_image()
 {
     system("convert ./images/pikachu.png ./images/pikachu.ppm");
     return ppm6GetImage("./images/pikachu.ppm");
-}								
+}                                                               
 
 Ppmimage* pika3_image()
 {
     system("convert ./images/pikachu.png ./images/pikachu.ppm");
     return ppm6GetImage("./images/pikachu.ppm");
-}												
+}                                                                                               
 Ppmimage* pika4_image()
 {
     system("convert ./images/pikachu.png ./images/pikachu.ppm");
     return ppm6GetImage("./images/pikachu.ppm");
-}								
+}                                                               
 
 /*
-Ppmimage* pika5_image()
-{
-    system("convert ./images/pikachu.png ./images/pikachu.ppm");
-    return ppm6GetImage("./images/pikachu.ppm");
-}								
+   Ppmimage* pika5_image()
+   {
+   system("convert ./images/pikachu.png ./images/pikachu.ppm");
+   return ppm6GetImage("./images/pikachu.ppm");
+   }                                                               
 
-Ppmimage* pika6_image()
-{
-    system("convert ./images/pikachu.png ./images/pikachu.ppm");
-    return ppm6GetImage("./images/pikachu.ppm");
-}								
-*/
+   Ppmimage* pika6_image()
+   {
+   system("convert ./images/pikachu.png ./images/pikachu.ppm");
+   return ppm6GetImage("./images/pikachu.ppm");
+   }                                                               
+   */
 
 Ppmimage* light_image()
 {
     system("convert ./images/light.png ./images/light.ppm");
     return ppm6GetImage("./images/light.ppm");
-}								
+}                                                               
 
 Ppmimage* light2_image()
 {
     system("convert ./images/light.png ./images/light.ppm");
     return ppm6GetImage("./images/light.ppm");
-}								
+}                                                               
 
 Ppmimage* light3_image()
 {
     system("convert ./images/light.png ./images/light.ppm");
     return ppm6GetImage("./images/light.ppm");
-}								
+}                                                               
 
 Ppmimage* light4_image()
 {
     system("convert ./images/light.png ./images/light.ppm");
     return ppm6GetImage("./images/light.ppm");
-}								
+}                                                               
 
 Ppmimage* light5_image()
 {
     system("convert ./images/light.png ./images/light.ppm");
     return ppm6GetImage("./images/light.ppm");
-}								
+}                                                               
 
 Ppmimage* light6_image()
 {
     system("convert ./images/light.png ./images/light.ppm");
     return ppm6GetImage("./images/light.ppm");
-}								
+}                                                               
 
 
 
@@ -376,9 +376,9 @@ void show_mari()
 
     //takes care of animation
     if (gl.m_walkFrame >= 7) {
-	//if animation reaches LAST sprite
-	//start from start again
-	ay = 1;
+        //if animation reaches LAST sprite
+        //start from start again
+        ay = 1;
     }
     float tx = (float)ax / 7.0;
     float ty = (float)ay / 1.0;
@@ -390,46 +390,46 @@ void show_mari()
 
 
     if (m_position < -600) {  //was 600
-	//walks to the left 
-	m_position++;
-	glBegin(GL_QUADS);
-	glTexCoord2f(tx,      ty+.6); glVertex2i(mariEnemy.cx+ m_position+ temp +w, y-ht);
-	glTexCoord2f(tx,      ty+0);    glVertex2i(mariEnemy.cx+ m_position+ temp +w, y+ht);
-	glTexCoord2f(tx+.14, ty+0);    glVertex2i(mariEnemy.cx +m_position+ temp -w, y+ht);
-	glTexCoord2f(tx+.14, ty+.6); glVertex2i(mariEnemy.cx + m_position+ temp -w, y-ht);
+        //walks to the left 
+        m_position++;
+        glBegin(GL_QUADS);
+        glTexCoord2f(tx,      ty+.6); glVertex2i(mariEnemy.cx+ m_position+ temp +w, y-ht);
+        glTexCoord2f(tx,      ty+0);    glVertex2i(mariEnemy.cx+ m_position+ temp +w, y+ht);
+        glTexCoord2f(tx+.14, ty+0);    glVertex2i(mariEnemy.cx +m_position+ temp -w, y+ht);
+        glTexCoord2f(tx+.14, ty+.6); glVertex2i(mariEnemy.cx + m_position+ temp -w, y-ht);
 
-	//hopefully
-	if(mainChar.cx >= mariEnemy.cx+m_position+temp-w &&
-		mainChar.cx <= mariEnemy.cx+m_position+temp+w &&
-		mainChar.cy <= y-ht-67 && mainChar.cy >= y+ht-67)
-	{
-	    mainChar.health--;
-	}
-	//if (mainChar.cx < mariEnemy.cx) {
-	(m_position > -602? m_position=-500: m_position++);
-	// } else {
-	//m_position = -999999;
-	//mariEnemy.cx = 5000;
+        //hopefully
+        if(mainChar.cx >= mariEnemy.cx+m_position+temp-w &&
+                mainChar.cx <= mariEnemy.cx+m_position+temp+w &&
+                mainChar.cy <= y-ht-67 && mainChar.cy >= y+ht-67)
+        {
+            mainChar.health--;
+        }
+        //if (mainChar.cx < mariEnemy.cx) {
+        (m_position > -602? m_position=-500: m_position++);
+        // } else {
+        //m_position = -999999;
+        //mariEnemy.cx = 5000;
     }
     //}
 
 
     if (m_position > -600) { //was 600
-	// walk right
-	m_position--;
-	glBegin(GL_QUADS);
-	glTexCoord2f(tx,      ty+.6);  glVertex2i(mariEnemy.cx+ m_position+ temp +w, y-ht);
-	glTexCoord2f(tx,      ty+0);   glVertex2i(mariEnemy.cx+m_position+temp+w, y+ht);
-	glTexCoord2f(tx-.14, ty+0);    glVertex2i(mariEnemy.cx +m_position+temp -w, y+ht);
-	glTexCoord2f(tx-.14, ty+.6);   glVertex2i(mariEnemy.cx + m_position+temp -w, y-ht);
+        // walk right
+        m_position--;
+        glBegin(GL_QUADS);
+        glTexCoord2f(tx,      ty+.6);  glVertex2i(mariEnemy.cx+ m_position+ temp +w, y-ht);
+        glTexCoord2f(tx,      ty+0);   glVertex2i(mariEnemy.cx+m_position+temp+w, y+ht);
+        glTexCoord2f(tx-.14, ty+0);    glVertex2i(mariEnemy.cx +m_position+temp -w, y+ht);
+        glTexCoord2f(tx-.14, ty+.6);   glVertex2i(mariEnemy.cx + m_position+temp -w, y-ht);
 
 
-	if (mainChar.cx >= mariEnemy.cx+m_position+temp-w &&
-		mainChar.cx <= mariEnemy.cx+m_position+temp+w &&
-		mainChar.cy >= y-ht-67 && mainChar.cy <= y+ht-67) {
-	    mainChar.health--;
-	}
-	(m_position < -599?m_position=-700:m_position--);
+        if (mainChar.cx >= mariEnemy.cx+m_position+temp-w &&
+                mainChar.cx <= mariEnemy.cx+m_position+temp+w &&
+                mainChar.cy >= y-ht-67 && mainChar.cy <= y+ht-67) {
+            mainChar.health--;
+        }
+        (m_position < -599?m_position=-700:m_position--);
     }
     // aqui
     //m_position = -9999;
@@ -443,13 +443,13 @@ void show_mari()
 
     //WORK ON TIME library to sort enemies every 3 seconds
 
-}																                                                                               
+}                                                                                                                                                                                                              
 
 void show_female() 
 {
     if (gl.initDone == 0) {
-	float x = gl.xres/1; 
-	x = x-60; //x cord
+        float x = gl.xres/1; 
+        x = x-60; //x cord
     }
     female.cy = 110; // y cord
     float ht = 50.0;//estatura de la mujer
@@ -464,7 +464,7 @@ void show_female()
     int ax = 1;   
     int ay = 1;
     if (1 >= 1)
-	ay = 0;
+        ay = 0;
     float tx = (float)ax / 8.0;
     float ty = (float)ay / 1.0;
     glBegin(GL_QUADS);
@@ -489,32 +489,32 @@ void show_light6(void);
 void show_pika() 
 {
     //if (mainChar.cx !> pika.cx) (
-    //show_light();
+    show_light();
     //distance of lightning
     (l_position <= -50? l_position= 200:l_position--);
 
     // }else{
     // l_position 
     // <=
-/*  ----------------------- DEBUGGING PURPOSES
-    if (l_position <= -300) {
-    l_position = 200;  //pika.cx; //3200
-//l_position = pika.cx; //3200
-cout << "RREEEEEEEE ASSIGNED !!!! " << l_position << endl;
-} else {
-l_position--;
-cout << " :( :( :( regular\t: " << l_position << endl;
-cout << " :( :( :( ========= >.<\t: " << pika.cx << endl;
-}
-*/
+    /*  ----------------------- DEBUGGING PURPOSES
+        if (l_position <= -300) {
+        l_position = 200;  //pika.cx; //3200
+    //l_position = pika.cx; //3200
+    cout << "RREEEEEEEE ASSIGNED !!!! " << l_position << endl;
+    } else {
+    l_position--;
+    cout << " :( :( :( regular\t: " << l_position << endl;
+    cout << " :( :( :( ========= >.<\t: " << pika.cx << endl;
+    }
+    */
 
-if (mainChar.cx > pika.cx) {
-    pika.cx = 3400;
-    light.cy = 5000;
-} else {
-    show_light();
-    (l_position <= -50? l_position= 200:l_position--);
-}
+    if (mainChar.cx > pika.cx) {
+        pika.cx = 3400;
+        light.cy = 5000;
+    } else {
+        show_light();
+        (l_position <= -50? l_position= 200:l_position--);
+    }
 
 if (gl.initDone == 0) {
     float x = gl.xres/1; 
@@ -534,7 +534,7 @@ int ax = p_walkFrame % 4;
 int ay = 0;
 if (p_walkFrame >= 4) { // work on this later
     if (p_position % 10 == 0) {
-	ay = 1;
+        ay = 1;
     }
 }
 float tx = (float)ax / 4.0;
@@ -553,12 +553,12 @@ glEnd(); // .3
 glPopMatrix();
 glBindTexture(GL_TEXTURE_2D, 0);
 glDisable(GL_ALPHA_TEST);
-}  										                                                                             
+}                                                                                                                                                            
 
 void show_pika2() 
 {
-   show_light2();
-   cout << "light 2 : \t\t" << light2.cx <<  endl;
+    show_light2();
+    cout << "light 2 : \t\t" << light2.cx <<  endl;
     //distance of lightning
     //(l2_position <= -200? l2_position= 0:l2_position--);
 
@@ -566,19 +566,19 @@ void show_pika2()
 
 
     if (mainChar.cx > pika2.cx) {
-	pika2.cx = -999999;
-	light2.cy = 5000;
+        pika2.cx = -999999;
+        light2.cy = 5000;
     } else {
-	show_light2(); // was -200 .. why ? 
-	(l2_position <= 6700? l2_position= 7000:l2_position--);
+        show_light2(); // was -200 .. why ? 
+        (l2_position <= 6700? l2_position= 7000:l2_position--);
     }
 
 
 
 
     if (gl.initDone == 0) {
-	float x = gl.xres/1; 
-	x = x-60; 
+        float x = gl.xres/1; 
+        x = x-60; 
     }
     pika2.cy = 100; 
     float ht = 75.0;
@@ -593,9 +593,9 @@ void show_pika2()
     int ax = p_walkFrame % 4;
     int ay = 0;
     if (p_walkFrame >= 4) { // 
-	if (p_position % 10 == 0) {
-	    ay = 1;
-	}
+        if (p_position % 10 == 0) {
+            ay = 1;
+        }
     }
     float tx = (float)ax / 4.0;
     float ty = (float)ay / 1.0;
@@ -608,7 +608,7 @@ void show_pika2()
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_ALPHA_TEST);
-}  										                                      
+}                                                                                                                     
 
 
 void show_pika3()
@@ -618,8 +618,8 @@ void show_pika3()
     //(l_position <= -50? l_position= 200:l_position--);
 
     if (gl.initDone == 0) {
-	float x = gl.xres/1;
-	x = x-60;
+        float x = gl.xres/1;
+        x = x-60;
     }
     pika3.cy = 100;
     float ht = 100.0;
@@ -634,9 +634,9 @@ void show_pika3()
     int ax = p_walkFrame % 4;
     int ay = 0;
     if (p_walkFrame >= 4) { // 
-	if (p_position % 10 == 0) {
-	    ay = 1;
-	}
+        if (p_position % 10 == 0) {
+            ay = 1;
+        }
     }
     float tx = (float)ax / 4.0;
     float ty = (float)ay / 1.0;
@@ -658,8 +658,8 @@ void show_pika4()
     //(l_position <= -50? l_position= 200:l_position--);
 
     if (gl.initDone == 0) {
-	float x = gl.xres/1;
-	x = x-60;
+        float x = gl.xres/1;
+        x = x-60;
     }
     pika4.cy = 485;
     float ht = 100.0;
@@ -674,9 +674,9 @@ void show_pika4()
     int ax = p_walkFrame % 4;
     int ay = 0;
     if (p_walkFrame >= 4) { // 
-	if (p_position % 10 == 0) {
-	    ay = 1;
-	}
+        if (p_position % 10 == 0) {
+            ay = 1;
+        }
     }
     float tx = (float)ax / 4.0;
     float ty = (float)ay / 1.0;
@@ -689,88 +689,88 @@ void show_pika4()
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_ALPHA_TEST);
-}										
+}                                                                               
 
 /*
-void show_pika5()
-{
-    show_light5();
-    //distance of lightning
-    //(l_position <= -50? l_position= 200:l_position--);
+   void show_pika5()
+   {
+   show_light5();
+//distance of lightning
+//(l_position <= -50? l_position= 200:l_position--);
 
-    if (gl.initDone == 0) {
-	float x = gl.xres/1;
-	x = x-60;
-    }
-    pika5.cy = 325;
-    float ht = 100.0;
-    float w = ht*0.5;
+if (gl.initDone == 0) {
+float x = gl.xres/1;
+x = x-60;
+}
+pika5.cy = 325;
+float ht = 100.0;
+float w = ht*0.5;
 
-    glPushMatrix();
-    glColor3f(1.0, 1.0, 1.0);
-    glBindTexture(GL_TEXTURE_2D, gl.pika5_Texture);
-    glEnable(GL_ALPHA_TEST);
-    glAlphaFunc(GL_GREATER, 0.0f);
-    glColor4ub(255,255,255,255);
-    int ax = p_walkFrame % 4;
-    int ay = 0;
-    if (p_walkFrame >= 4){ // 
-	if(p_position % 10 == 0){
-	    ay = 1;
-	}
-    }
-    float tx = (float)ax / 4.0;
-    float ty = (float)ay / 1.0;
-    glBegin(GL_QUADS);
-    glTexCoord2f(tx ,       ty + 1); glVertex2i(pika5.cx +w, pika5.cy-ht);
-    glTexCoord2f(tx ,       ty); glVertex2i(pika5.cx +w, pika5.cy+ht);
-    glTexCoord2f(tx + .25,       ty); glVertex2i(pika5.cx-w, pika5.cy+ht);
-    glTexCoord2f(tx + .25,       ty + 1); glVertex2i(pika5.cx-w, pika5.cy-ht);
-    glEnd(); // .3
-    glPopMatrix();
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glDisable(GL_ALPHA_TEST);
-}										
+glPushMatrix();
+glColor3f(1.0, 1.0, 1.0);
+glBindTexture(GL_TEXTURE_2D, gl.pika5_Texture);
+glEnable(GL_ALPHA_TEST);
+glAlphaFunc(GL_GREATER, 0.0f);
+glColor4ub(255,255,255,255);
+int ax = p_walkFrame % 4;
+int ay = 0;
+if (p_walkFrame >= 4){ // 
+if(p_position % 10 == 0){
+ay = 1;
+}
+}
+float tx = (float)ax / 4.0;
+float ty = (float)ay / 1.0;
+glBegin(GL_QUADS);
+glTexCoord2f(tx ,       ty + 1); glVertex2i(pika5.cx +w, pika5.cy-ht);
+glTexCoord2f(tx ,       ty); glVertex2i(pika5.cx +w, pika5.cy+ht);
+glTexCoord2f(tx + .25,       ty); glVertex2i(pika5.cx-w, pika5.cy+ht);
+glTexCoord2f(tx + .25,       ty + 1); glVertex2i(pika5.cx-w, pika5.cy-ht);
+glEnd(); // .3
+glPopMatrix();
+glBindTexture(GL_TEXTURE_2D, 0);
+glDisable(GL_ALPHA_TEST);
+}                                                                               
 
 void show_pika6()
 {
-    show_light6();
-    //distance of lightning
-    //(l_position <= -50? l_position= 200:l_position--);
+show_light6();
+//distance of lightning
+//(l_position <= -50? l_position= 200:l_position--);
 
-    if (gl.initDone == 0) {
-	float x = gl.xres/1;
-	x = x-60;
-    }
-    pika6.cy = 100;
-    float ht = 100.0;
-    float w = ht*0.5;
+if (gl.initDone == 0) {
+float x = gl.xres/1;
+x = x-60;
+}
+pika6.cy = 100;
+float ht = 100.0;
+float w = ht*0.5;
 
-    glPushMatrix();
-    glColor3f(1.0, 1.0, 1.0);
-    glBindTexture(GL_TEXTURE_2D, gl.pika6_Texture);
-    glEnable(GL_ALPHA_TEST);
-    glAlphaFunc(GL_GREATER, 0.0f);
-    glColor4ub(255,255,255,255);
-    int ax = p_walkFrame % 4;
-    int ay = 0;
-    if (p_walkFrame >= 4){ // 
-	if(p_position % 10 == 0){
-	    ay = 1;
-	}
-    }
-    float tx = (float)ax / 4.0;
-    float ty = (float)ay / 1.0;
-    glBegin(GL_QUADS);
-    glTexCoord2f(tx ,       ty + 1); glVertex2i(pika6.cx +w, pika6.cy-ht);
-    glTexCoord2f(tx ,       ty); glVertex2i(pika6.cx +w, pika6.cy+ht);
-    glTexCoord2f(tx + .25,       ty); glVertex2i(pika6.cx-w, pika6.cy+ht);
-    glTexCoord2f(tx + .25,       ty + 1); glVertex2i(pika6.cx-w, pika6.cy-ht);
-    glEnd(); // .3
-    glPopMatrix();
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glDisable(GL_ALPHA_TEST);
-}										
+glPushMatrix();
+glColor3f(1.0, 1.0, 1.0);
+glBindTexture(GL_TEXTURE_2D, gl.pika6_Texture);
+glEnable(GL_ALPHA_TEST);
+glAlphaFunc(GL_GREATER, 0.0f);
+glColor4ub(255,255,255,255);
+int ax = p_walkFrame % 4;
+int ay = 0;
+if (p_walkFrame >= 4){ // 
+if(p_position % 10 == 0){
+ay = 1;
+}
+}
+float tx = (float)ax / 4.0;
+float ty = (float)ay / 1.0;
+glBegin(GL_QUADS);
+glTexCoord2f(tx ,       ty + 1); glVertex2i(pika6.cx +w, pika6.cy-ht);
+glTexCoord2f(tx ,       ty); glVertex2i(pika6.cx +w, pika6.cy+ht);
+glTexCoord2f(tx + .25,       ty); glVertex2i(pika6.cx-w, pika6.cy+ht);
+glTexCoord2f(tx + .25,       ty + 1); glVertex2i(pika6.cx-w, pika6.cy-ht);
+glEnd(); // .3
+glPopMatrix();
+glBindTexture(GL_TEXTURE_2D, 0);
+glDisable(GL_ALPHA_TEST);
+}                                                                               
 */
 
 
@@ -783,12 +783,12 @@ void show_obama()
     //position starts at -300
 
     if (mainChar.cx < obama.cx) {
-	show_taco();
-	(taco_position == -500? taco_position= -30:taco_position--);
+        show_taco();
+        (taco_position == -500? taco_position= -30:taco_position--);
     } else {
-	obama.cx = 5000;
-	mainChar.health = 30;
-	//taco_position = -999999;
+        obama.cx = 5000;
+        mainChar.health = 30;
+        //taco_position = -999999;
     }
 
     //obama.cx = 200;   charceter.cx is to make him follow megaman
@@ -805,7 +805,7 @@ void show_obama()
     int ax = 1;
     int ay = 1;
     if (1 >= 1)
-	ay = 0;
+        ay = 0;
     float tx = (float)ax / 7.0;
     float ty = (float)ay / 1.0;
     glBegin(GL_QUADS);
@@ -822,10 +822,10 @@ void show_obama()
 void show_taco()
 {
     (taco_position < -700? taco_position = -200: taco_position-=2);
-   //if (taco_position < -600) {
+    //if (taco_position < -600) {
     //   taco_position = -200;
-  // }
-   
+    // }
+
     taco.cy = 300; // y cord
     float ht = 25.0;//estatura del tacito bien delicioso 
     float w = ht*1.0; // was .5
@@ -839,7 +839,7 @@ void show_taco()
     int ax = 1;
     int ay = 1;
     if (1 >= 1)
-	ay = 0;
+        ay = 0;
     float tx = (float)ax / 7.0;
     float ty = (float)ay / 1.0;
     glBegin(GL_QUADS);
@@ -850,10 +850,10 @@ void show_taco()
 
     //CONTAC1 WITH TACO WILL CAUSE DAMAGE ... REALLL
     if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w &&
-	    mainChar.cy >= taco.cy-ht && mainChar.cy <= taco.cy+ht)
+            mainChar.cy >= taco.cy-ht && mainChar.cy <= taco.cy+ht)
     {
-	//if(mainChar.cy >= taco.cx + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
-	mainChar.health--;
+        //if(mainChar.cy >= taco.cx + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
+        mainChar.health--;
     }
 
     glEnd();
@@ -878,7 +878,7 @@ void show_light()
     int ax = l_walkFrame  % 3;
     int ay = 1;
     if (l_walkFrame >= 3)
-	ay = 1;
+        ay = 1;
     float tx = (float)ax / 3.0;
     float ty = (float)ay / 1.0;
     glBegin(GL_QUADS);
@@ -891,17 +891,18 @@ void show_light()
     // ---------- 
     // luz  
     if(mainChar.cx >= light.cx+l_position-w && mainChar.cx <= light.cx+l_position+w &&
-	    mainChar.cy >= light.cy-ht && mainChar.cy <= light.cy+ht)
+            mainChar.cy >= light.cy-ht && mainChar.cy <= light.cy+ht)
     {
-	//if(mainChar.cy >= light.cx + light_position - w && mainChar.cy <= light.cy + light_position+w)
-	mainChar.health-=.2;
+        //if(mainChar.cy >= light.cx + light_position - w && mainChar.cy <= light.cy + light_position+w)
+        mainChar.health-=.2;
     }
+    (l_position < -600? l_position = -300: l_position--); 
 
     glEnd();
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_ALPHA_TEST);
-} 																								
+}                                                                                                                                                                                               
 
 void show_light2()
 {
@@ -919,7 +920,7 @@ void show_light2()
     int ax = l_walkFrame  % 3;
     int ay = 1;
     if (l_walkFrame >= 3)
-	ay = 1;
+        ay = 1;
     float tx = (float)ax / 3.0;
     float ty = (float)ay / 1.0;
     glBegin(GL_QUADS);
@@ -942,7 +943,7 @@ void show_light2()
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_ALPHA_TEST);
-} 													
+}                                                                                                       
 
 void show_light3()
 {
@@ -959,7 +960,7 @@ void show_light3()
     int ax = l_walkFrame  % 3;
     int ay = 1;
     if (l_walkFrame >= 3)
-	ay = 1;
+        ay = 1;
     float tx = (float)ax / 3.0;
     float ty = (float)ay / 1.0;
     glBegin(GL_QUADS);
@@ -982,7 +983,7 @@ void show_light3()
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_ALPHA_TEST);
-} 													
+}                                                                                                       
 
 void show_light4()
 {
@@ -999,7 +1000,7 @@ void show_light4()
     int ax = l_walkFrame  % 3;
     int ay = 1;
     if (l_walkFrame >= 3)
-	ay = 1;
+        ay = 1;
     float tx = (float)ax / 3.0;
     float ty = (float)ay / 1.0;
     glBegin(GL_QUADS);
@@ -1022,99 +1023,99 @@ void show_light4()
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_ALPHA_TEST);
-} 													
+}                                                                                                       
 /*
-void show_light5()
-{
-    light5.cy = 325; // y cord
-    float ht = 150.0;//estatura del tacito bien delicioso 
-    float w = ht*1.0; // was .5
+   void show_light5()
+   {
+   light5.cy = 325; // y cord
+   float ht = 150.0;//estatura del tacito bien delicioso 
+   float w = ht*1.0; // was .5
 
-    glPushMatrix();
-    glColor3f(1.0, 1.0, 1.0);
-    glBindTexture(GL_TEXTURE_2D, gl.light5_Texture);
-    glEnable(GL_ALPHA_TEST);
-    glAlphaFunc(GL_GREATER, 0.0f);
-    glColor4ub(255,255,255,255);
-    int ax = l_walkFrame  % 3;
-    int ay = 1;
-    if (l_walkFrame >= 3)
-	ay = 1;
-    float tx = (float)ax / 3.0;
-    float ty = (float)ay / 1.0;
-    glBegin(GL_QUADS);
+   glPushMatrix();
+   glColor3f(1.0, 1.0, 1.0);
+   glBindTexture(GL_TEXTURE_2D, gl.light5_Texture);
+   glEnable(GL_ALPHA_TEST);
+   glAlphaFunc(GL_GREATER, 0.0f);
+   glColor4ub(255,255,255,255);
+   int ax = l_walkFrame  % 3;
+   int ay = 1;
+   if (l_walkFrame >= 3)
+   ay = 1;
+   float tx = (float)ax / 3.0;
+   float ty = (float)ay / 1.0;
+   glBegin(GL_QUADS);
 
-    */
-   // glTexCoord2f(tx,      ty+1.0); glVertex2i(light5.cx /*+ l_position5*/+  w, light5.cy-ht);
-   // glTexCoord2f(tx,      ty+0);    glVertex2i(light5.cx/*+ l_position5*/+ w, light5.cy+ht);
-   // glTexCoord2f(tx+.3, ty+0);    glVertex2i(light5.cx  /*+l_position5*/ -w, light5.cy+ht);
-   // glTexCoord2f(tx+.3, ty+1.0); glVertex2i(light5.cx   /*+l_position5*/-w, light5.cy-ht);
-
-    //CONTACT WITH TACO WILL CAUSE DAMAGE ... REALLL
-    // ---------- 
-    // MAKE MODIFICATION for LIGHT
-    /*if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w &&
-      mainChar.cy >= taco.cy-ht && mainChar.cy <= taco.cy+ht)
-      {
-    //if(mainChar.cy >= taco.cx + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
-    mainChar.health--;
-    }*/
-/*
-    glEnd();
-    glPopMatrix();
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glDisable(GL_ALPHA_TEST);
-} 													
 */
+// glTexCoord2f(tx,      ty+1.0); glVertex2i(light5.cx /*+ l_position5*/+  w, light5.cy-ht);
+// glTexCoord2f(tx,      ty+0);    glVertex2i(light5.cx/*+ l_position5*/+ w, light5.cy+ht);
+// glTexCoord2f(tx+.3, ty+0);    glVertex2i(light5.cx  /*+l_position5*/ -w, light5.cy+ht);
+// glTexCoord2f(tx+.3, ty+1.0); glVertex2i(light5.cx   /*+l_position5*/-w, light5.cy-ht);
+
+//CONTACT WITH TACO WILL CAUSE DAMAGE ... REALLL
+// ---------- 
+// MAKE MODIFICATION for LIGHT
+/*if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w &&
+  mainChar.cy >= taco.cy-ht && mainChar.cy <= taco.cy+ht)
+  {
+//if(mainChar.cy >= taco.cx + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
+mainChar.health--;
+}*/
+/*
+   glEnd();
+   glPopMatrix();
+   glBindTexture(GL_TEXTURE_2D, 0);
+   glDisable(GL_ALPHA_TEST);
+   }                                                                                                       
+   */
 
 /*
-void show_light6()
+   void show_light6()
+   {
+   light6.cy = 100; // y cord
+   float ht = 150.0;//estatura del tacito bien delicioso 
+   float w = ht*1.0; // was .5
+
+   glPushMatrix();
+   glColor3f(1.0, 1.0, 1.0);
+   glBindTexture(GL_TEXTURE_2D, gl.light6_Texture);
+   glEnable(GL_ALPHA_TEST);
+   glAlphaFunc(GL_GREATER, 0.0f);
+   glColor4ub(255,255,255,255);
+   int ax = l_walkFrame  % 3;
+   int ay = 1;
+   if (l_walkFrame >= 3)
+   ay = 1;
+   float tx = (float)ax / 3.0;
+   float ty = (float)ay / 1.0;
+   glBegin(GL_QUADS);
+   */  
+//glTexCoord2f(tx,      ty+1.0); glVertex2i(light6.cx /*+ l_position6*/+  w, light6.cy-ht);
+//glTexCoord2f(tx,      ty+0);    glVertex2i(light6.cx/*+ l_position6*/+ w, light6.cy+ht);
+//glTexCoord2f(tx+.3, ty+0);    glVertex2i(light6.cx  /*+l_position6*/ -w, light6.cy+ht);
+//glTexCoord2f(tx+.3, ty+1.0); glVertex2i(light6.cx   /*+l_position6*/-w, light6.cy-ht);
+/*
+//CONTACT WITH TACO WILL CAUSE DAMAGE ... REALLL
+// ---------- 
+// MAKE MODIFICATION for LIGHT
+if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w &&
+mainChar.cy >= taco.cy-ht && mainChar.cy <= taco.cy+ht)
 {
-    light6.cy = 100; // y cord
-    float ht = 150.0;//estatura del tacito bien delicioso 
-    float w = ht*1.0; // was .5
+//if(mainChar.cy >= taco.cx + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
+mainChar.health--;
+}
 
-    glPushMatrix();
-    glColor3f(1.0, 1.0, 1.0);
-    glBindTexture(GL_TEXTURE_2D, gl.light6_Texture);
-    glEnable(GL_ALPHA_TEST);
-    glAlphaFunc(GL_GREATER, 0.0f);
-    glColor4ub(255,255,255,255);
-    int ax = l_walkFrame  % 3;
-    int ay = 1;
-    if (l_walkFrame >= 3)
-	ay = 1;
-    float tx = (float)ax / 3.0;
-    float ty = (float)ay / 1.0;
-    glBegin(GL_QUADS);
-  */  
-    //glTexCoord2f(tx,      ty+1.0); glVertex2i(light6.cx /*+ l_position6*/+  w, light6.cy-ht);
-    //glTexCoord2f(tx,      ty+0);    glVertex2i(light6.cx/*+ l_position6*/+ w, light6.cy+ht);
-    //glTexCoord2f(tx+.3, ty+0);    glVertex2i(light6.cx  /*+l_position6*/ -w, light6.cy+ht);
-    //glTexCoord2f(tx+.3, ty+1.0); glVertex2i(light6.cx   /*+l_position6*/-w, light6.cy-ht);
-/*
-    //CONTACT WITH TACO WILL CAUSE DAMAGE ... REALLL
-    // ---------- 
-    // MAKE MODIFICATION for LIGHT
-    if(mainChar.cx >= taco.cx+taco_position-w && mainChar.cx <= taco.cx+taco_position+w &&
-      mainChar.cy >= taco.cy-ht && mainChar.cy <= taco.cy+ht)
-      {
-    //if(mainChar.cy >= taco.cx + taco_position - w && mainChar.cy <= taco.cy + taco_position+w)
-    mainChar.health--;
-    }
-
-    glEnd();
-    glPopMatrix();
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glDisable(GL_ALPHA_TEST);
+glEnd();
+glPopMatrix();
+glBindTexture(GL_TEXTURE_2D, 0);
+glDisable(GL_ALPHA_TEST);
 } 
-*/													
+*/                                                                                                      
 
 void show_sun()
 {
     if (gl.initDone == 0) {
-	float x = gl.xres/1;
-	x = x-60; //x cord
+        float x = gl.xres/1;
+        x = x-60; //x cord
     }
     sun.cx = 200;   //charceter.cx is to make him follow megaman
     sun.cy = 475; // y cord
@@ -1130,7 +1131,7 @@ void show_sun()
     int ax = 1;
     int ay = 1;
     if (1 >= 1)
-	ay = 0;
+        ay = 0;
     float tx = (float)ax / 7.0;
     float ty = (float)ay / 1.0;
     glBegin(GL_QUADS);
@@ -1162,9 +1163,9 @@ void show_shooting_star()
 
 
     if (gl.m_walkFrame >= 64) {
-	//if animation reaches LAST sprite
-	//start from start again
-	ay = 1;
+        //if animation reaches LAST sprite
+        //start from start again
+        ay = 1;
     }
     float tx = (float)ax / 64.0;
     float ty = (float)ay / 8.0;
@@ -1193,13 +1194,13 @@ void insertion(int*, int);
 void bubbleSort(int* arr, int size) {
     int temp;
     for (int i = 0; i <size; i++) {
-	for (int j = 0; j < size - i - 1; j++) {
-	    if (arr[j] > arr[j+1]) {
-		temp = arr[j];
-		arr[j] = arr[j+1];
-		arr[j+1] = temp;
-	    }
-	}
+        for (int j = 0; j < size - i - 1; j++) {
+            if (arr[j] > arr[j+1]) {
+                temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
     }
 }
 
@@ -1207,13 +1208,13 @@ void insertion(int* arr, int size)
 {
     int j, temp;
     for (int i = 1; i < size; i++) {
-	j = i;
-	while (j > 0 && arr[j-1] > arr[j]) {
-	    temp = arr[j];
-	    arr[j] = arr[j-1];
-	    arr[j-1] = temp;
-	    j--;
-	}
+        j = i;
+        while (j > 0 && arr[j-1] > arr[j]) {
+            temp = arr[j];
+            arr[j] = arr[j-1];
+            arr[j-1] = temp;
+            j--;
+        }
     }
 }
 
@@ -1225,25 +1226,25 @@ void selectionSort(int* arr, int n)
 
     for (int i=0; i < n-1; i++)
     {
-	pos_min = i;//set pos_min to the current index of array
+        pos_min = i;//set pos_min to the current index of array
 
-	for (int j=i+1; j < n; j++)
-	{
+        for (int j=i+1; j < n; j++)
+        {
 
-	    if (arr[j] < arr[pos_min])
-		pos_min=j;
-	    //pos_min will keep track of the index that min is in, 
-	    //this is needed when a swap happens
-	}
+            if (arr[j] < arr[pos_min])
+                pos_min=j;
+            //pos_min will keep track of the index that min is in, 
+            //this is needed when a swap happens
+        }
 
-	//if pos_min no longer equals i than a smaller value must have been found, 
-	//so a swap must occur
-	if (pos_min != i)
-	{
-	    temp = arr[i];
-	    arr[i] = arr[pos_min];
-	    arr[pos_min] = temp;
-	}
+        //if pos_min no longer equals i than a smaller value must have been found, 
+        //so a swap must occur
+        if (pos_min != i)
+        {
+            temp = arr[i];
+            arr[i] = arr[pos_min];
+            arr[pos_min] = temp;
+        }
     }
 }
 
@@ -1259,34 +1260,34 @@ void Merge(int *a, int low, int high, int mid)
 
     // Merge the two parts into temp[].
     while (i <= mid && j <= high) {
-	if (a[i] < a[j]) {
-	    temp[k] = a[i];
-	    k++;
-	    i++;
-	} else {
-	    temp[k] = a[j];
-	    k++;
-	    j++;
-	}
+        if (a[i] < a[j]) {
+            temp[k] = a[i];
+            k++;
+            i++;
+        } else {
+            temp[k] = a[j];
+            k++;
+            j++;
+        }
     }
 
     // Insert all the remaining values from i to mid into temp[].
     while (i <= mid) {
-	temp[k] = a[i];
-	k++;
-	i++;
+        temp[k] = a[i];
+        k++;
+        i++;
     }
 
     // Insert all the remaining values from j to high into temp[].
     while (j <= high) {
-	temp[k] = a[j];
-	k++;
-	j++;
+        temp[k] = a[j];
+        k++;
+        j++;
     }
 
     // Assign sorted data stored in temp[] to a[].
     for (i = low; i <= high; i++) {
-	a[i] = temp[i-low];
+        a[i] = temp[i-low];
     }
 }           
 
@@ -1294,13 +1295,13 @@ void MergeSort(int *a, int low, int high)
 {
     int mid;
     if (low < high) {
-	mid=(low+high)/2;
-	// Split the data into two half.
-	MergeSort(a, low, mid);
-	MergeSort(a, mid+1, high);
-	//
-	//                         // Merge them to get sorted output.
-	Merge(a, low, high, mid);
+        mid=(low+high)/2;
+        // Split the data into two half.
+        MergeSort(a, low, mid);
+        MergeSort(a, mid+1, high);
+        //
+        //                         // Merge them to get sorted output.
+        Merge(a, low, high, mid);
     }
 }
 
@@ -1312,18 +1313,18 @@ void heapify(int arr[], int n, int i)
 
     // If left child is larger than root
     if (l < n && arr[l] > arr[largest])
-	largest = l;
+        largest = l;
 
     // If right child is larger than largest so far
     if (r < n && arr[r] > arr[largest])
-	largest = r;
+        largest = r;
 
     // If largest is not root
     if (largest != i) {
-	swap(arr[i], arr[largest]);
+        swap(arr[i], arr[largest]);
 
-	// Recursively heapify the affected sub-tree
-	heapify(arr, n, largest);
+        // Recursively heapify the affected sub-tree
+        heapify(arr, n, largest);
     }
 }
 
@@ -1331,15 +1332,15 @@ void heapSort(int arr[], int n)
 {
     // Build heap (rearrange array)
     for (int i = n / 2 - 1; i >= 0; i--)
-	heapify(arr, n, i);
+        heapify(arr, n, i);
 
     // One by one extract an element from heap
     for (int i=n-1; i>=0; i--) {
-	// Move current root to end
-	swap(arr[0], arr[i]);
+        // Move current root to end
+        swap(arr[0], arr[i]);
 
-	// call max heapify on the reduced heap
-	heapify(arr, i, 0);
+        // call max heapify on the reduced heap
+        heapify(arr, i, 0);
     }
 }
 
@@ -1350,26 +1351,26 @@ void quickSort(int* arr, int start, int end) {
     int pivot = arr[(start + end) / 2];
 
     while (i <= j) {
-	while (arr[i] < pivot) {
-	    i++;
-	}
-	while (arr[j] > pivot) {
-	    j--;
-	}
-	if (i <= j) {
-	    temp = arr[i];
-	    arr[i] = arr[j];
-	    arr[j] = temp;
-	    i++;
-	    j--;
-	}
+        while (arr[i] < pivot) {
+            i++;
+        }
+        while (arr[j] > pivot) {
+            j--;
+        }
+        if (i <= j) {
+            temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+            i++;
+            j--;
+        }
     }
 
     if (start < j) {
-	quickSort(arr, start, j);
+        quickSort(arr, start, j);
     }
     if (i < end) {
-	quickSort(arr, i, end);
+        quickSort(arr, i, end);
     }
 }
 
@@ -1419,7 +1420,7 @@ void init_round2() {
     pika4.cx = 8800; //8k
     cout << "pika4.cx  \t: " << pika4.cx << endl;
 
-   // pika5.cx = 10500; 
+    // pika5.cx = 10500; 
     //pika6.cx = 12100; 
 
 }
@@ -1436,28 +1437,28 @@ void CesarInit() {
 
 
     switch (random_number) {
-	case 1:
-	    //bubble
-	    bubbleSort(array,size);
-	    break;
-	case 2:
-	    //selection
-	    selectionSort(array,size);
-	    break;
-	case 3:
-	    //Insertion
-	    MergeSort(array, 0, size-1);
-	    break;
-	case 4:
-	    //quick
-	    quickSort(array, start, size-1);
-	case 5:
-	    //heap
-	    heapSort(array, size);
-	    break;
-	case 6:
-	    insertion(array, size);
-	    break;
+        case 1:
+            //bubble
+            bubbleSort(array,size);
+            break;
+        case 2:
+            //selection
+            selectionSort(array,size);
+            break;
+        case 3:
+            //Insertion
+            MergeSort(array, 0, size-1);
+            break;
+        case 4:
+            //quick
+            quickSort(array, start, size-1);
+        case 5:
+            //heap
+            heapSort(array, size);
+            break;
+        case 6:
+            insertion(array, size);
+            break;
     }
 
     // once it is fully ready
