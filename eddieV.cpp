@@ -287,7 +287,23 @@ void levelCompletion()
 	float w = 300;
 	if(STATE_COMPLETION) {
 		int scoreM = gl.minutes * 60;
-		gl.score = scoreM + gl.gameFrame; //add gl.score if kill points
+		int scoreTime = scoreM + gl.gameFrame;
+		int scoreTotal = gl.score;
+		if (scoreTime <= 180) {
+			scoreTotal += 500;
+		}
+		if (scoreTime > 180 && scoreTime <= 190) {
+			scoreTotal += 300;
+		}
+		if (scoreTime > 190 && scoreTime <= 210) {
+			scoreTotal += 200;
+		}
+		if (scoreTime > 210 && scoreTime <= 230) {
+			scoreTotal += 100;
+		}
+		if (scoreTime > 230) {
+			scoreTotal += 25;
+		}
 		timers.recordTime(&timers.timeCurrent);
 		double timeSpan = timers.timeDiff(&timers.timeOut, &timers.timeCurrent);
 		if (timeSpan > gl.gameDelay) {
@@ -353,7 +369,7 @@ void levelCompletion()
 		glDisable(GL_ALPHA_TEST);
 		}
 		if (gl.timeOutFrame > 5 && gl.timeOutFrame <= 10) {
-			if (gl.score <= 60) {
+			if (gl.score > 1300) {
 				//Platinum
 				glPushMatrix();
 				glColor3f(1.0,1.0,1.0);
@@ -372,7 +388,7 @@ void levelCompletion()
 				glDisable(GL_ALPHA_TEST);
 				printf("Rank: Platinum\n Score is: %i\n", gl.score);
 			}
-			if (gl.score > 60 && gl.score <= 120) {
+			if (scoreTotal >= 1200 && scoreTotal < 1300) {
 				//Gold
 				glPushMatrix();
 				glColor3f(1.0,1.0,1.0);
@@ -391,7 +407,7 @@ void levelCompletion()
 				glDisable(GL_ALPHA_TEST);
 				printf("Rank: Gold\n Score is: %i\n", gl.score);
 			}
-			if (gl.score > 120 && gl.score <= 180) {
+			if (scoreTotal >= 1100 && scoreTotal < 1200) {
 				//Silver
 				glPushMatrix();
 				glColor3f(1.0,1.0,1.0);
@@ -410,7 +426,7 @@ void levelCompletion()
 				glDisable(GL_ALPHA_TEST);
 				printf("RanK: Silver\n Score is: %i\n", gl.score);
 			}
-			if (gl.score > 180 && gl.score <= 240) {
+			if (scoreTotal >= 1000 && scoreTotal < 1100) {
 				//Bronze
 				glPushMatrix();
 				glColor3f(1.0,1.0,1.0);
@@ -429,7 +445,7 @@ void levelCompletion()
 				glDisable(GL_ALPHA_TEST);
 				printf("Rank: Bronze\n Score is: %i\n", gl.score);
 			}
-			if (gl.score > 240 && gl.score < 600) {
+			if (scoreTotal < 1000) {
 				//Noob	
 				glPushMatrix();
 				glColor3f(1.0,1.0,1.0);
