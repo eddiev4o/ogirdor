@@ -787,7 +787,7 @@ void show_obama()
 	(taco_position == -500? taco_position= -30:taco_position--);
     } else {
 	obama.cx = 5000;
-	mainChar.health = 30;
+	mainChar.health = 50;
 	//taco_position = -999999;
     }
 
@@ -821,9 +821,10 @@ void show_obama()
 
 void show_taco()
 {
-   if (taco_position < -600) {
-       taco_position = -200;
-   }
+    (taco_position < -700? taco_position = -200: taco_position-=2);
+   //if (taco_position < -600) {
+    //   taco_position = -200;
+  // }
    
     taco.cy = 300; // y cord
     float ht = 25.0;//estatura del tacito bien delicioso 
@@ -1257,16 +1258,12 @@ void Merge(int *a, int low, int high, int mid)
     j = mid + 1;
 
     // Merge the two parts into temp[].
-    while (i <= mid && j <= high)
-    {
-	if (a[i] < a[j])
-	{
+    while (i <= mid && j <= high) {
+	if (a[i] < a[j]) {
 	    temp[k] = a[i];
 	    k++;
 	    i++;
-	}
-	else
-	{
+	} else {
 	    temp[k] = a[j];
 	    k++;
 	    j++;
@@ -1281,16 +1278,14 @@ void Merge(int *a, int low, int high, int mid)
     }
 
     // Insert all the remaining values from j to high into temp[].
-    while (j <= high)
-    {
+    while (j <= high) {
 	temp[k] = a[j];
 	k++;
 	j++;
     }
 
     // Assign sorted data stored in temp[] to a[].
-    for (i = low; i <= high; i++)
-    {
+    for (i = low; i <= high; i++) {
 	a[i] = temp[i-low];
     }
 }           
@@ -1298,8 +1293,7 @@ void Merge(int *a, int low, int high, int mid)
 void MergeSort(int *a, int low, int high)
 {
     int mid;
-    if (low < high)
-    {
+    if (low < high) {
 	mid=(low+high)/2;
 	// Split the data into two half.
 	MergeSort(a, low, mid);
@@ -1325,8 +1319,7 @@ void heapify(int arr[], int n, int i)
 	largest = r;
 
     // If largest is not root
-    if (largest != i)
-    {
+    if (largest != i) {
 	swap(arr[i], arr[largest]);
 
 	// Recursively heapify the affected sub-tree
@@ -1341,8 +1334,7 @@ void heapSort(int arr[], int n)
 	heapify(arr, n, i);
 
     // One by one extract an element from heap
-    for (int i=n-1; i>=0; i--)
-    {
+    for (int i=n-1; i>=0; i--) {
 	// Move current root to end
 	swap(arr[0], arr[i]);
 
