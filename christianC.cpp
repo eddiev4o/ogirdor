@@ -208,8 +208,8 @@ void addToAllSprites()
         allSprites.push_back(&turretbeam);
         allSprites.push_back(&enemy1);
         allSprites.push_back(&godzilla);
-	allSprites.push_back(&star);
-	allSprites.push_back(&bird);
+        allSprites.push_back(&star);
+        allSprites.push_back(&bird);
         allSprites.push_back(&godzillaball);
         allSprites.push_back(&pika);
         allSprites.push_back(&taco);
@@ -318,7 +318,7 @@ void tileCollision(Vec *tile)
         && ((mainChar.cy) <= (tile->y + 5) + lev.tilesize[1] + 20))
         && (((mainChar.cx + lev.tilesize[0] - 2) >= (tile->x))
         && ((((mainChar.cx + lev.tilesize[0] - 2) <= (tile->x) + lev.tilesize[0]))
-	|| (((mainChar.cx - lev.tilesize[0] + 2) >= (tile->x))
+        || (((mainChar.cx - lev.tilesize[0] + 2) >= (tile->x))
         && ((mainChar.cx - lev.tilesize[0] + 2) <= (tile->x) + lev.tilesize[0])))))) {
             if (gl.directionFlag == 0) {
                 gl.camera[0] += gl.movementSpeed;
