@@ -994,10 +994,10 @@ void christianInit()
     }
     if (gl.levelSelect == 1) {
         //initialize my sprites' x and y positions
-        turt2.cx = 850;
-        turt2.cy = 95;
-        turt1.cx = 500;
-        turt1.cy = 95;
+        //turt2.cx = 850;
+        //turt2.cy = 95;
+        //turt1.cx = 500;
+        //turt1.cy = 95;
         mainChar.cy = 85;
         shield1.cx = 14490;
         shield1.cy = 437;
@@ -1027,23 +1027,23 @@ void christianInit()
         //if different level
     }
     if (gl.levelSelect == 2) {
-        turt2.cx = 850;
-        turt2.cy = 95;
+        turt2.cx = 300;
+        turt2.cy = 500;
         turt1.cx = 500;
-        turt1.cy = 95;
+        turt1.cy = 500;
         mainChar.cy = 85;
-        shield1.cx = 800;
-        shield1.cy = 180;
-        heart1.cx = 1000;
-        heart1.cy = 90;
-        heart2.cx = 800;
-        heart2.cy = 120;
-        heart3.cx = 800;
-        heart3.cy = 90;
-        heart4.cx = 800;
-        heart4.cy = 200;
-        speedboost1.cx= 800;
-        speedboost1.cy = 90;
+        shield1.cx = 1615;
+        shield1.cy = 600;
+        heart1.cx = 850;
+        heart1.cy = 86;
+        heart2.cx = 6245;
+        heart2.cy = 213;
+        heart3.cx = 11015;
+        heart3.cy = 85;
+        heart4.cx = 4325;
+        heart4.cy = 266;
+        speedboost1.cx= 4325;
+        speedboost1.cy = 246;
         // render sprite set to true.
         // when flase, stop rendering. This is for
         // picking up power ups
@@ -1104,7 +1104,7 @@ void turt1Movement()
     if (gl.turt1Flag == 0)
     {
         turt1.cx++;
-        if (turt1.cx >= 700)
+        if (turt1.cx >= 500)
             gl.turt1Flag = 1;
     }
     if (gl.turt1Flag == 1)
@@ -1160,13 +1160,13 @@ void turt2Movement()
     if (gl.turt2Flag == 0)
     {
         turt2.cx++;
-        if (turt2.cx >= 1000)
+        if (turt2.cx >= 500)
             gl.turt2Flag = 1;
     }
     if (gl.turt2Flag == 1)
     {
         turt2.cx--;
-        if (turt2.cx < 800)
+        if (turt2.cx < 220)
             gl.turt2Flag = 0;
     }
 }
