@@ -1033,7 +1033,7 @@ void christianInit()
         turt1.cy = 500;
         mainChar.cy = 85;
         shield1.cx = 1615;
-        shield1.cy = 600;
+        shield1.cy = 85;
         heart1.cx = 850;
         heart1.cy = 86;
         heart2.cx = 6245;
