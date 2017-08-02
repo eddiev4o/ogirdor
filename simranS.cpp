@@ -227,7 +227,8 @@ void showstar() {
     }
 
      if (mainChar.cx > star.cx+move-w &&
-    	    mainChar.cx < star.cx+move+w)
+    	    mainChar.cx < star.cx+move+w &&
+	    mainChar.cy >= y-ht && mainChar.cy <= y+ht)
       {
     	mainChar.health--;
 
@@ -330,6 +331,13 @@ void showenemy1()
     }
     float tx = (float)ax / 12.0;
     float ty = (float)ay/1.0;
+
+   if (enemy1.cx == -9999999) {
+        enemy1.cx = 8500;
+        if (enemy1.cx == -9999999) {
+            enemy1.cx = 15000;
+        }
+    }
 
     if (gl.enemy1m > -950) {
 	gl.enemy1m--;
@@ -437,6 +445,14 @@ void showgodzilla()
     }
     float tx = (float)ax / 3.0;
     float ty = (float)ay/ 1.0;
+
+//change the values here
+if (godzilla.cx == -9999999) {
+        godzilla.cx = 8500;
+        if (godzilla.cx == -9999999) {
+            godzilla.cx = 10000;
+        }
+    }
 
     if (gl.godzillai > -950) {
 	gl.godzillai--;
@@ -565,6 +581,7 @@ void showgodzillaball()
 	}
 
     }
+
 
     glEnd();
     glPopMatrix();

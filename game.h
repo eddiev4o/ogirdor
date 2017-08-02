@@ -25,9 +25,8 @@ extern class Sprite {
             health = 10;
         }
 } offset, turt2, turt1, heart4, heart3, heart2, heart1, speedboost1,
-    shield1, mainChar, turret, turretbeam,star, enemy1, mariEnemy,
-    godzillaheart, godzilla, godzillaball, sun, female, pika,pika2, pika3, pika4, obama, taco ,
-    shooting_star, bird, light, light2, light3, light4;
+    shield1, mainChar, turret, turretbeam,star,star2, enemy1, mariEnemy,
+    godzillaheart, godzilla, godzillaball, sun, female, pika,pika2, pika3, pika4, obama, taco ,shooting_star, bird, bird2, light, light2, light3, light4;
 
 struct Vec {
     double x, y, z;
@@ -116,9 +115,9 @@ extern class Global {
         int godzillawf;
 	int godzillaheartwf;
 	int godzillai;
-	int godzillahearti;
 	int enemy1m;
 	int enemy1move;
+	int godzillahearti;
 	int godzillamove;
 	int godzillaballwf;
         int birdwf;

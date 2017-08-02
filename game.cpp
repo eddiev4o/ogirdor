@@ -59,7 +59,7 @@ Timers timers;
 Global gl;
 UserInput input;
 Level lev;
-Sprite offset, turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, star, enemy1, mariEnemy, godzillaheart, godzilla, godzillaball, pika, pika2, pika3, pika4, light, light2, light3, light4, female, obama, sun,shooting_star,taco ,bird;
+Sprite offset, turt2, turt1, heart4, heart3, heart2, heart1, speedboost1, shield1, mainChar, turret, turretbeam, star,star2, enemy1, mariEnemy, godzillaheart, godzilla, godzillaball, pika, pika2, pika3, pika4, light, light2, light3, light4, female, obama, sun,shooting_star,taco ,bird, bird2;
 Particle particle[20];
 Game game;
 //X Windows variables
@@ -152,6 +152,7 @@ extern void showenemy1();
 //extern void showgodzillaheart();
 extern void showgodzilla();
 extern void showbird();
+extern void showbird2();
 extern void show_mari();
 extern void show_taco();
 //extern void show_female();
@@ -233,7 +234,7 @@ void init()
     offset.cx = 0;
     turt1.cx = 200;
     turt1.cx = 90;
-    enemy1.cx = 600 + gl.enemy1m + gl.enemy1move;
+    enemy1.cx = 600+gl.enemy1m+gl.enemy1move;
     enemy1.cy = 90;
     godzillaheart.cx = 500 + gl.godzillahearti;
     godzillaheart.cy = 90;
@@ -244,7 +245,9 @@ void init()
     godzillaball.cx = 1000;
     godzillaball.cy = 100;
     bird.cx = 900;
-    bird.cy = 10;	
+    bird.cy = 10;
+    bird2.cx = 900;
+    bird2.cy = 900;    
     mainChar.pos[0] = 300.0;
     mainChar.pos[1] = mainChar.pos[2] = 0.0;
     mainChar.vel[0] = mainChar.vel[1] = mainChar.vel[2] = 0.0;
@@ -258,6 +261,8 @@ void init()
     turretbeam.cy = 100;
     star.cx = 700;
     star.cy = 100;
+    star2.cx = 700;
+    star2.cy = 100;
     christianInit();
     CesarInit();
     eddieInit();
@@ -2047,6 +2052,7 @@ void render(void)
         //showgodzillaheart();
 	showgodzilla();
         showbird();
+	//showbird2();
         show_mari();
         // start_menu(gl.xres, gl.yres);
         show_shooting_star();
