@@ -12,14 +12,14 @@ extern class Sprite {
     public:
         Flt pos[2];
         Flt vel[2];
-	bool collected;
+        bool collected;
         float cx;
         float cy;
         float height;
         float width;
         int health;
         Sprite () {
-	    collected = false;
+            collected = false;
             height = 20;
             width = 20;
             health = 10;
@@ -113,38 +113,38 @@ extern class Global {
         int initDone;
         int walk;
         int godzillawf;
-	int godzillaheartwf;
-	int godzillai;
-	int enemy1m;
-	int enemy1move;
-	int godzillahearti;
-	int godzillamove;
-	int godzillaballwf;
+        int godzillaheartwf;
+        int godzillai;
+        int enemy1m;
+        int enemy1move;
+        int godzillahearti;
+        int godzillamove;
+        int godzillaballwf;
         int birdwf;
         double godzilladelay;
-	double godzillaheartdelay;
-	double godzillaballdelay;
+        double godzillaheartdelay;
+        double godzillaballdelay;
         double birddelay;
         int directionFlag, attackFlag, isJumpingFlag, jumpDirectionFlag;
         //Cesar 
         int facing; // where my character is facing
         int initialJumpCy, finalJumpCy;
         Particle particle[30];
-	Particle godzillaP[3000];
+        Particle godzillaP[3000];
         Particle taco[100]; // recycling Capusi structure
         float jumpRate, jumpHeight;
         float particleVelocity;
-	float godzillaVelocity;
+        float godzillaVelocity;
 
         //stuff that will be used for tacos
         //===================================
         int taco_count;
         float taco_velocity;
         int ob_particle_velocity;
-	int godzillaPcount;
+        int godzillaPcount;
         int particleCount;
         float particleWidth, particleHeight;
-	float godzillaPw, godzillaPh;
+        float godzillaPw, godzillaPh;
         //====================================
 
         int mcharFrame;
@@ -166,7 +166,7 @@ extern class Global {
         State state;
         Flt xc[2];
         Flt yc[2];
-	Sprite coins[100];
+        Sprite coins[100];
 
         Ppmimage *maincharacterImage;
         Ppmimage *maincharacter1Image;
@@ -181,7 +181,7 @@ extern class Global {
         Ppmimage *starImage;	
         Ppmimage *enemy1Image;
         Ppmimage *godzillaheartImage;
-	Ppmimage *godzillaImage;
+        Ppmimage *godzillaImage;
         Ppmimage *godzillaballImage;
         Ppmimage *shooting_star_image;
         Ppmimage *mari_image; 
@@ -195,7 +195,7 @@ extern class Global {
         Ppmimage *light2_image; 
         Ppmimage *light3_image; 
         Ppmimage *light4_image; 
-     	Ppmimage *taco_image; 
+        Ppmimage *taco_image; 
         Ppmimage *sun_image; 
         Ppmimage *logoImage;
         Ppmimage *playImage;
@@ -220,7 +220,7 @@ extern class Global {
         Ppmimage *GoldImage;
         Ppmimage *PlatinumImage;
         Ppmimage *noobImage;
-	Ppmimage *coinImage;
+        Ppmimage *coinImage;
         Ppmimage *WelcomeImage;
         Ppmimage *attackdmgImage;
         Ppmimage *blueenemyImage;
@@ -248,6 +248,7 @@ extern class Global {
         Ppmimage *pkeyImage;
         Ppmimage *ekeyImage;
         Ppmimage *keyboardImage;
+        Ppmimage *ingameImage;
 
         GLuint tempBackgroundTexture;
         GLuint tempMainCharacterTexture;
@@ -274,7 +275,7 @@ extern class Global {
         GLuint starTexture;	
         GLuint enemy1Texture;
         GLuint godzillaheartTexture;
-	GLuint godzillaTexture;
+        GLuint godzillaTexture;
         GLuint godzillaballTexture;
         GLuint birdTexture;
         GLuint mari_Texture;
@@ -304,7 +305,7 @@ extern class Global {
         GLuint GoldTexture;
         GLuint PlatinumTexture;
         GLuint noobTexture;
-	GLuint coinTexture;
+        GLuint coinTexture;
         GLuint WelcomeTexture;
         GLuint attackdmgTexture;
         GLuint blueenemyTexture;
@@ -333,6 +334,7 @@ extern class Global {
         GLuint pkeyTexture;
         GLuint ekeyTexture;
         GLuint keyboardTexture;
+        GLuint ingameTexture;
 
         bool display_startmenu;
         bool display_tutorialmenu;
@@ -369,31 +371,31 @@ extern class Global {
             minutes = 0;
             score = 0;
             godzillawf = 0;
-	    godzillaheartwf = 0;
-	    godzillai = -400;
-	    enemy1m = -800;
-	    enemy1move = 4125;
-	    godzillahearti = -400;
-	    godzillamove = 2133;
-	    godzillaballwf = 0;
+            godzillaheartwf = 0;
+            godzillai = -400;
+            enemy1m = -800;
+            enemy1move = 4125;
+            godzillahearti = -400;
+            godzillamove = 2133;
+            godzillaballwf = 0;
             birdwf = 0;
             godzilladelay = 0.1;
-	    godzillaheartdelay = 0.1;
-	    godzillaballdelay = 0.1;
+            godzillaheartdelay = 0.1;
+            godzillaballdelay = 0.1;
             birddelay = 0.5;
             gameFrame = 0;
             timeOutFrame = 0;
             attackFlag = 0;
             particleVelocity = 6;
-	    godzillaVelocity = 6;
+            godzillaVelocity = 6;
             //use this one instead of pV
             ob_particle_velocity = 6;
             particleCount = 0;
-	    godzillaPcount = 0;
+            godzillaPcount = 0;
             particleWidth = 7;
             particleHeight = 7;
-	    godzillaPw = 7;
-	    godzillaPh = 7;
+            godzillaPw = 7;
+            godzillaPh = 7;
             directionFlag = 0;
             isJumpingFlag = 0;
             facing = 0; // cesar , where character is facing
@@ -437,11 +439,11 @@ extern class Global {
             maincharacter5Image = NULL;
             mainmenubackgroundImage = NULL;
             turretImage = NULL;
-	    turretbeamImage = NULL;
-	    starImage = NULL; 
+            turretbeamImage = NULL;
+            starImage = NULL; 
             enemy1Image = NULL;
             godzillaheartImage = NULL;
-	    godzillaImage = NULL;
+            godzillaImage = NULL;
             godzillaballImage = NULL;
             birdImage = NULL;
             mari_image = NULL; 
@@ -481,7 +483,7 @@ extern class Global {
             GoldImage = NULL;
             PlatinumImage = NULL;
             noobImage = NULL;
-	    coinImage = NULL;
+            coinImage = NULL;
             WelcomeImage = NULL;
             attackdmgImage = NULL;
             blueenemyImage = NULL;
@@ -509,6 +511,7 @@ extern class Global {
             pkeyImage = NULL;
             ekeyImage = NULL;
             keyboardImage = NULL;
+            ingameImage = NULL;
 
             display_startmenu = true;
             display_tutorialmenu = false;

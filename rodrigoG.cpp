@@ -100,8 +100,10 @@ void renderFrame(int, int, int, int, GLuint);
 void blackBox(int, int, int, int);
 void rWithoutAlpha(GLuint, int, int);
 void rWithAlpha(int, int, int, int, GLuint);
-void shotPoseRight(int cy, int cx, int h, int w, GLuint texture, int ix, int iy);
-void shotPoseLeft(int cy, int cx, int h, int w, GLuint texture, int ix, int iy);
+void shotPoseRight(int cy, int cx, int h, int w, 
+        GLuint texture, int ix, int iy);
+void shotPoseLeft(int cy, int cx, int h, int w, 
+        GLuint texture, int ix, int iy);
 void mainmenuShort(GLuint, int, int);
 void border(int, int, int, int, int, int, int, int, int);
 void stripes(int, int, int, int, int, int, int);
@@ -165,8 +167,8 @@ void start_menu(int xres, int yres)
             gl.display_tutorialmenu = true;
             gl.keys[XK_Return] = false;
         } else if (gl.menu_position == 3) {
-            gl.display_startmenu = false;
-            gl.display_highscoresmenu = true;
+            gl.display_startmenu = true;
+            //gl.display_highscoresmenu = true;
         } else if (gl.menu_position == 4) {
             gl.display_startmenu = false;
             gl.display_creditsmenu = true;
@@ -201,12 +203,6 @@ void tutorial_menu(int xres, int yres)
     //Turret===========================================
     rWithAlpha(28, 28, xres*0.55, yres*0.49, gl.turretTexture);
 
-    //Turret===========================================
-    rWithAlpha(28, 28, xres*0.68, yres*0.49, gl.turretTexture);
-
-    //Turret===========================================
-    rWithAlpha(28, 28, xres*0.81, yres*0.49, gl.turretTexture);
-
     //Char 1===========================================
     sCharPose(yres*0.61, xres*0.18, 35, 35*0.903, gl.mchar1Texture, 
             gl.mcharFrame%4, 3);
@@ -227,6 +223,26 @@ void tutorial_menu(int xres, int yres)
             gl.mcharFrame%4, 3);
 
     Rect r;    
+
+    r.bot = yres*0.49;
+    r.left = xres*0.68;
+    r.center = yres/2;
+    ggprint16(&r, 20, white, "Godzilla");
+
+    r.bot = yres*0.49;
+    r.left = xres*0.8;
+    r.center = yres/2;
+    ggprint16(&r, 20, white, "Mariachi");
+
+    r.bot = yres*0.61;
+    r.left = xres*0.6;
+    r.center = yres/2;
+    ggprint16(&r, 20, white, "Green Enemy");
+
+    r.bot = yres*0.61;
+    r.left = xres*0.8;
+    r.center = yres/2;
+    ggprint16(&r, 20, white, "Blue Enemy");
 
     r.bot = yres*0.89;
     r.left = xres*0.235;
@@ -474,7 +490,30 @@ void tutorial_menu3(int xres, int yres)
     //Black Background=================================
     blackBox(600, 600, xres/2, yres/2);
 
+    //Ingame===========================================
+    rWithAlpha(175, 275, xres/2, yres/2, gl.ingameTexture);
+
     Rect r;
+
+    r.bot = yres*0.8;
+    r.left = xres*0.25;
+    r.center = yres/2;
+    ggprint16(&r, 20, white, "Health Bar");
+
+    r.bot = yres*0.8;
+    r.left = xres*0.5;
+    r.center = yres/2;
+    ggprint16(&r, 20, white, "Time");
+
+    r.bot = yres*0.8;
+    r.left = xres*0.75;
+    r.center = yres/2;
+    ggprint16(&r, 20, white, "Score");
+
+    r.bot = yres*0.33;
+    r.left = xres*0.5;
+    r.center = yres/2;
+    ggprint16(&r, 20, white, "Player");
 
     r.bot = yres*0.1;
     r.left = xres*0.9;
@@ -759,7 +798,6 @@ void characterselection_menu(int xres, int yres)
 
 void levelselection_menu(int xres, int yres)
 {
-
     int highlight_x;
     int highlight_y;
 
@@ -1011,7 +1049,8 @@ void standingPose(int xres)
     //glDisable(GL_ALPHA_TEST);
 }
 
-void shotPoseRight(int cy, int cx, int h, int w, GLuint texture, int ix, int iy)
+void shotPoseRight(int cy, int cx, int h, int w, 
+        GLuint texture, int ix, int iy)
 {
     glPushMatrix();
     glColor3f(1.0,1.0,1.0);
@@ -1028,7 +1067,8 @@ void shotPoseRight(int cy, int cx, int h, int w, GLuint texture, int ix, int iy)
     glPopMatrix();
 }
 
-void shotPoseLeft(int cy, int cx, int h, int w, GLuint texture, int ix, int iy)
+void shotPoseLeft(int cy, int cx, int h, int w, 
+        GLuint texture, int ix, int iy)
 {
     glPushMatrix();
     glColor3f(1.0,1.0,1.0);

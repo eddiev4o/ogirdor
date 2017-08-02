@@ -446,6 +446,7 @@ void initOpengl(void)
     system("convert ./images/PKey.png ./images/pkey.ppm");
     system("convert ./images/EKey.png ./images/ekey.ppm");
     system("convert ./images/keyboard.png ./images/keyboard.ppm");
+    system("convert ./images/ingame.jpg ./images/ingame.ppm");
 
     //===========================================================
     // Get Images	
@@ -531,6 +532,7 @@ void initOpengl(void)
     gl.pkeyImage = ppm6GetImage("./images/pkey.ppm");
     gl.ekeyImage = ppm6GetImage("./images/ekey.ppm");
     gl.keyboardImage = ppm6GetImage("./images/keyboard.ppm");
+    gl.ingameImage = ppm6GetImage("./images/ingame.ppm");
     //===========================================================
 
     //===========================================================
@@ -616,6 +618,7 @@ void initOpengl(void)
     glGenTextures(1, &gl.pkeyTexture);
     glGenTextures(1, &gl.ekeyTexture);
     glGenTextures(1, &gl.keyboardTexture);
+    glGenTextures(1, &gl.ingameTexture);
     //===========================================================
 
     //==============================================
@@ -759,17 +762,17 @@ void initOpengl(void)
 
     //===================================================
     //godzillaheart
-   /* w = gl.godzillaheartImage->width;
-    h = gl.godzillaheartImage->height;
-    glBindTexture(GL_TEXTURE_2D, gl.godzillaheartTexture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *godzillaheartstuff = buildAlphaData(gl.godzillaheartImage);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, godzillaheartstuff);
-    free(godzillaheartstuff);
-    unlink("./images/godzillaheart.ppm");
-    *///===================================================
+    /* w = gl.godzillaheartImage->width;
+       h = gl.godzillaheartImage->height;
+       glBindTexture(GL_TEXTURE_2D, gl.godzillaheartTexture);
+       glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+       glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+       unsigned char *godzillaheartstuff = buildAlphaData(gl.godzillaheartImage);
+       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+       GL_RGBA, GL_UNSIGNED_BYTE, godzillaheartstuff);
+       free(godzillaheartstuff);
+       unlink("./images/godzillaheart.ppm");
+       *///===================================================
     //godzilla
     w = gl.godzillaImage->width;
     h = gl.godzillaImage->height;
@@ -831,103 +834,103 @@ void initOpengl(void)
     //free(female_pointer); 
     //unlink("./images/female.ppm");					
     //================================================================
-   
+
     //light
-     w = gl.light_image->width;
-     h = gl.light_image->height; 
-     glBindTexture(GL_TEXTURE_2D, gl.light_Texture);
-     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-     unsigned char *light_pointer = buildAlphaData(gl.light_image);
-     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-     		GL_RGBA, GL_UNSIGNED_BYTE, light_pointer);
-     free(light_pointer); 
-     unlink("./images/pikachu.ppm");					
-  //====================================================================
- //light 2
-  w = gl.light2_image->width;
-  h = gl.light2_image->height; 
-  glBindTexture(GL_TEXTURE_2D, gl.light2_Texture);
-  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-  unsigned char *light2_pointer = buildAlphaData(gl.light2_image);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-  		GL_RGBA, GL_UNSIGNED_BYTE, light2_pointer);
-  free(light2_pointer); 
-  unlink("./images/pikachu.ppm");					
-  //====================================================================
- //light 3
-  w = gl.light3_image->width;
-  h = gl.light3_image->height; 
-  glBindTexture(GL_TEXTURE_2D, gl.light3_Texture);
-  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-  unsigned char *light3_pointer = buildAlphaData(gl.light3_image);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-  		GL_RGBA, GL_UNSIGNED_BYTE, light3_pointer);
-  free(light3_pointer); 
-  unlink("./images/pikachu.ppm");					
-//====================================================================
- //light 4
-  w = gl.light4_image->width;
-  h = gl.light4_image->height; 
-  glBindTexture(GL_TEXTURE_2D, gl.light4_Texture);
-  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-  unsigned char *light4_pointer = buildAlphaData(gl.light4_image);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-  		GL_RGBA, GL_UNSIGNED_BYTE, light4_pointer);
-  free(light4_pointer); 
-  unlink("./images/pikachu.ppm");					
-//====================================================================
-////Pika
-     w = gl.pika_image->width;
-     h = gl.pika_image->height; 
-     glBindTexture(GL_TEXTURE_2D, gl.pika_Texture);
-     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-     unsigned char *pika_pointer = buildAlphaData(gl.pika_image);
-     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-     		GL_RGBA, GL_UNSIGNED_BYTE, pika_pointer);
-     free(pika_pointer); 
-     unlink("./images/pikachu.ppm");					
+    w = gl.light_image->width;
+    h = gl.light_image->height; 
+    glBindTexture(GL_TEXTURE_2D, gl.light_Texture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *light_pointer = buildAlphaData(gl.light_image);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, light_pointer);
+    free(light_pointer); 
+    unlink("./images/pikachu.ppm");					
+    //====================================================================
+    //light 2
+    w = gl.light2_image->width;
+    h = gl.light2_image->height; 
+    glBindTexture(GL_TEXTURE_2D, gl.light2_Texture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *light2_pointer = buildAlphaData(gl.light2_image);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, light2_pointer);
+    free(light2_pointer); 
+    unlink("./images/pikachu.ppm");					
+    //====================================================================
+    //light 3
+    w = gl.light3_image->width;
+    h = gl.light3_image->height; 
+    glBindTexture(GL_TEXTURE_2D, gl.light3_Texture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *light3_pointer = buildAlphaData(gl.light3_image);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, light3_pointer);
+    free(light3_pointer); 
+    unlink("./images/pikachu.ppm");					
+    //====================================================================
+    //light 4
+    w = gl.light4_image->width;
+    h = gl.light4_image->height; 
+    glBindTexture(GL_TEXTURE_2D, gl.light4_Texture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *light4_pointer = buildAlphaData(gl.light4_image);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, light4_pointer);
+    free(light4_pointer); 
+    unlink("./images/pikachu.ppm");					
+    //====================================================================
+    ////Pika
+    w = gl.pika_image->width;
+    h = gl.pika_image->height; 
+    glBindTexture(GL_TEXTURE_2D, gl.pika_Texture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *pika_pointer = buildAlphaData(gl.pika_image);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, pika_pointer);
+    free(pika_pointer); 
+    unlink("./images/pikachu.ppm");					
     //================================================================
-     //Pika2
-     w = gl.pika2_image->width;
-     h = gl.pika2_image->height; 
-     glBindTexture(GL_TEXTURE_2D, gl.pika2_Texture);
-     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-     unsigned char *pika2_pointer = buildAlphaData(gl.pika2_image);
-     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-     		GL_RGBA, GL_UNSIGNED_BYTE, pika2_pointer);
-     free(pika2_pointer); 
-     unlink("./images/pikachu.ppm");				       
+    //Pika2
+    w = gl.pika2_image->width;
+    h = gl.pika2_image->height; 
+    glBindTexture(GL_TEXTURE_2D, gl.pika2_Texture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *pika2_pointer = buildAlphaData(gl.pika2_image);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, pika2_pointer);
+    free(pika2_pointer); 
+    unlink("./images/pikachu.ppm");				       
     //================================================================
-     //Pika 3
-     w = gl.pika3_image->width;
-     h = gl.pika3_image->height; 
-     glBindTexture(GL_TEXTURE_2D, gl.pika3_Texture);
-     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-     unsigned char *pika3_pointer = buildAlphaData(gl.pika3_image);
-     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-     		GL_RGBA, GL_UNSIGNED_BYTE, pika3_pointer);
-     free(pika3_pointer); 
-     unlink("./images/pikachu.ppm");				       
+    //Pika 3
+    w = gl.pika3_image->width;
+    h = gl.pika3_image->height; 
+    glBindTexture(GL_TEXTURE_2D, gl.pika3_Texture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *pika3_pointer = buildAlphaData(gl.pika3_image);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, pika3_pointer);
+    free(pika3_pointer); 
+    unlink("./images/pikachu.ppm");				       
     //================================================================
-  //Pika 4
-  w = gl.pika4_image->width;
-  h = gl.pika4_image->height; 
-  glBindTexture(GL_TEXTURE_2D, gl.pika4_Texture);
-  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-  unsigned char *pika4_pointer = buildAlphaData(gl.pika4_image);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-  		GL_RGBA, GL_UNSIGNED_BYTE, pika4_pointer);
-  free(pika4_pointer); 
-  unlink("./images/pikachu.ppm");				       
- //================================================================
+    //Pika 4
+    w = gl.pika4_image->width;
+    h = gl.pika4_image->height; 
+    glBindTexture(GL_TEXTURE_2D, gl.pika4_Texture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *pika4_pointer = buildAlphaData(gl.pika4_image);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, pika4_pointer);
+    free(pika4_pointer); 
+    unlink("./images/pikachu.ppm");				       
+    //================================================================
     //Obama
     w = gl.obama_image->width;
     h = gl.obama_image->height; 
@@ -951,17 +954,17 @@ void initOpengl(void)
     //free(sun_pointer); 
     //unlink("./images/sun.ppm");			
     //===================================================
-	//el Taco :0 
-	     w = gl.taco_image->width;
-     h = gl.taco_image->height;
-     glBindTexture(GL_TEXTURE_2D, gl.taco_Texture);
-     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-     glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-     unsigned char *taco_pointer = buildAlphaData(gl.taco_image);
-     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-             GL_RGBA, GL_UNSIGNED_BYTE, taco_pointer);
-     free(taco_pointer);
-     unlink("./images/taco.ppm");
+    //el Taco :0 
+    w = gl.taco_image->width;
+    h = gl.taco_image->height;
+    glBindTexture(GL_TEXTURE_2D, gl.taco_Texture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *taco_pointer = buildAlphaData(gl.taco_image);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, taco_pointer);
+    free(taco_pointer);
+    unlink("./images/taco.ppm");
     //=======================================================
     //Shooting_star
     w = gl.shooting_star_image->width;
@@ -1699,6 +1702,20 @@ void initOpengl(void)
     unlink("./images/keyboard.ppm");
     //===============================================================
 
+    //===============================================================
+    //Ingame
+    w = gl.ingameImage->width;
+    h = gl.ingameImage->height;
+    glBindTexture(GL_TEXTURE_2D, gl.ingameTexture);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    unsigned char *ingameData = buildAlphaData(gl.ingameImage);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
+            GL_RGBA, GL_UNSIGNED_BYTE, ingameData);
+    free(ingameData);
+    unlink("./images/ingame.ppm");
+    //===============================================================
+
     //--------------------------------------------------------------------
 }
 
@@ -1826,8 +1843,8 @@ void checkKeys(XEvent *e)
                     gl.keys[XK_Return] = false;
                     //gl.menu_position = 1;
                 } else if (gl.menu_position == 3) {
-                    gl.display_startmenu = false;
-                    gl.display_highscoresmenu = true;
+                    gl.display_startmenu = true;
+                    //gl.display_highscoresmenu = true;
                 } else if (gl.menu_position == 4) {
                     gl.display_startmenu = false;
                     gl.display_creditsmenu = true;
@@ -1919,8 +1936,8 @@ void physics(void)
         //when time is up, advance the frame.
         mainMoveSpriteLeft();
         for (int i = 0; i < 100; i++) {
-	    moveSpriteLeft(&gl.coins[i]);
-	}
+            moveSpriteLeft(&gl.coins[i]);
+        }
         moveLevelLeft();
         timers.recordTime(&timers.timeCurrent);
         double timeSpan =
@@ -1946,8 +1963,8 @@ void physics(void)
     if (gl.walk || gl.keys[XK_Left]) {
         mainMoveSpriteRight();
         for (int i = 0; i < 100; i++) {
-	    moveSpriteRight(&gl.coins[i]);
-	}
+            moveSpriteRight(&gl.coins[i]);
+        }
         moveLevelRight();
         timers.recordTime(&timers.timeCurrent);
         double timeSpan =
@@ -1963,8 +1980,8 @@ void physics(void)
             gl.box[i].x += 1.0 * (0.05 / gl.delay);
             if (gl.box[i].x > gl.xres + 10.0)
                 gl.box[i].x -= gl.xres + 10.0;
-            
-	    if (gl.camera[0] < 0)
+
+            if (gl.camera[0] < 0)
                 gl.camera[0] = 0.0;
         }
         if (gl.camera[0] > 0) {
@@ -1975,16 +1992,16 @@ void physics(void)
 
     if (gl.levelSelect ==1) {
 
-    godzillaphysics();
-    //godzillaheartphysics();
-    starphysics();
-    godzillaballphysics();
-    enemy1physics();
-    birdphysics();
-    mari_physics();
-    taco_physics();
-    pika_physics();
-    light_physics();
+        godzillaphysics();
+        //godzillaheartphysics();
+        starphysics();
+        godzillaballphysics();
+        enemy1physics();
+        birdphysics();
+        mari_physics();
+        taco_physics();
+        pika_physics();
+        light_physics();
     }
     moveSpriteRight(&shooting_star);
 }
@@ -2043,31 +2060,31 @@ void render(void)
         renderTiles();
         //renderPlatform();
         renderChristianSprites(gl.characterSelect); 
-	for (int i = 0; i < 100; i++) {
-		renderCoin(&gl.coins[i]);
-	}
-	if(gl.levelSelect ==1 ) {	
-	showTurret();
-        showenemy1();
-        //showgodzillaheart();
-	showgodzilla();
-        showbird();
-	//showbird2();
-        show_mari();
-        // start_menu(gl.xres, gl.yres);
-        show_shooting_star();
-        //show_female();
-        show_pika();
-        show_pika2();
-        show_pika3();
-        show_pika4();
-        show_light();
-        show_light2();
-        show_light3();
-        show_light4();
-        //show_sun();
-        show_obama();
-	}
+        for (int i = 0; i < 100; i++) {
+            renderCoin(&gl.coins[i]);
+        }
+        if(gl.levelSelect ==1 ) {	
+            showTurret();
+            showenemy1();
+            //showgodzillaheart();
+            showgodzilla();
+            showbird();
+            //showbird2();
+            show_mari();
+            // start_menu(gl.xres, gl.yres);
+            show_shooting_star();
+            //show_female();
+            show_pika();
+            show_pika2();
+            show_pika3();
+            show_pika4();
+            show_light();
+            show_light2();
+            show_light3();
+            show_light4();
+            //show_sun();
+            show_obama();
+        }
         hudHealth();
         healthBar(gl.xres, gl.yres);
         renderTimeDisplay();
