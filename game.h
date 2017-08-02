@@ -117,6 +117,8 @@ extern class Global {
 	int godzillaheartwf;
 	int godzillai;
 	int godzillahearti;
+	int enemy1m;
+	int enemy1move;
 	int godzillamove;
 	int godzillaballwf;
         int birdwf;
@@ -370,6 +372,8 @@ extern class Global {
             godzillawf = 0;
 	    godzillaheartwf = 0;
 	    godzillai = -400;
+	    enemy1m = -800;
+	    enemy1move = 4125;
 	    godzillahearti = -400;
 	    godzillamove = 2133;
 	    godzillaballwf = 0;

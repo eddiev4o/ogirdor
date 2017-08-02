@@ -233,7 +233,7 @@ void init()
     offset.cx = 0;
     turt1.cx = 200;
     turt1.cx = 90;
-    enemy1.cx = 600;
+    enemy1.cx = 600 + gl.enemy1m + gl.enemy1move;
     enemy1.cy = 90;
     godzillaheart.cx = 500 + gl.godzillahearti;
     godzillaheart.cy = 90;
