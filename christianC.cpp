@@ -358,7 +358,7 @@ void checkUnder(Vec *tile)
     && ((mainChar.cy - 30) <= (tile->y) + lev.tilesize[1] + 20))
     && (((mainChar.cx) >= (tile->x))
     && ((mainChar.cx) <= (tile->x) + lev.tilesize[0]))) {
-        printf("On Air!\n");
+        //printf("On Air!\n");
         if (gl.isJumpingFlag == false) {
             gl.isJumpingFlag = true;
             gl.jumpDirectionFlag = 0;
@@ -477,7 +477,7 @@ void shootParticle()
     // per press of the space key. This is done using a flag
     // that resets when pressing of space key is stopped.
     if (gl.oneOffShootFlag == true) {
-        printf("Shoot\n");
+        //printf("Shoot\n");
         makeParticle(); 
         gl.oneOffShootFlag = false;
     }
@@ -553,7 +553,7 @@ void jumpLeft(Flt tx, Flt ty, Flt cx, Flt w, Flt cy, Flt h)
 // needed variables and making simple calculations
 void jump()
 {
-    printf("Jump\n");
+    //printf("Jump\n");
     if (gl.isJumpingFlag == 0) {
         //temporarily store current y coord
         gl.initialJumpCy = mainChar.cy;
@@ -757,7 +757,7 @@ void renderSpeedboost1()
             //if character picks up power up,
             //stop rendering and set x to -999999 to avoid
             //picking up invisible power ups
-            printf("Picked up speed boost! Movement Speed: + 0.2!\n");
+            //printf("Picked up speed boost! Movement Speed: + 0.2!\n");
             gl.speedboost1Flag = false;
             spriteDisappear(&speedboost1);
             gl.movementSpeed = gl.movementSpeed + 0.2;
@@ -796,7 +796,7 @@ void renderShield1()
             //if character picks up power up,
             //stop rendering and set x to -999999 to avoid
             //picking up invisible power ups
-            printf("Picked up Shield!\n");
+            //printf("Picked up Shield!\n");
             gl.shield1Flag = false;
             spriteDisappear(&shield1);
         }
@@ -836,7 +836,7 @@ void renderHeart1()
             //picking up invisible power ups
             gl.heart1Flag = false;
             spriteDisappear(&heart1);
-            printf("Picked up Health Pack! Health + 5\n");
+            //printf("Picked up Health Pack! Health + 5\n");
             if (mainChar.health < 30) {
                 mainChar.health = mainChar.health + 5;
                 if (mainChar.health > 30) {
@@ -879,7 +879,7 @@ void renderHeart2()
             //stop rendering and set x to -999999 to avoid
             //picking up invisible power ups
             gl.heart2Flag = false;
-            printf("Picked up Health Pack! Health + 5\n");
+            //printf("Picked up Health Pack! Health + 5\n");
             spriteDisappear(&heart2);
             if (mainChar.health < 30) {
                 mainChar.health = mainChar.health + 5;
@@ -924,7 +924,7 @@ void renderHeart3()
             //picking up invisible power ups
             gl.heart3Flag = false;
             spriteDisappear(&heart3);
-            printf("Picked up Health Pack! Health + 5\n");
+            //printf("Picked up Health Pack! Health + 5\n");
             if (mainChar.health < 30) {
                 mainChar.health = mainChar.health + 5;
                 if (mainChar.health > 30) {
@@ -967,7 +967,7 @@ void renderHeart4()
             //stop rendering and set x to -999999 to avoid
             //picking up invisible power ups
             gl.heart4Flag = false;
-            printf("Picked up Health Pack! Health + 5\n");
+            //printf("Picked up Health Pack! Health + 5\n");
             spriteDisappear(&heart4);
             if (mainChar.health < 30) {
                 mainChar.health = mainChar.health + 5;
@@ -999,18 +999,18 @@ void christianInit()
         turt1.cx = 500;
         turt1.cy = 95;
         mainChar.cy = 85;
-        shield1.cx = 900;
-        shield1.cy = 180;
-        heart1.cx = 3000;
-        heart1.cy = 90 + (32*4);
-        heart2.cx = 700;
-        heart2.cy = 120;
-        heart3.cx = 700;
-        heart3.cy = 90;
+        shield1.cx = 14490;
+        shield1.cy = 437;
+        heart1.cx = 700;
+        heart1.cy = 118;
+        heart2.cx = 7074;
+        heart2.cy = 278;
+        heart3.cx = 10080;
+        heart3.cy = 534;
         heart4.cx = 6000;
         heart4.cy = (32*11);
-        speedboost1.cx= 750;
-        speedboost1.cy = 90;
+        speedboost1.cx= 4130;
+        speedboost1.cy = 150;
         // render sprite set to true.
         // when flase, stop rendering. This is for
         // picking up power ups
