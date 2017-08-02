@@ -787,7 +787,7 @@ void show_obama()
 	(taco_position == -500? taco_position= -30:taco_position--);
     } else {
 	obama.cx = 5000;
-	mainChar.health = 50;
+	mainChar.health = 30;
 	//taco_position = -999999;
     }
 
