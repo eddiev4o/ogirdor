@@ -268,10 +268,24 @@ void tutorial_menu(int xres, int yres)
     ggprint16(&r, 20, white, "                 Objective                    ");
 
     r.bot = yres*0.77;
+    r.left = xres/2.7;
+    r.center = yres/2;
+    ggprint13(&r, 20, white, "Adventure and destroy enemies in your path");
+    
+    r.bot = yres*0.73;
     r.left = xres/3;
     r.center = yres/2;
-    ggprint13(&r, 20, white, "Stuff here                                    ");
-    ggprint13(&r, 20, white, "and here                                      ");
+    ggprint13(&r, 20, white, "Collect coins, kill enemies,");
+    
+    r.bot = yres*0.77;
+    r.left = xres/1.43;
+    r.center = yres/2;
+    ggprint13(&r, 20, white, "until you complete the level.");
+    
+    r.bot = yres*0.73;
+    r.left = xres/1.54;
+    r.center = yres/2;
+    ggprint13(&r, 20, white, "and race against time to improve your score.");
 
     r.bot = yres*0.685;
     r.left = xres/2;
