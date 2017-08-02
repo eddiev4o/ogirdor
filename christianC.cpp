@@ -1027,10 +1027,10 @@ void christianInit()
         for (unsigned int i = 0; i < allSprites.size(); i++) {
             spriteDisappear(allSprites[i]);
         }
-        turt2.cx = 300;
-        turt2.cy = 500;
-        turt1.cx = 500;
-        turt1.cy = 500;
+        //turt2.cx = 300;
+        //turt2.cy = 500;
+        //turt1.cx = 500;
+        //turt1.cy = 500;
         mainChar.cy = 85;
         shield1.cx = 1615;
         shield1.cy = 85;
