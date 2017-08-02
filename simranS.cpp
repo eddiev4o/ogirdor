@@ -1,3 +1,4 @@
+//Simran Preet Singh
 //Well This code Displays few enemies
 //Some of the enemies can move around
 //There is sound
@@ -30,24 +31,24 @@ int stary = -600;
 class T {
 
     public:
-	double prate;
-	double obi;
-	struct timespec ts, te,tc;
-	struct timespec wt;
-	T() {
-	    prate=1.0/30.0;
-	    obi=1.0/1e9;
-	}
-	double td(struct timespec *start, struct timespec *end) {
-	    return (double)(end->tv_sec - start->tv_sec) + 
-		(double)(end->tv_nsec - start->tv_nsec) * obi;
-	}
-	void tcpy(struct timespec *dest, struct timespec *source) {
-	    memcpy(dest, source, sizeof(struct timespec));
-	}
-	void rt(struct timespec *t) {
-	    clock_gettime(CLOCK_REALTIME, t);
-	}
+        double prate;
+        double obi;
+        struct timespec ts, te,tc;
+        struct timespec wt;
+        T() {
+            prate=1.0/30.0;
+            obi=1.0/1e9;
+        }
+        double td(struct timespec *start, struct timespec *end) {
+            return (double)(end->tv_sec - start->tv_sec) + 
+                (double)(end->tv_nsec - start->tv_nsec) * obi;
+        }
+        void tcpy(struct timespec *dest, struct timespec *source) {
+            memcpy(dest, source, sizeof(struct timespec));
+        }
+        void rt(struct timespec *t) {
+            clock_gettime(CLOCK_REALTIME, t);
+        }
 
 } t, ti, tii, t1, t2;
 
@@ -65,8 +66,8 @@ void csound(const char *a)
 #ifdef USE_OPENAL_SOUND
     alutInit(0, NULL);
     if (alGetError() != AL_NO_ERROR) {
-	printf(" There is an error  in alutInit()\n");
-	return;
+        printf(" There is an error  in alutInit()\n");
+        return;
     }
 
     alGetError();
@@ -89,13 +90,13 @@ void csound(const char *a)
     alSourcei(tum, AL_LOOPING, 0);
 
     if (alGetError() != AL_NO_ERROR) {
-	printf("cannot set the source\n");
-	return;
+        printf("cannot set the source\n");
+        return;
     }
     Playsound(tum);
     if(h == true) {
-	alDeleteSources(1, &tum);
-	alDeleteBuffers(1, &toom);
+        alDeleteSources(1, &tum);
+        alDeleteBuffers(1, &toom);
     }
 #endif
 }
@@ -154,9 +155,9 @@ void showturretBeam()
     glTexCoord2f(tx-.35, ty+1); glVertex2i(turretbeam.cx+move-w, y-ht);
 
     if (mainChar.cx > turretbeam.cx+move-w && 
-	    mainChar.cx < turretbeam.cx+move+w)
+            mainChar.cx < turretbeam.cx+move+w)
     {
-	mainChar.health--;
+        mainChar.health--;
 
     }
     glEnd();
@@ -177,14 +178,14 @@ void starphysics(void)
     t2.rt(&t2.tc);
     double tspan = t2.td(&t2.wt, &t2.tc);
     if (tspan > enemy1delay) {
-	starwf++;
-	stary++;
-	if (starwf >= 12) {
-	    starwf -= 12;
-	    //starwf--;
-	    stary--;
-	}
-	t2.rt(&t2.wt);
+        starwf++;
+        stary++;
+        if (starwf >= 12) {
+            starwf -= 12;
+            //starwf--;
+            stary--;
+        }
+        t2.rt(&t2.wt);
     }
 
 }
@@ -206,7 +207,7 @@ void showstar() {
     int ax = starwf % 12;
     int ay = 0;
     if (starwf >= 12) {
-	ay =1;
+        ay =1;
     }
     float tx = (float)ax / 12.0;
     float ty = (float)ay/1.0;
@@ -214,25 +215,25 @@ void showstar() {
     stary++;
 
     if (stary >= -600) {
-	stary++;
-	glBegin(GL_QUADS);
-	glTexCoord2f(tx+.25,      ty+.3); glVertex2i(star.cx+move+w, y-stary-ht);
-	glTexCoord2f(tx+.25,      ty);    glVertex2i(star.cx+move+w, y-stary+ht);
-	glTexCoord2f(tx, ty);    glVertex2i(star.cx+move-w, y-stary+ht);
-	glTexCoord2f(tx, ty+.3); glVertex2i(star.cx+move-w, y-stary-ht);
+        stary++;
+        glBegin(GL_QUADS);
+        glTexCoord2f(tx+.25,      ty+.3); glVertex2i(star.cx+move+w, y-stary-ht);
+        glTexCoord2f(tx+.25,      ty);    glVertex2i(star.cx+move+w, y-stary+ht);
+        glTexCoord2f(tx, ty);    glVertex2i(star.cx+move-w, y-stary+ht);
+        glTexCoord2f(tx, ty+.3); glVertex2i(star.cx+move-w, y-stary-ht);
 
-	if (stary > -100) {
-	    stary = -750;
-	}
+        if (stary > -100) {
+            stary = -750;
+        }
     }
 
-     if (mainChar.cx > star.cx+move-w &&
-    	    mainChar.cx < star.cx+move+w &&
-	    mainChar.cy >= y-ht && mainChar.cy <= y+ht)
-      {
-    	mainChar.health--;
+    if (mainChar.cx > star.cx+move-w &&
+            mainChar.cx < star.cx+move+w &&
+            mainChar.cy >= y-ht && mainChar.cy <= y+ht)
+    {
+        mainChar.health--;
 
-      }
+    }
     glEnd();
     glPopMatrix();
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -246,20 +247,20 @@ void showTurret()
     int move = 3833;
 
     if (turretm > -950) {
-	turretm--;
-	showturretBeam();
+        turretm--;
+        showturretBeam();
 
-	if ( turretm < -949) {
-	    turretm = -1200;
-	}
+        if ( turretm < -949) {
+            turretm = -1200;
+        }
     }
 
     if (turretm < -950) {
-	turretm++;
+        turretm++;
 
-	if (turretm > -951) {
-	    turretm = -800;
-	}
+        if (turretm > -951) {
+            turretm = -800;
+        }
     }
 
     float y = 70;
@@ -300,13 +301,13 @@ void enemy1physics(void)
     t1.rt(&t1.tc);
     double tspan = t1.td(&t1.wt, &t1.tc);
     if (tspan > enemy1delay) {
-	enemy1wf++;
-	enemy1m++;
-	if (enemy1wf >= 12) {
-	    enemy1wf -= 12;
-	    enemy1m--;
-	}
-	t1.rt(&t1.wt);
+        enemy1wf++;
+        enemy1m++;
+        if (enemy1wf >= 12) {
+            enemy1wf -= 12;
+            enemy1m--;
+        }
+        t1.rt(&t1.wt);
     }
 
 }
@@ -327,12 +328,12 @@ void showenemy1()
     int ax = enemy1wf % 12;
     int ay = 0;
     if (enemy1wf >=12) {
-	ay = 1;
+        ay = 1;
     }
     float tx = (float)ax / 12.0;
     float ty = (float)ay/1.0;
 
-   if (enemy1.cx == -9999999) {
+    if (enemy1.cx == -9999999) {
         enemy1.cx = 8500;
         if (enemy1.cx == -9999999) {
             enemy1.cx = 15000;
@@ -340,49 +341,49 @@ void showenemy1()
     }
 
     if (gl.enemy1m > -950) {
-	gl.enemy1m--;
-	enemy1.cx--;
-	glBegin(GL_QUADS);
-	glTexCoord2f(tx-.0845,      ty+1); 
-	glVertex2i(enemy1.cx+w, y-ht);
-	glTexCoord2f(tx-.0845,      ty);    
-	glVertex2i(enemy1.cx+w, y+ht);
-	glTexCoord2f(tx, ty);
-	glVertex2i(enemy1.cx-w, y+ht);
-	glTexCoord2f(tx, ty+1); 
-	glVertex2i(enemy1.cx-w, y-ht);
+        gl.enemy1m--;
+        enemy1.cx--;
+        glBegin(GL_QUADS);
+        glTexCoord2f(tx-.0845,      ty+1); 
+        glVertex2i(enemy1.cx+w, y-ht);
+        glTexCoord2f(tx-.0845,      ty);    
+        glVertex2i(enemy1.cx+w, y+ht);
+        glTexCoord2f(tx, ty);
+        glVertex2i(enemy1.cx-w, y+ht);
+        glTexCoord2f(tx, ty+1); 
+        glVertex2i(enemy1.cx-w, y-ht);
 
-	if (mainChar.cx >= enemy1.cx-w &&
-		mainChar.cx <= enemy1.cx+w
-		&& mainChar.cx >= y-ht && mainChar.cy <= y+ht) {
-	    mainChar.health--;
-	}
+        if (mainChar.cx >= enemy1.cx-w &&
+                mainChar.cx <= enemy1.cx+w
+                && mainChar.cx >= y-ht && mainChar.cy <= y+ht) {
+            mainChar.health--;
+        }
 
-	if ( gl.enemy1m < -949) {
-	    gl.enemy1m = -1102;
-	}
+        if ( gl.enemy1m < -949) {
+            gl.enemy1m = -1102;
+        }
     }
 
     if (gl.enemy1m < -950) {
-	gl.enemy1m++;
-	enemy1.cx++;
-	glBegin(GL_QUADS);
-	glTexCoord2f(tx+.085,      ty+1); 
-	glVertex2i(enemy1.cx+w, y-ht);
-	glTexCoord2f(tx+.085,      ty);    
-	glVertex2i(enemy1.cx+w, y+ht);
-	glTexCoord2f(tx, ty);    
-	glVertex2i(enemy1.cx-w, y+ht);
-	glTexCoord2f(tx, ty+1); glVertex2i(enemy1.cx-w, y-ht);
+        gl.enemy1m++;
+        enemy1.cx++;
+        glBegin(GL_QUADS);
+        glTexCoord2f(tx+.085,      ty+1); 
+        glVertex2i(enemy1.cx+w, y-ht);
+        glTexCoord2f(tx+.085,      ty);    
+        glVertex2i(enemy1.cx+w, y+ht);
+        glTexCoord2f(tx, ty);    
+        glVertex2i(enemy1.cx-w, y+ht);
+        glTexCoord2f(tx, ty+1); glVertex2i(enemy1.cx-w, y-ht);
 
-	if (mainChar.cx >= enemy1.cx-w && 
-		mainChar.cx <= enemy1.cx+w
-		&& mainChar.cy >= y-ht && mainChar.cy <= y+ht) {
-	    mainChar.health--;
-	}    
-	if (gl.enemy1m > -951) {
-	    gl.enemy1m = -800;
-	}
+        if (mainChar.cx >= enemy1.cx-w && 
+                mainChar.cx <= enemy1.cx+w
+                && mainChar.cy >= y-ht && mainChar.cy <= y+ht) {
+            mainChar.health--;
+        }    
+        if (gl.enemy1m > -951) {
+            gl.enemy1m = -800;
+        }
     }
     glEnd();
     glPopMatrix();
@@ -395,13 +396,13 @@ void godzillaphysics(void)
     t.rt(&t.tc);
     double tspan = t.td(&t.wt, &t.tc);
     if (tspan > gl.godzilladelay) {
-	gl.godzillawf++;
-	gl.godzillahearti++;
-	if (gl.godzillawf >= 3) {
-	    gl.godzillawf -= 3;
-	    gl.godzillahearti--;
-	}
-	t.rt(&t.wt);
+        gl.godzillawf++;
+        gl.godzillahearti++;
+        if (gl.godzillawf >= 3) {
+            gl.godzillawf -= 3;
+            gl.godzillahearti--;
+        }
+        t.rt(&t.wt);
     }
 }
 
@@ -424,7 +425,7 @@ void showgodzilla()
 {
     showgodzillaball();
     if (godzilla.cx == -9999999) {
-	godzillaball.cx = -9999999;
+        godzillaball.cx = -9999999;
     }
     float y = 160;
     float ht = 100.0;
@@ -441,13 +442,13 @@ void showgodzilla()
     int ax = gl.godzillawf % 3;
     int ay = 0;
     if (gl.godzillawf >= 3) {
-	ay = 1;
+        ay = 1;
     }
     float tx = (float)ax / 3.0;
     float ty = (float)ay/ 1.0;
 
-//change the values here
-if (godzilla.cx == -9999999) {
+    //change the values here
+    if (godzilla.cx == -9999999) {
         godzilla.cx = 8500;
         if (godzilla.cx == -9999999) {
             godzilla.cx = 10000;
@@ -455,60 +456,60 @@ if (godzilla.cx == -9999999) {
     }
 
     if (gl.godzillai > -950) {
-	gl.godzillai--;
-	godzilla.cx--;
-	glBegin(GL_QUADS);
-	glTexCoord2f(tx-.334,      ty+1.0); 
-	glVertex3s(godzilla.cx+w, y-ht,0);
-	glTexCoord2f(tx-.334,      ty);    
-	glVertex3s(godzilla.cx+w, y+ht,0);
-	glTexCoord2f(tx, ty);    glVertex3s(godzilla.cx-w, y+ht,0);
-	glTexCoord2f(tx, ty+1.0); glVertex3s(godzilla.cx-w, y-ht,0);
+        gl.godzillai--;
+        godzilla.cx--;
+        glBegin(GL_QUADS);
+        glTexCoord2f(tx-.334,      ty+1.0); 
+        glVertex3s(godzilla.cx+w, y-ht,0);
+        glTexCoord2f(tx-.334,      ty);    
+        glVertex3s(godzilla.cx+w, y+ht,0);
+        glTexCoord2f(tx, ty);    glVertex3s(godzilla.cx-w, y+ht,0);
+        glTexCoord2f(tx, ty+1.0); glVertex3s(godzilla.cx-w, y-ht,0);
 
-	if (mainChar.cx >= godzilla.cx-w &&
-		mainChar.cx <= godzilla.cx+w) {
-	    if (mainChar.cy <= y-ht || 
-		    mainChar.cy >= y+ht || 
-		    mainChar.cy == y+ht || 
-		    mainChar.cy == y-ht) {
-		mainChar.health = mainChar.health;
-	    } else {
-		mainChar.health--;
-	    }
-	}
+        if (mainChar.cx >= godzilla.cx-w &&
+                mainChar.cx <= godzilla.cx+w) {
+            if (mainChar.cy <= y-ht || 
+                    mainChar.cy >= y+ht || 
+                    mainChar.cy == y+ht || 
+                    mainChar.cy == y-ht) {
+                mainChar.health = mainChar.health;
+            } else {
+                mainChar.health--;
+            }
+        }
 
-	if( gl.godzillai < -949) {
-	    gl.godzillai = -1099;
-	}
+        if( gl.godzillai < -949) {
+            gl.godzillai = -1099;
+        }
     }
 
     if ( gl.godzillai < -950) { 
-	gl.godzillai++;
-	godzilla.cx++;
-	glBegin(GL_QUADS);
-	glTexCoord2f(tx+.33,      ty+1.0); 
-	glVertex3s(godzilla.cx+w, y-ht,0);
-	glTexCoord2f(tx+.33,      ty);    
-	glVertex3s(godzilla.cx+w, y+ht,0);
-	glTexCoord2f(tx, ty);    glVertex3s(godzilla.cx-w, y+ht,0);
-	glTexCoord2f(tx, ty+1.0); glVertex3s(godzilla.cx-w, y-ht,0);
+        gl.godzillai++;
+        godzilla.cx++;
+        glBegin(GL_QUADS);
+        glTexCoord2f(tx+.33,      ty+1.0); 
+        glVertex3s(godzilla.cx+w, y-ht,0);
+        glTexCoord2f(tx+.33,      ty);    
+        glVertex3s(godzilla.cx+w, y+ht,0);
+        glTexCoord2f(tx, ty);    glVertex3s(godzilla.cx-w, y+ht,0);
+        glTexCoord2f(tx, ty+1.0); glVertex3s(godzilla.cx-w, y-ht,0);
 
-	if (mainChar.cx <= godzilla.cx-w && 
-		mainChar.cx >= godzilla.cx+w) {
+        if (mainChar.cx <= godzilla.cx-w && 
+                mainChar.cx >= godzilla.cx+w) {
 
-	    if (mainChar.cy <= y-ht || 
-		    mainChar.cy >= y+ht || 
-		    mainChar.cy == y+ht || 
-		    mainChar.cy == y-ht) {
-		mainChar.health = mainChar.health;
-	    } else {
-		mainChar.health--;
-	    }
-	}
+            if (mainChar.cy <= y-ht || 
+                    mainChar.cy >= y+ht || 
+                    mainChar.cy == y+ht || 
+                    mainChar.cy == y-ht) {
+                mainChar.health = mainChar.health;
+            } else {
+                mainChar.health--;
+            }
+        }
 
-	if (gl.godzillai > -951) {
-	    gl.godzillai = -800;
-	}
+        if (gl.godzillai > -951) {
+            gl.godzillai = -800;
+        }
     }
 
     glEnd();
@@ -523,13 +524,13 @@ void godzillaballphysics(void)
     tii.rt(&tii.tc);
     double tspan = tii.td(&tii.wt, &tii.tc);
     if (tspan > gl.godzillaballdelay) {
-	gl.godzillaballwf++;
-	godzillaballm++;
-	if (gl.godzillaballwf >= 6) {
-	    gl.godzillaballwf -= 6;
-	    godzillaballm--;
-	}
-	tii.rt(&tii.wt);
+        gl.godzillaballwf++;
+        godzillaballm++;
+        if (gl.godzillaballwf >= 6) {
+            gl.godzillaballwf -= 6;
+            godzillaballm--;
+        }
+        tii.rt(&tii.wt);
     }
 }
 
@@ -551,34 +552,34 @@ void showgodzillaball()
     int ax = gl.godzillaballwf % 6;
     int ay = 0;
     if (gl.godzillaballwf >= 6) {
-	ay = 1;
+        ay = 1;
     }
     float tx = (float)ax / 3.0;
     float ty = (float)ay/ 1.0;
 
     if ( godzillaballm > - 800) {
-	godzillaballm--;
+        godzillaballm--;
 
-	glBegin(GL_QUADS);
-	glTexCoord2f(tx-.15,      ty+1); 
-	glVertex3s(godzillaball.cx+move+godzillaballm+w, y-ht,0);
-	glTexCoord2f(tx-.15,      ty);    
-	glVertex3s(godzillaball.cx+move+godzillaballm+w, y+ht,0);
-	glTexCoord2f(tx, ty);    
-	glVertex3s(godzillaball.cx+move+godzillaballm-w, y+ht,0);
-	glTexCoord2f(tx, ty+1); 
-	glVertex3s(godzillaball.cx+move+godzillaballm-w, y-ht,0);
+        glBegin(GL_QUADS);
+        glTexCoord2f(tx-.15,      ty+1); 
+        glVertex3s(godzillaball.cx+move+godzillaballm+w, y-ht,0);
+        glTexCoord2f(tx-.15,      ty);    
+        glVertex3s(godzillaball.cx+move+godzillaballm+w, y+ht,0);
+        glTexCoord2f(tx, ty);    
+        glVertex3s(godzillaball.cx+move+godzillaballm-w, y+ht,0);
+        glTexCoord2f(tx, ty+1); 
+        glVertex3s(godzillaball.cx+move+godzillaballm-w, y-ht,0);
 
-	if (mainChar.cx >= godzillaball.cx+godzillaballm+move-w &&
-		mainChar.cx <= godzillaball.cx+godzillaballm+move+w &&
-		mainChar.cy >= y-ht && mainChar.cy <= y+ht) {
+        if (mainChar.cx >= godzillaball.cx+godzillaballm+move-w &&
+                mainChar.cx <= godzillaball.cx+godzillaballm+move+w &&
+                mainChar.cy >= y-ht && mainChar.cy <= y+ht) {
 
-	    mainChar.health--;
-	}
+            mainChar.health--;
+        }
 
-	if (godzillaballm < - 799) {
-	    godzillaballm = -400;
-	}
+        if (godzillaballm < - 799) {
+            godzillaballm = -400;
+        }
 
     }
 
@@ -594,17 +595,17 @@ void birdphysics(void)
     ti.rt(&ti.tc);
     double tspan = ti.td(&ti.wt, &ti.tc);
     if (tspan > gl.birddelay) {
-	gl.birdwf++;
-	birdm++;
-	birdy--;
-	turretm++;
-	if (gl.birdwf >= 4) {
-	    gl.birdwf -= 4;
-	    birdm--;
-	    turretm--;
-	    birdy++;
-	}
-	ti.rt(&ti.wt);
+        gl.birdwf++;
+        birdm++;
+        birdy--;
+        turretm++;
+        if (gl.birdwf >= 4) {
+            gl.birdwf -= 4;
+            birdm--;
+            turretm--;
+            birdy++;
+        }
+        ti.rt(&ti.wt);
     }
 }
 
@@ -631,41 +632,41 @@ void showbird()
     int ax = gl.birdwf % 4;
     int ay = 0;
     if (gl.birdwf >= 4) {
-	ay = 1;
+        ay = 1;
     }
     float tx = (float)ax / 4.0;
     float ty = (float)ay / 1.0;
 
     if(birdm > -950) {
-	birdy++;
-	birdm--;
-	glBegin(GL_QUADS);
-	glTexCoord2f(tx+.25,      ty+1); 
-	glVertex2i(bird.cx+birdm+move+w, y+birdy-ht);
-	glTexCoord2f(tx+.25,      ty);    
-	glVertex2i(bird.cx+birdm+move+w, y+birdy+ht);
-	glTexCoord2f(tx, ty);    glVertex2i(bird.cx+birdm+move-w, y+birdy+ht);
-	glTexCoord2f(tx, ty+1); glVertex2i(bird.cx+birdm+move-w, y+birdy-ht); 
+        birdy++;
+        birdm--;
+        glBegin(GL_QUADS);
+        glTexCoord2f(tx+.25,      ty+1); 
+        glVertex2i(bird.cx+birdm+move+w, y+birdy-ht);
+        glTexCoord2f(tx+.25,      ty);    
+        glVertex2i(bird.cx+birdm+move+w, y+birdy+ht);
+        glTexCoord2f(tx, ty);    glVertex2i(bird.cx+birdm+move-w, y+birdy+ht);
+        glTexCoord2f(tx, ty+1); glVertex2i(bird.cx+birdm+move-w, y+birdy-ht); 
 
-	if (birdm < -949) {
-	    birdm = -1099;
-	}
+        if (birdm < -949) {
+            birdm = -1099;
+        }
     }
 
     if ( birdm < -950) {
-	birdm++;
-	birdy--;
-	glBegin(GL_QUADS);
-	glTexCoord2f(tx-.25,      ty+1); 
-	glVertex2i(bird.cx+birdm+move+w, y+birdy-ht);
-	glTexCoord2f(tx-.25,      ty);    
-	glVertex2i(bird.cx+birdm+move+w, y+birdy+ht);
-	glTexCoord2f(tx, ty);    glVertex2i(bird.cx+birdm+move-w, y+birdy+ht);
-	glTexCoord2f(tx, ty+1); glVertex2i(bird.cx+birdm+move-w, y+birdy-ht);
+        birdm++;
+        birdy--;
+        glBegin(GL_QUADS);
+        glTexCoord2f(tx-.25,      ty+1); 
+        glVertex2i(bird.cx+birdm+move+w, y+birdy-ht);
+        glTexCoord2f(tx-.25,      ty);    
+        glVertex2i(bird.cx+birdm+move+w, y+birdy+ht);
+        glTexCoord2f(tx, ty);    glVertex2i(bird.cx+birdm+move-w, y+birdy+ht);
+        glTexCoord2f(tx, ty+1); glVertex2i(bird.cx+birdm+move-w, y+birdy-ht);
 
-	if (birdm > -951) {
-	    birdm = -800;
-	}
+        if (birdm > -951) {
+            birdm = -800;
+        }
     }
     showstar();
     glEnd();
