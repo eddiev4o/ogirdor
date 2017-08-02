@@ -263,6 +263,7 @@ void init()
     star.cy = 100;
     star2.cx = 700;
     star2.cy = 100;
+    offset.cx = 0;
     christianInit();
     CesarInit();
     eddieInit();
