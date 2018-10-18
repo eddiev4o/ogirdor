@@ -35,7 +35,7 @@ Steps to run:
 
 Linux terminal:
 
-1. git clone "https://github.com/ChrisReyCap/ogirdor.git"
+1. git clone "https://github.com/eddiev4o/ogirdor.git"
 2. cd ogirdor
 3. make clean
 4. make
