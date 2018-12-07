@@ -1,6 +1,7 @@
 
 Ogirdor
 CS 3350 Software Engineering Game Project
+Summer 2017
 C++ and OpenGL
 
 Description
@@ -14,7 +15,7 @@ Description
 
 Requirements to run
 
-- Linux Mint
+- Linux Distro  
 - OpenGL
 - OpenAL
 - OpenAL Alut
@@ -25,7 +26,7 @@ Install requirements:
 Linux terminal:
 1. sudo apt-get update
 2. sudo apt-get install libglu1-mesa-dev freeglut3-dev mesa-common-dev
-3. sudo apt-get install libopenal0a libopenal-dev
+3. sudo apt-get install libopenal1 libopenal-dev
 4. sudo apt-get install libalut0 libalut-dev
 5. sudo apt-get install g++
 6. sudo apt-get install git-all
@@ -33,8 +34,7 @@ Linux terminal:
 
 Steps to run:
 
-Linux terminal:
-
+Linux terminal:  
 1. git clone "https://github.com/eddiev4o/ogirdor.git"
 2. cd ogirdor
 3. make clean
