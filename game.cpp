@@ -26,9 +26,7 @@ Gordon Griesel
 #include <GL/glx.h>
 #include <fcntl.h>
 #include <sys/stat.h>
-#ifdef USE_OPENAL_SOUND
 #include </usr/include/AL/alut.h>
-#endif
 #include "ppm.h"
 #include "fonts.h"
 #include "game.h"
@@ -92,43 +90,43 @@ extern void getPlayerName(int, UserInput &input);
 extern void assign_playername(char [], UserInput &input);
 extern void PlayerStart(int, char [], UserInput &input);
 extern void removePPM(void);
-extern void starphysics(void);
-extern void enemy1physics(void);
-extern void godzillaphysics(void);
+//extern void starphysics(void);
+//extern void enemy1physics(void);
+//extern void godzillaphysics(void);
 //extern void godzillaheartphysics(void);
-extern void godzillaballphysics(void);
-extern void taco_physics(void);
-extern void light_physics(void);
-extern void pika_physics(void);
-extern void birdphysics(void);
-extern void mari_physics(void);
-extern void shooting_star_physics(void);
+//extern void godzillaballphysics(void);
+//extern void taco_physics(void);
+//extern void light_physics(void);
+//extern void pika_physics(void);
+//extern void birdphysics(void);
+//extern void mari_physics(void);
+//extern void shooting_star_physics(void);
 //extern void generateTextures(void);
 
 //extern Ppmimage *characterImage(int);
-extern Ppmimage *turretImage();
-extern Ppmimage *turretbeamImage();
-extern Ppmimage *enemy1image();
-extern Ppmimage *starImage();
-extern Ppmimage *godzillaimage();
+//extern Ppmimage *turretImage();
+//extern Ppmimage *turretbeamImage();
+//extern Ppmimage *enemy1image();
+//extern Ppmimage *starImage();
+//extern Ppmimage *godzillaimage();
 //extern Ppmimage *godzillaheartimage();
-extern Ppmimage *godzillaballimage();
-extern Ppmimage *birdImage();
-extern Ppmimage *mari_image();
+//extern Ppmimage *godzillaballimage();
+//extern Ppmimage *birdImage();
+//extern Ppmimage *mari_image();
 
 //extern Ppmimage *female_image();
-extern Ppmimage *pika_image();
-extern Ppmimage *pika2_image();
-extern Ppmimage *pika3_image();
-extern Ppmimage *pika4_image();
-extern Ppmimage *light_image();
-extern Ppmimage *light2_image();
-extern Ppmimage *light3_image();
-extern Ppmimage *light4_image();
+//extern Ppmimage *pika_image();
+//extern Ppmimage *pika2_image();
+//extern Ppmimage *pika3_image();
+//extern Ppmimage *pika4_image();
+//extern Ppmimage *light_image();
+//extern Ppmimage *light2_image();
+//extern Ppmimage *light3_image();
+//extern Ppmimage *light4_image();
 //extern Ppmimage *sun_image();
-extern Ppmimage *shooting_star_image();
-extern Ppmimage *obama_image();
-extern Ppmimage *taco_image();
+//extern Ppmimage *shooting_star_image();
+//extern Ppmimage *obama_image();
+//extern Ppmimage *taco_image();
 extern void shootWalkRight(float,float,float,float,float,float);
 extern void shootWalkLeft(float,float,float,float,float,float);
 extern void shootStandRight(float,float,float,float,float,float);
@@ -145,28 +143,28 @@ extern void moveSpriteRight(Sprite *);
 extern void moveSpriteLeft(Sprite *);
 extern void mainMoveSpriteRight();
 extern void mainMoveSpriteLeft();
-extern void csound(const char *a);
-extern void showTurret();
-extern void showturretBeam();
-extern void showenemy1();
-//extern void showgodzillaheart();
-extern void showgodzilla();
-extern void showbird();
-extern void showbird2();
-extern void show_mari();
-extern void show_taco();
-//extern void show_female();
-extern void show_light();
-extern void show_light2();
-extern void show_light3();
-extern void show_light4();
-extern void show_pika();
-extern void show_pika2();
-extern void show_pika3();
-extern void show_pika4();
-//extern void show_sun();
-extern void show_obama();
-extern void show_shooting_star();
+//extern void csound(const char *a);
+//extern void showTurret();
+//extern void showturretBeam();
+//extern void showenemy1();
+////extern void showgodzillaheart();
+//extern void showgodzilla();
+//extern void showbird();
+//extern void showbird2();
+//extern void show_mari();
+//extern void show_taco();
+////extern void show_female();
+//extern void show_light();
+//extern void show_light2();
+//extern void show_light3();
+//extern void show_light4();
+//extern void show_pika();
+//extern void show_pika2();
+//extern void show_pika3();
+//extern void show_pika4();
+////extern void show_sun();
+//extern void show_obama();
+//extern void show_shooting_star();
 
 extern void renderBackground(int);
 extern void renderPlatform();
@@ -181,7 +179,7 @@ extern void renderScore();
 extern void hudHealth();
 extern void renderCoin(Sprite *);
 extern void eddieInit();
-extern void CesarInit();
+//extern void CesarInit();
 //-----------------------------------------------------------------------------
 //Setup timers
 //-----------------------------------------------------------------------------
@@ -191,7 +189,7 @@ int main(void)
     initXWindows();
     initOpengl();
     init();
-    csound("./sound/a.wav");
+    //csound("./sound/a.wav");
     while (!gl.done) {
         while (XPending(dpy)) {
             XEvent e;
@@ -231,41 +229,41 @@ void init()
     //can be offscreen. You can also set y here
     //gl.camera[1] = 0.0;
     //gl.camera[0] = 0.0;
-    offset.cx = 0;
-    turt1.cx = 200;
-    turt1.cx = 90;
-    enemy1.cx = 600+gl.enemy1m+gl.enemy1move;
-    enemy1.cy = 90;
-    godzillaheart.cx = 500 + gl.godzillahearti;
-    godzillaheart.cy = 90;
-    godzilla.cx = 1000 + gl.godzillai + gl.godzillamove;
-    godzilla.cy = 90;
-    godzilla.height = 500;
-    godzilla.width = 100;
-    godzillaball.cx = 1000;
-    godzillaball.cy = 100;
-    bird.cx = 900;
-    bird.cy = 10;
-    bird2.cx = 900;
-    bird2.cy = 900;    
+    //offset.cx = 0;
+    //turt1.cx = 200;
+    //turt1.cx = 90;
+    //enemy1.cx = 600+gl.enemy1m+gl.enemy1move;
+    //enemy1.cy = 90;
+    //godzillaheart.cx = 500 + gl.godzillahearti;
+    //godzillaheart.cy = 90;
+    //godzilla.cx = 1000 + gl.godzillai + gl.godzillamove;
+    //godzilla.cy = 90;
+    //godzilla.height = 500;
+    //godzilla.width = 100;
+    //godzillaball.cx = 1000;
+    //godzillaball.cy = 100;
+    //bird.cx = 900;
+    //bird.cy = 10;
+    //bird2.cx = 900;
+    //bird2.cy = 900;    
     mainChar.pos[0] = 300.0;
     mainChar.pos[1] = mainChar.pos[2] = 0.0;
     mainChar.vel[0] = mainChar.vel[1] = mainChar.vel[2] = 0.0;
-    mariEnemy.cx = 100;
-    mariEnemy.cy = 0;
-    shooting_star.cy = 300;
-    obama.cy = 0;
-    turret.cx = 300;
-    turret.cy = 90;
-    turretbeam.cx = 700;
-    turretbeam.cy = 100;
-    star.cx = 700;
-    star.cy = 100;
-    star2.cx = 700;
-    star2.cy = 100;
+    //mariEnemy.cx = 100;
+    //mariEnemy.cy = 0;
+    //shooting_star.cy = 300;
+    //obama.cy = 0;
+    //turret.cx = 300;
+    //turret.cy = 90;
+    //turretbeam.cx = 700;
+    //turretbeam.cy = 100;
+    //star.cx = 700;
+    //star.cy = 100;
+    //star2.cx = 700;
+    //star2.cy = 100;
     offset.cx = 0;
     christianInit();
-    CesarInit();
+    //CesarInit();
     eddieInit();
 }
 
@@ -469,28 +467,28 @@ void initOpengl(void)
     gl.levelselectionImage = ppm6GetImage("./images/LevelSelection.ppm");
     gl.characterselectionImage = ppm6GetImage("./images/CharacterSelection.ppm");
     gl.frameImage = ppm6GetImage("./images/Frame.ppm");
-    gl.turretImage = turretImage();
-    gl.turretbeamImage = turretbeamImage();
-    gl.starImage = starImage();
-    gl.enemy1Image = enemy1image();
-    //gl.godzillaheartImage = godzillaheartimage();
-    gl.godzillaImage = godzillaimage();
-    gl.godzillaballImage = godzillaballimage();
-    gl.birdImage = birdImage();
-    gl.mari_image = mari_image();
-    gl.obama_image = obama_image();
-    gl.taco_image = taco_image();
-    //spacing is acting weird        
-    gl.shooting_star_image = shooting_star_image();
-    //gl.female_image = female_image();
-    gl.light_image =  light_image();
-    gl.light2_image =  light2_image();
-    gl.light3_image =  light3_image();
-    gl.light4_image =  light4_image();
-    gl.pika_image =  pika_image();
-    gl.pika2_image = pika2_image();
-    gl.pika3_image = pika3_image();
-    gl.pika4_image = pika4_image();
+    //gl.turretImage = turretImage();
+    //gl.turretbeamImage = turretbeamImage();
+    //gl.starImage = starImage();
+    //gl.enemy1Image = enemy1image();
+    ////gl.godzillaheartImage = godzillaheartimage();
+    //gl.godzillaImage = godzillaimage();
+    //gl.godzillaballImage = godzillaballimage();
+    //gl.birdImage = birdImage();
+    //gl.mari_image = mari_image();
+    //gl.obama_image = obama_image();
+    //gl.taco_image = taco_image();
+    ////spacing is acting weird        
+    //gl.shooting_star_image = shooting_star_image();
+    ////gl.female_image = female_image();
+    //gl.light_image =  light_image();
+    //gl.light2_image =  light2_image();
+    //gl.light3_image =  light3_image();
+    //gl.light4_image =  light4_image();
+    //gl.pika_image =  pika_image();
+    //gl.pika2_image = pika2_image();
+    //gl.pika3_image = pika3_image();
+    //gl.pika4_image = pika4_image();
     //gl.sun_image = sun_image();
     gl.gameoverImage = ppm6GetImage("./images/gameoverImage.ppm");
     gl.sandImage = ppm6GetImage("./images/sandImage.ppm");
@@ -546,27 +544,27 @@ void initOpengl(void)
     glGenTextures(1, &gl.mchar4Texture);
     glGenTextures(1, &gl.mchar5Texture);
     glGenTextures(1, &gl.mainmenubackgroundTexture);
-    glGenTextures(1, &gl.turretTexture);
-    glGenTextures(1, &gl.turretbeamTexture);
-    glGenTextures(1, &gl.starTexture);
-    glGenTextures(1, &gl.enemy1Texture);
+    //glGenTextures(1, &gl.turretTexture);
+    //glGenTextures(1, &gl.turretbeamTexture);
+    //glGenTextures(1, &gl.starTexture);
+    //glGenTextures(1, &gl.enemy1Texture);
     //glGenTextures(1, &gl.godzillaheartTexture);
-    glGenTextures(1, &gl.godzillaTexture);
-    glGenTextures(1, &gl.godzillaballTexture);
-    glGenTextures(1, &gl.mari_Texture);
-    glGenTextures(1, &gl.birdTexture);
+    //glGenTextures(1, &gl.godzillaTexture);
+    //glGenTextures(1, &gl.godzillaballTexture);
+    //glGenTextures(1, &gl.mari_Texture);
+    //glGenTextures(1, &gl.birdTexture);
     //glGenTextures(1, &gl.female_Texture);
-    glGenTextures(1, &gl.light_Texture);
-    glGenTextures(1, &gl.light2_Texture);
-    glGenTextures(1, &gl.light3_Texture);
-    glGenTextures(1, &gl.light4_Texture);
-    glGenTextures(1, &gl.pika_Texture);
-    glGenTextures(1, &gl.pika2_Texture);
-    glGenTextures(1, &gl.pika3_Texture);
-    glGenTextures(1, &gl.pika4_Texture);
-    glGenTextures(1, &gl.obama_Texture);
-    glGenTextures(1, &gl.taco_Texture);
-    glGenTextures(1, &gl.shooting_star_Texture);
+    //glGenTextures(1, &gl.light_Texture);
+    //glGenTextures(1, &gl.light2_Texture);
+    //glGenTextures(1, &gl.light3_Texture);
+    //glGenTextures(1, &gl.light4_Texture);
+    //glGenTextures(1, &gl.pika_Texture);
+    //glGenTextures(1, &gl.pika2_Texture);
+    //glGenTextures(1, &gl.pika3_Texture);
+    //glGenTextures(1, &gl.pika4_Texture);
+    //glGenTextures(1, &gl.obama_Texture);
+    //glGenTextures(1, &gl.taco_Texture);
+    //glGenTextures(1, &gl.shooting_star_Texture);
     //glGenTextures(1, &gl.sun_Texture);
     glGenTextures(1, &gl.logoTexture);
     glGenTextures(1, &gl.playTexture);
@@ -706,278 +704,6 @@ void initOpengl(void)
     free(mainmenubackgroundData);
     unlink("./images/MainMenuBackground.ppm");
     //==============================================
-
-    //==============================================
-    //TURRET
-    w = gl.turretImage->width;
-    h = gl.turretImage->height;
-    glBindTexture(GL_TEXTURE_2D, gl.turretTexture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *turretstuff = buildAlphaData(gl.turretImage);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, 
-            GL_RGBA, GL_UNSIGNED_BYTE, turretstuff);
-    free(turretstuff);
-    unlink("./images/Turret.ppm");
-    //====================================================
-    //turret beam;
-    w = gl.turretbeamImage->width;
-    h = gl.turretbeamImage->height;
-    glBindTexture(GL_TEXTURE_2D, gl.turretbeamTexture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *turretbeamstuff = buildAlphaData(gl.turretbeamImage);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, turretbeamstuff);
-    free(turretbeamstuff);
-    unlink("./images/beam.ppm");
-    //====================================================
-    //star beam;
-    w = gl.starImage->width;
-    h = gl.starImage->height;
-    glBindTexture(GL_TEXTURE_2D, gl.starTexture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *starstuff = buildAlphaData(gl.starImage);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, starstuff);
-    free(starstuff);
-    unlink("./images/s.ppm");
-
-
-    //====================================================
-
-    //====================================================
-    //ENEMY1
-    w = gl.enemy1Image->width;
-    h = gl.enemy1Image->height;
-    glBindTexture(GL_TEXTURE_2D, gl.enemy1Texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *enemy1stuff = buildAlphaData(gl.enemy1Image);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, enemy1stuff);
-    free(enemy1stuff);
-    unlink("./images/enemy1.ppm");
-    //===================================================
-
-    //===================================================
-    //godzillaheart
-    /* w = gl.godzillaheartImage->width;
-       h = gl.godzillaheartImage->height;
-       glBindTexture(GL_TEXTURE_2D, gl.godzillaheartTexture);
-       glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-       glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-       unsigned char *godzillaheartstuff = buildAlphaData(gl.godzillaheartImage);
-       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-       GL_RGBA, GL_UNSIGNED_BYTE, godzillaheartstuff);
-       free(godzillaheartstuff);
-       unlink("./images/godzillaheart.ppm");
-       *///===================================================
-    //godzilla
-    w = gl.godzillaImage->width;
-    h = gl.godzillaImage->height;
-    glBindTexture(GL_TEXTURE_2D, gl.godzillaTexture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *godzillastuff = buildAlphaData(gl.godzillaImage);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, godzillastuff);
-    free(godzillastuff);
-    unlink("./images/godzilla.ppm");
-    //=====================================================
-    //godzill ball
-    w = gl.godzillaballImage->width;
-    h = gl.godzillaballImage->height;
-    glBindTexture(GL_TEXTURE_2D, gl.godzillaballTexture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *godzillaballstuff = buildAlphaData(gl.godzillaballImage);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, godzillaballstuff);
-    free(godzillaballstuff);
-    unlink("./images/godzillaballImage.ppm");
-    //==========================================================
-    //bird
-    w = gl.birdImage->width;
-    h = gl.birdImage->height;
-    glBindTexture(GL_TEXTURE_2D, gl.birdTexture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *birdstuff = buildAlphaData(gl.birdImage);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, birdstuff);
-    free(birdstuff);
-    unlink("./images/bird.ppm");
-
-    //===================================================
-    //Maricesces
-    w = gl.mari_image->width;
-    h = gl.mari_image->height; 
-    glBindTexture(GL_TEXTURE_2D, gl.mari_Texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *mari_pointer = buildAlphaData(gl.mari_image);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, mari_pointer);
-    free(mari_pointer); 
-    unlink("./images/Enemy_Mariachi_3.ppm");			
-    //====================================================
-    //Female
-    //w = gl.female_image->width;
-    //h = gl.female_image->height; 
-    //glBindTexture(GL_TEXTURE_2D, gl.female_Texture);
-    //glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    //glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    //unsigned char *female_pointer = buildAlphaData(gl.female_image);
-    //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-    //		GL_RGBA, GL_UNSIGNED_BYTE, female_pointer);
-    //free(female_pointer); 
-    //unlink("./images/female.ppm");					
-    //================================================================
-
-    //light
-    w = gl.light_image->width;
-    h = gl.light_image->height; 
-    glBindTexture(GL_TEXTURE_2D, gl.light_Texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *light_pointer = buildAlphaData(gl.light_image);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, light_pointer);
-    free(light_pointer); 
-    unlink("./images/pikachu.ppm");					
-    //====================================================================
-    //light 2
-    w = gl.light2_image->width;
-    h = gl.light2_image->height; 
-    glBindTexture(GL_TEXTURE_2D, gl.light2_Texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *light2_pointer = buildAlphaData(gl.light2_image);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, light2_pointer);
-    free(light2_pointer); 
-    unlink("./images/pikachu.ppm");					
-    //====================================================================
-    //light 3
-    w = gl.light3_image->width;
-    h = gl.light3_image->height; 
-    glBindTexture(GL_TEXTURE_2D, gl.light3_Texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *light3_pointer = buildAlphaData(gl.light3_image);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, light3_pointer);
-    free(light3_pointer); 
-    unlink("./images/pikachu.ppm");					
-    //====================================================================
-    //light 4
-    w = gl.light4_image->width;
-    h = gl.light4_image->height; 
-    glBindTexture(GL_TEXTURE_2D, gl.light4_Texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *light4_pointer = buildAlphaData(gl.light4_image);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, light4_pointer);
-    free(light4_pointer); 
-    unlink("./images/pikachu.ppm");					
-    //====================================================================
-    ////Pika
-    w = gl.pika_image->width;
-    h = gl.pika_image->height; 
-    glBindTexture(GL_TEXTURE_2D, gl.pika_Texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *pika_pointer = buildAlphaData(gl.pika_image);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, pika_pointer);
-    free(pika_pointer); 
-    unlink("./images/pikachu.ppm");					
-    //================================================================
-    //Pika2
-    w = gl.pika2_image->width;
-    h = gl.pika2_image->height; 
-    glBindTexture(GL_TEXTURE_2D, gl.pika2_Texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *pika2_pointer = buildAlphaData(gl.pika2_image);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, pika2_pointer);
-    free(pika2_pointer); 
-    unlink("./images/pikachu.ppm");				       
-    //================================================================
-    //Pika 3
-    w = gl.pika3_image->width;
-    h = gl.pika3_image->height; 
-    glBindTexture(GL_TEXTURE_2D, gl.pika3_Texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *pika3_pointer = buildAlphaData(gl.pika3_image);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, pika3_pointer);
-    free(pika3_pointer); 
-    unlink("./images/pikachu.ppm");				       
-    //================================================================
-    //Pika 4
-    w = gl.pika4_image->width;
-    h = gl.pika4_image->height; 
-    glBindTexture(GL_TEXTURE_2D, gl.pika4_Texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *pika4_pointer = buildAlphaData(gl.pika4_image);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, pika4_pointer);
-    free(pika4_pointer); 
-    unlink("./images/pikachu.ppm");				       
-    //================================================================
-    //Obama
-    w = gl.obama_image->width;
-    h = gl.obama_image->height; 
-    glBindTexture(GL_TEXTURE_2D, gl.obama_Texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *obama_pointer = buildAlphaData(gl.obama_image);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, obama_pointer);
-    free(obama_pointer); 
-    unlink("./images/obama.ppm");		
-    ////=====================================================
-    //w = gl.sun_image->width;
-    //h = gl.sun_image->height; 
-    //glBindTexture(GL_TEXTURE_2D, gl.sun_Texture);
-    //glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    //glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    //unsigned char *sun_pointer = buildAlphaData(gl.sun_image);
-    //glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-    //		GL_RGBA, GL_UNSIGNED_BYTE, sun_pointer);        	
-    //free(sun_pointer); 
-    //unlink("./images/sun.ppm");			
-    //===================================================
-    //el Taco :0 
-    w = gl.taco_image->width;
-    h = gl.taco_image->height;
-    glBindTexture(GL_TEXTURE_2D, gl.taco_Texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *taco_pointer = buildAlphaData(gl.taco_image);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, taco_pointer);
-    free(taco_pointer);
-    unlink("./images/taco.ppm");
-    //=======================================================
-    //Shooting_star
-    w = gl.shooting_star_image->width;
-    h = gl.shooting_star_image->height;
-    glBindTexture(GL_TEXTURE_2D, gl.shooting_star_Texture);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
-    unsigned char *shooting_star_pointer = buildAlphaData(gl.shooting_star_image);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0,
-            GL_RGBA, GL_UNSIGNED_BYTE, shooting_star_pointer);
-    free(shooting_star_pointer);
-    unlink("./images/shooting_star.ppm");
 
     //===============================================================
     // Logo
@@ -1796,6 +1522,7 @@ void checkKeys(XEvent *e)
                 gl.state = STATE_GAMEPLAY;
                 break;
             }
+	    break;
         case XK_Right:
             if (gl.display_characterselectionmenu &&
                     gl.menu_position != 6)
@@ -1993,18 +1720,17 @@ void physics(void)
 
     if (gl.levelSelect ==1) {
 
-        godzillaphysics();
+        //godzillaphysics();
         //godzillaheartphysics();
-        starphysics();
-        godzillaballphysics();
-        enemy1physics();
-        birdphysics();
-        mari_physics();
-        taco_physics();
-        pika_physics();
-        light_physics();
+        //starphysics();
+        //godzillaballphysics();
+        //enemy1physics();
+        //birdphysics();
+        //mari_physics();
+        //taco_physics();
+        //pika_physics();
+        //light_physics();
     }
-    moveSpriteRight(&shooting_star);
 }
 
 void render(void)
@@ -2065,26 +1791,26 @@ void render(void)
             renderCoin(&gl.coins[i]);
         }
         if(gl.levelSelect ==1 ) {	
-            showTurret();
-            showenemy1();
+            //showTurret();
+            //showenemy1();
             //showgodzillaheart();
-            showgodzilla();
-            showbird();
+            //showgodzilla();
+            //showbird();
             //showbird2();
-            show_mari();
+            //show_mari();
             // start_menu(gl.xres, gl.yres);
-            show_shooting_star();
+            //show_shooting_star();
             //show_female();
-            show_pika();
-            show_pika2();
-            show_pika3();
-            show_pika4();
-            show_light();
-            show_light2();
-            show_light3();
-            show_light4();
+            //show_pika();
+            //show_pika2();
+            //show_pika3();
+            //show_pika4();
+            //show_light();
+            //show_light2();
+            //show_light3();
+            //show_light4();
             //show_sun();
-            show_obama();
+            //show_obama();
         }
         hudHealth();
         healthBar(gl.xres, gl.yres);

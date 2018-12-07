@@ -1,12 +1,11 @@
 CFLAGS = -I ./include
-LFLAGS = -lrt -lX11 -lGLU -lGL -pthread -lm
+LFLAGS = -lrt -lX11 -lGLU -lGL -pthread -lm #-lXrandr
+
 all: game
 
 game: game.cpp
-	g++ $(CLFAGS) game.cpp eddieV.cpp cesarL.cpp simranS.cpp rodrigoG.cpp christianC.cpp ppm.cpp libggfonts.a -Wall -Wextra $(LFLAGS) -o ogirdor \
-	-D USE_OPENAL_SOUND \
-	/usr/lib/x86_64-linux-gnu/libopenal.so \
-	/usr/lib/x86_64-linux-gnu/libalut.so
+	g++ -no-pie $(CLFAGS) game.cpp eddieV.cpp rodrigoG.cpp christianC.cpp ppm.cpp libggfonts.a -Wall -Wextra $(LFLAGS) -o ogirdor
 
 clean:
 	rm -f ogirdor
+	rm -f *.o

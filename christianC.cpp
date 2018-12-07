@@ -1135,9 +1135,10 @@ void renderTurt2()
         timers.timeDiff(&timers.turt2Time, &timers.timeCurrent);
     if (timeSpan > .5) {
         ++gl.turt2Frame;
-        if (gl.turt2Frame >= 3)
+        if (gl.turt2Frame >= 3) {
             gl.turt2Frame-= 3;
             timers.recordTime(&timers.turt2Time);
+	}
     } 
     
     glBegin(GL_QUADS);
